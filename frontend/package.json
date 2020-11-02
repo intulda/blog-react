@@ -1,0 +1,22 @@
+{
+  "name": "intulda-react-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-plugin-styled-components": "^1.11.1",
+    "next": "^9.5.5",
+    "next-images": "^1.6.2",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-icons": "^3.11.0",
+    "styled-components": "^5.2.0",
+    "styled-reset": "^4.2.3"
+  }
+}

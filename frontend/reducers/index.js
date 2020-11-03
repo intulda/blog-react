@@ -38,12 +38,14 @@ const rootReducer = (state = initialState, action) => {
         case 'LOG_IN':
             console.log(action);
             return {
+                ...state,
                 isLoginFormOpen: false,
                 user: {
                     ...state.user,
                     isLoggedIn: true,
                     user: action.data,
-                }
+                },
+
             }
         default:
             return state;

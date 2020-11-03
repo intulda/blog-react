@@ -42,7 +42,7 @@ const Header = ({chilren}) => {
             <MenuWrap>
                 <Logo size="20px"/>
                 <CurrentPage>
-                    Chrome
+                    Kim.BoGeun
                     {chilren}
                 </CurrentPage>
                 <MenuList>

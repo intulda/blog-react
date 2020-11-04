@@ -22,6 +22,7 @@ const FolderLayout = styled.div`
     cursor: pointer;
     position: relative;
     margin: 5px;
+    max-width: 104px;
     &:before {
         content: '';
         position: absolute;

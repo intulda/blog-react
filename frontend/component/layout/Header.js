@@ -5,8 +5,9 @@ import { AiFillApple } from "react-icons/ai";
 const MenuContainer = styled.div`
     width: 100%;
     height: 20px;
-    background-color: #bee0f2;
+    background-color: rgb(28 36 59 / 0.6);
     padding: 0 20px;
+    color: white;
 `
 const MenuWrap = styled.div`
     display: flex;

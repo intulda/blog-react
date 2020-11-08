@@ -1,9 +1,19 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import CustomInput from '../hooks/customInput';
 import {useDispatch} from "react-redux";
-import styled from 'styled-components';
-import {loginAction} from "../../reducers";
+import styled, {keyframes} from 'styled-components';
+import {loginAction} from "../../reducers/user";
 import {AiOutlineArrowRight} from 'react-icons/ai';
+import guest from '../../resource/images/user.png';
+import kimbogeun from '../../resource/images/kimbogeun.jpg';
+
+const shake = keyframes`
+       0% { transform: rotate(0deg); }
+      80% { transform: rotate(0deg); }
+      85% { transform: rotate(5deg); }
+      95% { transform: rotate(-5deg); }
+     100% { transform: rotate(0deg); }
+`
 
 const LoginFormWrap = styled.form`
     display: flex;
@@ -22,6 +32,11 @@ const ProfileImage = styled.span`
     position: relative;
     display: flex;
     justify-content: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 50% 50%;
+    background-color: rgba(128 128 128);
+    
     & span {
         position: absolute;
         bottom: -25px;
@@ -34,15 +49,19 @@ const ProfileImage = styled.span`
 
 const ProfileWrap = styled.div`
     display: flex;
-    width: 180px;
+    width: 185px;
     height: 120px;
     justify-content: space-between;
+    cursor: pointer;
+    
 `
 
 const IOWrap = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    width:100%;
+    height:23px;
 `
 
 const ButtonWrap = styled.button`
@@ -73,39 +92,59 @@ const InputWrap = styled.input`
         outline: none;
         color: white;
     }
+    animation: ${shake} 2s;
 `
 
 const SubmitLogo = styled(AiOutlineArrowRight)`
     color: rgb(52,49,56);
 `
 
-
-
 const LoginFrom = () => {
     const dispatch = useDispatch();
     const [password, onChangePassword] = CustomInput('');
+    const [display, setDisplay] = useState(true);
+    const [currentUser, setCurrentUser] = useState('code');
 
     const onSubmitForm = useCallback((e) => {
         e.preventDefault();
+        if(currentUser === 'code') {
+            if(password != 1234) {
+                // setAnimation(true);
+                return;
+            }
+        }
         dispatch(loginAction({password: password}));
-    }, [password]);
+    }, [password, currentUser]);
+
+    const onProfileClickHandler = (e) => {
+        console.log(e.target.getAttribute('value'));
+        if(e.target.getAttribute('value') === 'code') {
+            setDisplay(true);
+            setCurrentUser('code');
+        } else {
+            setDisplay(false);
+            setCurrentUser('guest');
+        }
+    }
 
     return (
         <LoginFormWrap onSubmit={onSubmitForm}>
             <div>
                 <div>
-                    <ProfileWrap>
-                        <ProfileImage>
+                    <ProfileWrap onClick={onProfileClickHandler}>
+                        <ProfileImage style={{backgroundImage: `url(${kimbogeun})`}} value="code">
                             <span>코드몽키</span>
                         </ProfileImage>
-                        <ProfileImage>
+                        <ProfileImage style={{backgroundImage:`url(${guest})`}} value="guest">
                             <span>게스트</span>
                         </ProfileImage>
                     </ProfileWrap>
                 </div>
                 <IOWrap>
-                    <InputWrap type="password" value={password} onChange={onChangePassword}/>
-                    <ButtonWrap><SubmitLogo/></ButtonWrap>
+                    { display ? <InputWrap type="password" value={password} onChange={onChangePassword}/> : '' }
+                    <ButtonWrap>
+                        <SubmitLogo/>
+                    </ButtonWrap>
                 </IOWrap>
             </div>
         </LoginFormWrap>

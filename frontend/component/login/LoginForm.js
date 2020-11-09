@@ -8,11 +8,21 @@ import guest from '../../resource/images/user.png';
 import kimbogeun from '../../resource/images/kimbogeun.jpg';
 
 const shake = keyframes`
-       0% { transform: rotate(0deg); }
-      80% { transform: rotate(0deg); }
-      85% { transform: rotate(5deg); }
-      95% { transform: rotate(-5deg); }
-     100% { transform: rotate(0deg); }
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+  
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
 `
 
 const LoginFormWrap = styled.form`
@@ -92,7 +102,9 @@ const InputWrap = styled.input`
         outline: none;
         color: white;
     }
-    animation: ${shake} 2s;
+    ${(props) => props.active === 'true' ? `
+        animation: ${shake} 0.5s;
+    `: ''}
 `
 
 const SubmitLogo = styled(AiOutlineArrowRight)`
@@ -104,20 +116,20 @@ const LoginFrom = () => {
     const [password, onChangePassword] = CustomInput('');
     const [display, setDisplay] = useState(true);
     const [currentUser, setCurrentUser] = useState('code');
+    const [active, setActive] = useState('false');
 
     const onSubmitForm = useCallback((e) => {
         e.preventDefault();
         if(currentUser === 'code') {
             if(password != 1234) {
-                // setAnimation(true);
+                setActive('true');
                 return;
             }
         }
         dispatch(loginAction({password: password}));
-    }, [password, currentUser]);
+    }, [password, currentUser, active]);
 
     const onProfileClickHandler = (e) => {
-        console.log(e.target.getAttribute('value'));
         if(e.target.getAttribute('value') === 'code') {
             setDisplay(true);
             setCurrentUser('code');
@@ -141,7 +153,7 @@ const LoginFrom = () => {
                     </ProfileWrap>
                 </div>
                 <IOWrap>
-                    { display ? <InputWrap type="password" value={password} onChange={onChangePassword}/> : '' }
+                    { display ? <InputWrap active={active} type="password" value={password} onChange={onChangePassword}/> : '' }
                     <ButtonWrap>
                         <SubmitLogo/>
                     </ButtonWrap>

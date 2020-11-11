@@ -1,7 +1,8 @@
 import React, {useState, useCallback} from 'react';
 import styled from 'styled-components';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AiOutlineFolder} from 'react-icons/ai';
+import {FINDER_CLOSE_ACTION} from "../../reducers/finder";
 
 const FinderWrap = styled.div`
     width: 60%;
@@ -116,10 +117,15 @@ const headerState = {
 const Finder = (props) => {
 
     const {contents} = useSelector((state) => state.finder);
+    const dispatch = useDispatch();
 
     const onClickActiveHandler = useCallback((e) => {
         console.log(e.target);
         e.target.focus();
+    }, []);
+
+    const onFinderCloseHandler = useCallback((e) => {
+        dispatch(FINDER_CLOSE_ACTION());
     }, []);
 
     return (
@@ -127,9 +133,9 @@ const Finder = (props) => {
             <FinderHeaderWrap>
                 <div>
                     <FinderHeaderStateWrap>
-                        <FinderHeaderState theme={headerState.default}></FinderHeaderState>
-                        <FinderHeaderState theme={headerState.yellow}></FinderHeaderState>
-                        <FinderHeaderState theme={headerState.green}></FinderHeaderState>
+                        <FinderHeaderState theme={headerState.default} onClick={onFinderCloseHandler}/>
+                        <FinderHeaderState theme={headerState.yellow}/>
+                        <FinderHeaderState theme={headerState.green}/>
                     </FinderHeaderStateWrap>
                 </div>
                 <FinderTitleWrap>

@@ -15,6 +15,12 @@ export const FINDER_OPEN_ACTION = (data) => {
     }
 }
 
+export const FINDER_CLOSE_ACTION = () => {
+    return {
+        type: 'FINDER_CLOSE_ACTION',
+    }
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'FINDER_OPEN_ACTION':
@@ -22,6 +28,12 @@ const reducer = (state = initialState, action) => {
                 isFinderOpen: true,
                 currentFinder: action.data,
                 contents: [...state.contents]
+            }
+        case 'FINDER_CLOSE_ACTION':
+            return {
+                isFinderOpen: false,
+                currentFinder: {},
+                contents: [...state.contents],
             }
         default:
             return state;

@@ -2,7 +2,7 @@ import React, {useState, useCallback} from 'react';
 import styled from 'styled-components';
 import {useDispatch, useSelector} from "react-redux";
 import {AiOutlineFolder} from 'react-icons/ai';
-import {FINDER_CLOSE_ACTION} from "../../reducers/finder";
+import {CURRENT_FINDER_UPDATE_ACTION, FINDER_CLOSE_ACTION} from "../../reducers/finder";
 
 const FinderWrap = styled.div`
     width: 60%;
@@ -69,6 +69,9 @@ const FinderHeaderState = styled.li`
     &:nth-child(1) {
         margin-left: 10px;    
     }
+    $::before {
+        content: ${(props) => props.content}
+    }
 `
 
 const FinderTitleWrap = styled.div`
@@ -92,10 +95,11 @@ const MenuListLi = styled.li`
     align-items: center;
     font-size: 0.85rem;
     color: rgb(47, 47, 51);
+    font-weight: 600;
     padding: 0 15px;
     position: relative;
    
-    &:focus {
+    &.active {
         outline: none;
         background-color: rgba(198, 198, 203, 1);
     }
@@ -109,22 +113,33 @@ const MenuListLi = styled.li`
 `
 
 const headerState = {
-    default: `rgba(255, 85, 79, 1)`,
-    yellow: `rgba(255, 185, 42, 1)`,
-    green: `rgba(37, 201, 58, 1)`
+    theme: {
+        default: `rgba(255, 85, 79, 1)`,
+        yellow: `rgba(255, 185, 42, 1)`,
+        green: `rgba(37, 201, 58, 1)`
+    },
+    content: {
+        default: `x`,
+        minimum: `-`,
+        maximize: `x`,
+    }
 }
 
 const Finder = (props) => {
 
-    const {contents} = useSelector((state) => state.finder);
+    const {contents, currentFinder} = useSelector((state) => state.finder);
     const dispatch = useDispatch();
+    const [isActive, setActive] = useState(currentFinder);
 
-    const onClickActiveHandler = useCallback((e) => {
-        console.log(e.target);
-        e.target.focus();
-    }, []);
+    const onClickActiveHandler = useCallback((v) => {
+        const [...targetFinder] = contents.filter((obj) => {
+            return obj.name === v;
+        });
+        setActive(v);
+        dispatch(CURRENT_FINDER_UPDATE_ACTION(targetFinder[0]));
+    }, [isActive]);
 
-    const onFinderCloseHandler = useCallback((e) => {
+    const onFinderCloseHandler = useCallback(() => {
         dispatch(FINDER_CLOSE_ACTION());
     }, []);
 
@@ -133,9 +148,9 @@ const Finder = (props) => {
             <FinderHeaderWrap>
                 <div>
                     <FinderHeaderStateWrap>
-                        <FinderHeaderState theme={headerState.default} onClick={onFinderCloseHandler}/>
-                        <FinderHeaderState theme={headerState.yellow}/>
-                        <FinderHeaderState theme={headerState.green}/>
+                        <FinderHeaderState theme={headerState.theme.default} content={headerState.content.default} onClick={onFinderCloseHandler}/>
+                        <FinderHeaderState theme={headerState.theme.yellow} content={headerState.content.minimum}/>
+                        <FinderHeaderState theme={headerState.theme.green} content={headerState.content.maximize}/>
                     </FinderHeaderStateWrap>
                 </div>
                 <FinderTitleWrap>
@@ -149,10 +164,11 @@ const Finder = (props) => {
                     </MenuFont>
                     <ul>
                         {contents.map((x) => {
-                            return <MenuListLi onClick={onClickActiveHandler}>
-                                    <AiOutlineFolder size="20" color="#767676" style={{marginBottom:`5px`, marginRight: `2px`}}/>
-                                    {x.name}
-                                </MenuListLi>
+                            return <MenuLiLabel
+                                    onClick={onClickActiveHandler.bind(this, x.name)}
+                                    active={isActive === x.name}
+                                    name={x.name}>
+                            </MenuLiLabel>
                         })}
                     </ul>
                 </FinderMenuWrap>
@@ -160,6 +176,15 @@ const Finder = (props) => {
                 <FinderContentWrap></FinderContentWrap>
             </FinderContentsWrap>
         </FinderWrap>
+    )
+}
+
+const MenuLiLabel = ({active, onClick, name}) => {
+    return (
+        <MenuListLi className={active && 'active'} onClick={onClick} >
+            <AiOutlineFolder size="20" color="#767676" style={{marginBottom:`5px`, marginRight: `2px`}}/>
+            {name}
+        </MenuListLi>
     )
 }
 

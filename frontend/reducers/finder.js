@@ -15,6 +15,13 @@ export const FINDER_OPEN_ACTION = (data) => {
     }
 }
 
+export const CURRENT_FINDER_UPDATE_ACTION = (data) => {
+    return {
+        type: 'CURRENT_FINDER_UPDATE',
+        data
+    }
+}
+
 export const FINDER_CLOSE_ACTION = () => {
     return {
         type: 'FINDER_CLOSE_ACTION',
@@ -34,6 +41,12 @@ const reducer = (state = initialState, action) => {
                 isFinderOpen: false,
                 currentFinder: {},
                 contents: [...state.contents],
+            }
+        case 'CURRENT_FINDER_UPDATE':
+            return {
+                ...state,
+                currentFinder: action.data,
+                contents: [...state.contents]
             }
         default:
             return state;

@@ -65,7 +65,6 @@ export const BackgroundImage = styled.img`
 const Layout = ({children}) => {
 
     const {isLoggedIn} = useSelector((state) => state.user);
-    console.log(isLoggedIn);
 
     return (
         <ImageLayout>

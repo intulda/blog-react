@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useCallback} from 'react';
 import styled from 'styled-components';
 import macFolder from '../../resource/images/folder.png';
 
@@ -23,6 +23,7 @@ const FolderLayout = styled.div`
     position: relative;
     margin: 5px;
     max-width: 104px;
+    z-index: 1;
     &:before {
         content: '';
         position: absolute;
@@ -51,18 +52,15 @@ const FolderLayout = styled.div`
 
 
 const Folder = (props) => {
-    const onClickDivHandler = (e) => {
-        if(e.target.parentNode.nodeName === 'DIV') {
-            e.target.parentNode.focus();
-        }
-    }
     return (
         <FolderLayout tabIndex="-1" draggable={props.draggable}
-                      onClick={onClickDivHandler}
+                      onClick={props.onClickDivHandler}
+                      onDoubleClick={props.onClickOpenHandler}
                       onDragStart={props.onDragStart}
                       onDragOver={props.onDragOver}
                       onDragEnd={props.onDragEnd}
                       style={{gridColumn: props.col, gridRow: props.row}}
+                      name={props.name}
         >
             <MacFolder src={macFolder}/>
             <FolderName>{props.name}</FolderName>

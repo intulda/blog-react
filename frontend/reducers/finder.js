@@ -29,6 +29,7 @@ export const FINDER_CLOSE_ACTION = () => {
 }
 
 const reducer = (state = initialState, action) => {
+    console.log(action.data);
     switch (action.type) {
         case 'FINDER_OPEN_ACTION':
             return {

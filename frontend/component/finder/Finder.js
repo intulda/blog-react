@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import styled from 'styled-components';
 import {useDispatch, useSelector} from "react-redux";
 import {AiOutlineFolder} from 'react-icons/ai';
@@ -129,7 +129,13 @@ const Finder = (props) => {
 
     const {contents, currentFinder} = useSelector((state) => state.finder);
     const dispatch = useDispatch();
-    const [isActive, setActive] = useState(currentFinder);
+    const [isActive, setActive] = useState(currentFinder.name);
+
+    useEffect(() => {
+        if(isActive !== currentFinder.name) {
+            setActive(currentFinder.name);
+        }
+    }, [currentFinder, isActive]);
 
     const onClickActiveHandler = useCallback((v) => {
         const [...targetFinder] = contents.filter((obj) => {

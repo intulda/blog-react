@@ -16,8 +16,6 @@ const ImageLayout = styled.div`
     
 `
 export const BackgroundImage = styled.img`
-    // background-image: url('${catalina}');
-    
     width: 100%;
     height: initial;
     position: absolute;
@@ -25,30 +23,57 @@ export const BackgroundImage = styled.img`
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: -1;
-
-    @media only screen and (min-width: 1350px) {
+    
+    @media (min-height: 280px) {
+        width: 100%;
+        height: initial;
+    }
+    
+    @media (min-width: 280px) {
+        width: initial;
+        height: 100%;
+    }
+      
+    @media (min-width: 576px) {
+        width: initial;
+        height: 100%;
+    }
+    
+    @media (width: 653px and height: 280px) {
         width: 100%;
         height: initial;
     }
 
-    @media only screen and (max-height: 780px) {
+    @media only screen and (min-width: 768px) {
         width: 100%;
-        height: initial; 
+        height: 100%; 
     }
+    
+    @media only screen and (min-width: 992px) {
+        width: 100%;
+        height: initial;
+    }
+    
+    @media only screen and (min-width: 1200px) {
+        width: 100%;
+        height: initial;
+    }
+    
+    
 `
 
 const Layout = ({children}) => {
 
-    const isOpenLogin = useSelector((state) => state.isLoginFormOpen);
+    const {isLoggedIn} = useSelector((state) => state.user);
 
     return (
         <ImageLayout>
             {
-                isOpenLogin ? '' : <Header/>
+                isLoggedIn ? '' : <Header/>
             }
             <BackgroundImage src={catalina}/>
             {
-                isOpenLogin ? <LoginFrom/> : children
+                isLoggedIn ? <LoginFrom/> : children
             }
         </ImageLayout>
     )

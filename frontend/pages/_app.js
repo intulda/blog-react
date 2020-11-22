@@ -10,6 +10,7 @@ const Blog = ({Component}) => {
         <>
             <Head>
                 <meta charSet="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <title>코드몽키 블로그</title>
             </Head>
             <DefaultCss/>

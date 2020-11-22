@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import sierra from '../resource/images/sierra.jpg';
 import reset from 'styled-reset';
 
 const DefaultCss = createGlobalStyle`

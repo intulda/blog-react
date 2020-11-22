@@ -1,59 +1,52 @@
-import React from 'react';
-import styled from 'styled-components';
-import { AiFillApple } from "react-icons/ai";
+import React, {useCallback} from 'react';
+import styled, {keyframes} from 'styled-components';
+import {BsChevronLeft, BsToggleOff, BsToggleOn} from "react-icons/bs";
+import Link from "next/link";
+import {useDispatch, useSelector} from "react-redux";
+import {BACKGROUND_SWITCH_ON_ACTION, BACKGROUND_SWITCH_OFF_ACTION} from '../../reducers/common';
 
-const MenuContainer = styled.div`
+const HeaderWrap = styled.div`
     width: 100%;
-    height: 20px;
-    background-color: rgb(28 36 59 / 0.6);
-    padding: 0 20px;
-    color: white;
-`
-const MenuWrap = styled.div`
+    height: 50px;
     display: flex;
-    align-items: flex-end;
-    width:100%;
-    height: 100%;
-`
-
-const Logo = styled(AiFillApple)`
-    margin-right: 15px;
-`
-
-const CurrentPage = styled.span`
-    font-size: 1rem;
-    font-weight: 800;
-    margin-right: 15px;
-`
-
-const MenuList = styled.ul`
-    display: flex;
-    font-size: 0.9rem;
     align-items: center;
-    height: 100%;
+    justify-content: space-between;
 `
-const MenuItem = styled.li`
-    padding: 0 8px;
-    cursor: pointer;
+
+const CenterDiv = styled.div`
+    display: flex;
+    align-items: center;
 `
-//Ho inner inner macbook
-const Header = ({chilren}) => {
+
+const Header = () => {
+    const {backgroundSwitch} = useSelector((state) => state.common);
+    const dispatch = useDispatch();
+
+    const onClickSwitchHandler = useCallback((e) => {
+        e.preventDefault();
+        if(!backgroundSwitch) {
+            dispatch(BACKGROUND_SWITCH_ON_ACTION());
+            return false;
+        }
+        dispatch(BACKGROUND_SWITCH_OFF_ACTION());
+    }, [backgroundSwitch]);
+
     return (
-        <MenuContainer>
-            <MenuWrap>
-                <Logo size="20px"/>
-                <CurrentPage>
-                    Kim.BoGeun
-                    {chilren}
-                </CurrentPage>
-                <MenuList>
-                    <MenuItem>프로필</MenuItem>
-                    <MenuItem>프로젝트</MenuItem>
-                    <MenuItem>아카이브</MenuItem>
-                    <MenuItem>방명록</MenuItem>
-                </MenuList>
-            </MenuWrap>
-        </MenuContainer>
+        <HeaderWrap>
+            <CenterDiv>
+                <Link href="/">
+                    <a style={{marginRight: `5px`}}><BsChevronLeft/></a>
+                </Link>
+                <span>Kim.BoGeun</span>
+            </CenterDiv>
+            <div onClick={onClickSwitchHandler} style={{ cursor: `pointer`}}>
+                {
+                    backgroundSwitch
+                        ? <BsToggleOn size="25"/>
+                        : <BsToggleOff size="25"/>
+                }
+            </div>
+        </HeaderWrap>
     )
 }
 

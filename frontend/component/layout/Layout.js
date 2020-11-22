@@ -33,7 +33,7 @@ const LayoutWrap = styled.div`
 const BackgroundWrap = styled.div`
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     border-radius: 0;

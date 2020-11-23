@@ -1,4 +1,6 @@
 const initialState = {
+    currentPageTitle: 'Kim.BoGeun',
+    isPrevAction: false,
     backgroundSwitch: false
 }
 

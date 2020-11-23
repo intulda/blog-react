@@ -4,6 +4,7 @@ import Header from './Header';
 import Search from "./Search";
 import styled, {keyframes} from 'styled-components';
 import {useSelector} from "react-redux";
+import Footer from "./Footer";
 
 const materialAnimation = (active) => keyframes`
     0% {
@@ -52,6 +53,7 @@ const Layout = ({children}) => {
             <Header/>
             <Search/>
             {children}
+            <Footer/>
         </LayoutWrap>
     )
 }

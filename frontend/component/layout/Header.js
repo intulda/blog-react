@@ -19,9 +19,9 @@ const CenterDiv = styled.div`
 `
 
 const Header = () => {
-    const {backgroundSwitch} = useSelector((state) => state.common);
+    const {backgroundSwitch, currentPageTitle, isPrevAction} = useSelector((state) => state.common);
     const dispatch = useDispatch();
-
+    
     const onClickSwitchHandler = useCallback((e) => {
         e.preventDefault();
         if(!backgroundSwitch) {
@@ -34,10 +34,13 @@ const Header = () => {
     return (
         <HeaderWrap>
             <CenterDiv>
-                <Link href="/">
-                    <a style={{marginRight: `5px`}}><BsChevronLeft/></a>
-                </Link>
-                <span>Kim.BoGeun</span>
+                {
+                    isPrevAction
+                    && <Link href="/">
+                        <a style={{marginRight: `5px`}}><BsChevronLeft/></a>
+                    </Link>
+                }
+                <span style={{fontWeight: `bold`}}>{currentPageTitle}</span>
             </CenterDiv>
             <div onClick={onClickSwitchHandler} style={{ cursor: `pointer`}}>
                 {

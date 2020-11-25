@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import styled from 'styled-components';
 import {BsFolderPlus, BsPencilSquare} from "react-icons/bs";
+import {useDispatch, useSelector} from "react-redux";
+import {FOLDER_ADD_MODAL_CLOSE_ACTION, FOLDER_ADD_MODAL_OPEN_ACTION} from "../../reducers/common";
 
 const FooterWrap = styled.div`
     display: flex;
@@ -22,9 +24,21 @@ const FooterWrap = styled.div`
 `
 
 const Footer = () => {
+
+    const {modal} = useSelector(state => state.common);
+    const dispatch = useDispatch();
+
+    const onClickFolderAdd = useCallback((e) => {
+        if(modal.isOpen) {
+            dispatch(FOLDER_ADD_MODAL_CLOSE_ACTION());
+        } else {
+            dispatch(FOLDER_ADD_MODAL_OPEN_ACTION());
+        }
+    },[modal]);
+
     return (
         <FooterWrap>
-            <div>
+            <div onClick={onClickFolderAdd}>
                 <BsFolderPlus/>
             </div>
             <div>

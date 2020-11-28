@@ -4,6 +4,8 @@ import Header from './Header';
 import Search from "./Search";
 import styled, {keyframes} from 'styled-components';
 import {useSelector} from "react-redux";
+import Footer from "./Footer";
+import Modal from "../common/Modal";
 
 const materialAnimation = (active) => keyframes`
     0% {
@@ -44,15 +46,21 @@ const BackgroundWrap = styled.div`
 
 const Layout = ({children}) => {
 
-    const {backgroundSwitch} = useSelector((state) => state.common);
+    const {backgroundSwitch, modal} = useSelector((state) => state.common);
 
     return (
-        <LayoutWrap active={backgroundSwitch}>
-            <BackgroundWrap active={backgroundSwitch}/>
-            <Header/>
-            <Search/>
-            {children}
-        </LayoutWrap>
+        <>
+            {
+                modal.isOpen && <Modal type="createFolder"/>
+            }
+            <LayoutWrap active={backgroundSwitch}>
+                <BackgroundWrap active={backgroundSwitch}/>
+                <Header/>
+                <Search/>
+                {children}
+                <Footer/>
+            </LayoutWrap>
+        </>
     )
 }
 

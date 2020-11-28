@@ -7,6 +7,7 @@ const MemoWrap = styled.ul`
     background-color: white;
     border-radius: 5px;
     padding: 10px;
+    margin-bottom: 70px;
     
     &>li {
         display: flex;
@@ -20,28 +21,21 @@ const MemoWrap = styled.ul`
     &>li:hover {
         background-color: #ddd
     }
-    
-    &>li>span {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width:100%;
-        font-size: 15px;
-        padding: 0 8px 10px 0;
-        box-shadow: 0 1px #aaa;
-        color: black;
-    }
 `
 
 const MemoTitle = styled.div`
     display: flex;
+    justify-content: space-between;
     width: calc(100% - 30px);
-    box-shadow: 0 1px #aaa;
+    box-shadow: 0 1px #eee;
     padding-bottom: 10px;
     color: black;
     
-    &>span:nth-child(2) {
+    &>div {
+        display: flex;
+        align-items: center;
         font-size: 0.8rem;
+        font-weight: bold;
         margin: 0 5px 0 10px;
         color: #aaa;
     }
@@ -67,34 +61,53 @@ const Memo = () => {
                 <FolderIcon/>
                 <MemoTitle>
                     <OverFlowDiv>리스트 입니다리스트 입니다리스트 입니다리스트 입니다리스트 입니다</OverFlowDiv>
-                    <span>30</span>
-                    <BsChevronRight size="0.8rem" color="#aaa"/>
+                    <div>
+                        <span>30</span>
+                        <BsChevronRight size="0.8rem" color="#aaa"/>
+                    </div>
                 </MemoTitle>
             </li>
             <li>
                 <FolderIcon/>
                 <MemoTitle>
                     <OverFlowDiv>리스트 입니다리스트 입니다리스트 입니다리스트 입니다리스트 입니다</OverFlowDiv>
-                    <span>30</span>
-                    <BsChevronRight size="0.8rem" color="#aaa"/>
+                    <div>
+                        <span>30</span>
+                        <BsChevronRight size="0.8rem" color="#aaa"/>
+                    </div>
                 </MemoTitle>
             </li>
             <li>
                 <FolderIcon/>
                 <MemoTitle>
                     <OverFlowDiv>리스트 입니다리스트 입니다리스트 입니다리스트 입니다리스트 입니다</OverFlowDiv>
-                    <span>30</span>
-                    <BsChevronRight size="0.8rem" color="#aaa"/>
+                    <div>
+                        <span>30</span>
+                        <BsChevronRight size="0.8rem" color="#aaa"/>
+                    </div>
                 </MemoTitle>
             </li>
             <li>
                 <FolderIcon/>
                 <MemoTitle>
                     <OverFlowDiv>리스트 입니다리스트 입니다리스트 입니다리스트 입니다리스트 입니다</OverFlowDiv>
-                    <span>30</span>
-                    <BsChevronRight size="0.8rem" color="#aaa"/>
+                    <div>
+                        <span>30</span>
+                        <BsChevronRight size="0.8rem" color="#aaa"/>
+                    </div>
                 </MemoTitle>
             </li>
+            <li>
+                <FolderIcon/>
+                <MemoTitle>
+                    <OverFlowDiv>리스트 입니다리스트 입니다리스트 입니다리스트 입니다리스트 입니다</OverFlowDiv>
+                    <div>
+                        <span>30</span>
+                        <BsChevronRight size="0.8rem" color="#aaa"/>
+                    </div>
+                </MemoTitle>
+            </li>
+
         </MemoWrap>
     )
 }

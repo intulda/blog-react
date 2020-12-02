@@ -3,7 +3,6 @@ import styled, {keyframes} from 'styled-components';
 import {BsChevronLeft, BsToggleOff, BsToggleOn} from "react-icons/bs";
 import Link from "next/link";
 import {useDispatch, useSelector} from "react-redux";
-import {BACKGROUND_SWITCH_ON_ACTION, BACKGROUND_SWITCH_OFF_ACTION} from '../../reducers/common';
 
 const HeaderWrap = styled.div`
     width: 100%;
@@ -18,18 +17,12 @@ const CenterDiv = styled.div`
     align-items: center;
 `
 
+const CurrentPageTitle = styled.span`
+    font-weight: bold;
+`
+
 const Header = () => {
-    const {backgroundSwitch, currentPageTitle, isPrevAction} = useSelector((state) => state.common);
-    const dispatch = useDispatch();
-    
-    const onClickSwitchHandler = useCallback((e) => {
-        e.preventDefault();
-        if(!backgroundSwitch) {
-            dispatch(BACKGROUND_SWITCH_ON_ACTION());
-            return false;
-        }
-        dispatch(BACKGROUND_SWITCH_OFF_ACTION());
-    }, [backgroundSwitch]);
+    const {currentPageTitle, isPrevAction} = useSelector((state) => state.common);
 
     return (
         <HeaderWrap>
@@ -40,15 +33,8 @@ const Header = () => {
                         <a style={{marginRight: `5px`}}><BsChevronLeft/></a>
                     </Link>
                 }
-                <span style={{fontWeight: `bold`}}>{currentPageTitle}</span>
+                <CurrentPageTitle>{currentPageTitle}</CurrentPageTitle>
             </CenterDiv>
-            <div onClick={onClickSwitchHandler} style={{ cursor: `pointer`}}>
-                {
-                    backgroundSwitch
-                        ? <BsToggleOn size="25"/>
-                        : <BsToggleOff size="25"/>
-                }
-            </div>
         </HeaderWrap>
     )
 }

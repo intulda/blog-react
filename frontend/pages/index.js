@@ -1,21 +1,21 @@
 import React from 'react';
 import Layout from '../component/layout/Layout';
-import styled from "styled-components";
-import Memo from "../component/memo/Memo";
-
-const CurrentPage = styled.div`
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 10px 0;
-`
 
 const Index = () => {
 
+    const data = {
+        folder: [
+            {seq: 1, title: '모든 메모', count: 0},
+            {seq: 2, title: 'Portfolio', count: 0},
+            {seq: 3, title: 'React', count: 0},
+            {seq: 4, title: 'Java', count: 0},
+        ],
+    }
+
     return (
-        <Layout>
-            <CurrentPage>메모</CurrentPage>
-            <Memo/>
-        </Layout>
+        <>
+            <Layout/>
+        </>
     )
 }
 

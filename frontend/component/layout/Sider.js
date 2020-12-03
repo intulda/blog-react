@@ -286,16 +286,28 @@ const Sider = () => {
                         </a>
                     </Link>
                 </SideMenuList>
-                <SideMenuList>
-                    <Link href="./post">
-                        <a>
-                            <div>
-                                <BsFillFolderFill/>
-                            </div>
-                            <span>Post</span>
-                        </a>
-                    </Link>
-                </SideMenuList>
+                {
+                    modal.data.map(data => {
+                        return (
+                            <SideMenuList key={data.seq}>
+                                <Link
+                                    href={{
+                                        pathname: `./post`,
+                                        query: { type: `${data.link}` },
+                                    }}
+                                    as={`./post/${data.link}`}
+                                >
+                                    <a>
+                                        <div>
+                                            <BsFillFolderFill/>
+                                        </div>
+                                        <span>{data.title}</span>
+                                    </a>
+                                </Link>
+                            </SideMenuList>
+                        )
+                    })
+                }
                 <SideMenuList>
                     <Link href="#">
                         <a>

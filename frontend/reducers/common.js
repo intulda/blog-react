@@ -9,7 +9,11 @@ const initialState = {
         isOpen: false,
         isConfirm: false,
         data: [
-            {type: 'createFolder', title: '새로운 폴더', content: '이 폴더의 이름을 입력하십시오.', buttonName: '생성', cancelName: '취소'}
+            {
+                seq: 1,
+                title: 'Posts',
+                link: 'board'
+            },
         ]
     }
 }
@@ -65,8 +69,31 @@ export const TOAST_CLOSE_ACTION = () => {
     }
 }
 
+export const FOLDER_ADD_ACTION = (data) => {
+    return {
+        type: 'FOLDER_ADD',
+        data
+    }
+}
+
+const dummyData = {
+    seq: 2,
+    title: 'React',
+    link: 'react'
+}
+
+
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case 'FOLDER_ADD':
+            return {
+                ...state,
+                modal : {
+                    ...state.modal,
+                    isOpen: false,
+                    data : [...state.modal.data, dummyData],
+                }
+            }
         case 'BACKGROUND_SWITCH_ON':
             return {
                 ...state,

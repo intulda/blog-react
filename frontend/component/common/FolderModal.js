@@ -1,7 +1,7 @@
 import React, {useCallback, useRef, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import styled, {keyframes} from 'styled-components';
-import {FOLDER_ADD_MODAL_CLOSE_ACTION} from "../../reducers/common";
+import {FOLDER_ADD_ACTION, FOLDER_ADD_MODAL_CLOSE_ACTION} from "../../reducers/common";
 
 const ModalOpenAnimation = keyframes`
     0% {
@@ -120,7 +120,7 @@ const AlertButton = styled(ChoiceButton)`
     border-radius: 0 0 10px 10px;
 `
 
-const Modal = () => {
+const FolderModal = () => {
 
     const {modal} = useSelector(state => state.common);
     const dispatch = useDispatch();
@@ -131,6 +131,10 @@ const Modal = () => {
         dispatch(FOLDER_ADD_MODAL_CLOSE_ACTION());
     }, [])
 
+    const onClickAddFolder = useCallback(() => {
+        dispatch(FOLDER_ADD_ACTION());
+    }, []);
+
     useEffect(() => {
         inputElement.current.focus();
     }, [])
@@ -140,13 +144,13 @@ const Modal = () => {
             <ModalContainer>
                 <ModalWrap>
                     <ModalTop>
-                        <div>{modal.data[0].title}</div>
+                        <div>새로운 폴더</div>
                     </ModalTop>
                     <ModalContent>
                         <div>
-                            <span>{modal.data[0].content}</span>
+                            <span>이 폴더의 이름을 입력하십시오.</span>
                             <div>
-                                <input type="text" ref={inputElement}/>
+                                <input type="text" name="title" ref={inputElement}/>
                             </div>
                         </div>
                     </ModalContent>
@@ -154,10 +158,10 @@ const Modal = () => {
                         {
                             modal.isConfirm
                             ?   <>
-                                    <ConfirmLeft onClick={onClickModalCloseHandler}>{modal.data[0].cancelName}</ConfirmLeft>
-                                    <ConfirmRight>{modal.data[0].buttonName}</ConfirmRight>
+                                    <ConfirmLeft onClick={onClickModalCloseHandler}>취소</ConfirmLeft>
+                                    <ConfirmRight onClick={onClickAddFolder}>생성</ConfirmRight>
                                 </>
-                            :   <AlertButton>{modal.data[0].buttonName}</AlertButton>
+                            :   <AlertButton>확인</AlertButton>
                         }
 
                     </ModalBottom>
@@ -167,4 +171,4 @@ const Modal = () => {
     )
 }
 
-export default Modal;
+export default FolderModal;

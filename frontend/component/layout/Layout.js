@@ -4,7 +4,7 @@ import Header from './Header';
 import Search from "./Search";
 import styled, {keyframes} from 'styled-components';
 import {useSelector} from "react-redux";
-import Modal from "../common/Modal";
+import FolderModal from "../common/FolderModal";
 import Sider from "./Sider";
 import Login from "../login/Login";
 import Toast from "../common/Toast";
@@ -32,7 +32,7 @@ const Layout = ({children}) => {
 
     return (
         <>
-            {modal.isOpen && <Modal type="createFolder"/>}
+            {modal.isOpen && <FolderModal type="createFolder"/>}
             {isLoginModalOpen && <Login/>}
             <LayoutWrap>
                 <Sider/>

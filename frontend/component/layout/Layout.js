@@ -25,7 +25,7 @@ const MainContentWrap = styled.div`
     padding: 10px 20px;
 `
 
-const Layout = ({children}) => {
+const Layout = ({children, search}) => {
 
     const {modal, isToastMessageOpen} = useSelector((state) => state.common);
     const {isLoginModalOpen} = useSelector((state) => state.login);
@@ -38,7 +38,7 @@ const Layout = ({children}) => {
                 <Sider/>
                 <MainContentWrap>
                     <Header/>
-                    <Search/>
+                    {search && <Search/>}
                     {children}
                     {isToastMessageOpen && <Toast/>}
                 </MainContentWrap>

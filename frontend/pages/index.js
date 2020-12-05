@@ -14,7 +14,7 @@ const Index = () => {
 
     return (
         <>
-            <Layout/>
+            <Layout search={true}/>
         </>
     )
 }

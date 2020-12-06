@@ -23,7 +23,7 @@ const OpacityAnimation = keyframes`
 
 const SideWrap = styled.div`
     width: ${props => props.active ? `200px` : `55px`};
-    height: 100%;
+    min-height: 100%;
     position: relative;
     background-color: rgba(30,30,30,0.9);
     padding: 10px;

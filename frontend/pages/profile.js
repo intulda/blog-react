@@ -10,13 +10,19 @@ const ProfileWrap = styled.div`
 const PartWrap = styled.div`
     display: flex;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 `
 
 const TitleWrap = styled.div`
     box-shadow: 0px -2px black;
     min-width: 100px;
     margin-right: 20px;
+    padding: 10px;
+`
+
+const SubTitleWrap = styled.div`
+    box-shadow: 0px -1px #ddd;
+    min-width: 100px;
     padding: 10px;
 `
 
@@ -42,7 +48,31 @@ const ContentWrap = styled.div`
     width: 100%;
     
     &>ul {
-        padding: 10px;
+        padding: 10px 0;
+    }
+`
+
+const SubContentWrap = styled.div`
+    box-shadow: 0px -1px #ddd;
+    width: 100%;
+    padding: 10px 15px;
+    
+    &>div {
+        font-size: 0.8rem;
+    }
+    
+    &>div>p:nth-child(1) {
+        font-weight: bold;
+        padding: 10px 0;
+    }
+    
+    &>div>p:nth-child(2) {
+        padding: 0 10px 10px 10px;
+    }
+    
+    &>div>p:nth-child(3) {
+        padding: 0 10px 10px 10px;
+        color: rgb(35, 96, 156);
     }
 `
 
@@ -51,18 +81,17 @@ const ContentList = styled.li`
     font-size: 0.9rem;
     
     &>p {
-        padding: 10px;
+        padding: 10px 0;
     }
     
     &>p:first-child {
         font-weight: 300;
-        min-width: 90px;
+        min-width: 130px;
         flex: 1;
     }
     
     &>p:last-child {
         font-weight: 500;
-        min-width: 100px;
         flex: 9;
     }
 `
@@ -99,18 +128,112 @@ const Profile = () => {
                     </ContentWrap>
                 </PartWrap>
                 <PartWrap>
-                    <TitleWrap>
+                    <SubTitleWrap>
                         <Title>학력사항</Title>
-                    </TitleWrap>
-                    <ContentWrap>
+                    </SubTitleWrap>
+                    <SubContentWrap>
                         <ul>
                             <ContentList>
                                 <p>2008.03 - 2012.02</p>
                                 <p>인천효성고등학교</p>
                             </ContentList>
                             <ContentList>
-                                <p>2012.03 - 2016.03</p>
-                                <p>혜전대학교</p>
+                                <p>2011.03 - 2016.03</p>
+                                <p>서울대학교</p>
+                            </ContentList>
+                        </ul>
+                    </SubContentWrap>
+                </PartWrap>
+                <PartWrap>
+                    <SubTitleWrap>
+                        <Title>경력사항</Title>
+                    </SubTitleWrap>
+                    <SubContentWrap>
+                        <ul>
+                            <ContentList>
+                                <p>2018.04 - 2020.03</p>
+                                <p>(주)카카오 모빌리티</p>
+                            </ContentList>
+                        </ul>
+                    </SubContentWrap>
+                </PartWrap>
+                <PartWrap>
+                    <SubTitleWrap>
+                        <Title>자격사항</Title>
+                    </SubTitleWrap>
+                    <SubContentWrap>
+                        <ul>
+                            <ContentList>
+                                <p>2011</p>
+                                <p>한식조리자격증</p>
+                            </ContentList>
+                        </ul>
+                    </SubContentWrap>
+                </PartWrap>
+                <PartWrap>
+                    <SubTitleWrap>
+                        <Title>병역사항</Title>
+                    </SubTitleWrap>
+                    <SubContentWrap>
+                        <ul>
+                            <ContentList>
+                                <p>2014 - 2016</p>
+                                <p>사회복무요원</p>
+                            </ContentList>
+                        </ul>
+                    </SubContentWrap>
+                </PartWrap>
+                <PartWrap>
+                    <SubTitleWrap>
+                        <Title>주요 기술<br/><span style={{color: `rgb(35, 96, 156)`, fontSize: `13px`}}>[관심분야]</span></Title>
+                    </SubTitleWrap>
+                    <SubContentWrap>
+                        <div>
+                            <p>- Programming Language / Methodology</p>
+                            <p>java(8), javascript(ES6), HTML5. CSS3</p>
+                            <p>(Ruby, Python, Functional Programming)</p>
+                        </div>
+                        <div>
+                            <p>- Framework / Library</p>
+                            <p>Spring5(Framework, Boot), ReactJs, Redux, Redux-Saga, NextJs, JQuery, Bootstrap, AntD</p>
+                            <p>(Ruby on Railes, Vue, NuxtJs, scss, P5.js)</p>
+                        </div>
+                        <div>
+                            <p>- Server / Database</p>
+                            <p>Tomcat, Oracle, Mysql, MariaDB, NodeJs</p>
+                            <p>(Ngnix, Docker)</p>
+                        </div>
+                        <div>
+                            <p>- Tools / DevOps</p>
+                            <p>GitHub, Jenkins, maven, gradle, bash</p>
+                            <p>(GitLab)</p>
+                        </div>
+                        <div>
+                            <p>- Programming Language / Methodology</p>
+                            <p>java(8), javascript(ES6), HTML5. CSS3</p>
+                            <p>(Ruby, Python, Functional Programming)</p>
+                        </div>
+                        <div>
+                            <p>- Environment</p>
+                            <p>AWS, macOS, windows</p>
+                            <p>(Docker container, Linux, Unix)</p>
+                        </div>
+                        <div>
+                            <p>- Etc</p>
+                            <p>Notion, Trello</p>
+                            <p>(Jira)</p>
+                        </div>
+                    </SubContentWrap>
+                </PartWrap>
+                <PartWrap>
+                    <TitleWrap>
+                        <Title>경력기술서</Title>
+                    </TitleWrap>
+                    <ContentWrap>
+                        <ul>
+                            <ContentList>
+                                <p>2014 - 2016</p>
+                                <p>사회복무요원</p>
                             </ContentList>
                         </ul>
                     </ContentWrap>

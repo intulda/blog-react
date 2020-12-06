@@ -13,7 +13,7 @@ import Toast from "../common/Toast";
 const LayoutWrap = styled.div`
     display: flex;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     transition: 0.5s ease-in-out;
     background-color: rgba(243, 238, 239, 1);
     color: black;

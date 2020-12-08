@@ -5,9 +5,9 @@ import Search from "./Search";
 import styled, {keyframes} from 'styled-components';
 import {useSelector} from "react-redux";
 import FolderModal from "../common/FolderModal";
-import Sider from "./Sider";
 import Login from "../login/Login";
 import Toast from "../common/Toast";
+import SideMenu from "../common/SideMenu";
 
 
 const LayoutWrap = styled.div`
@@ -21,7 +21,7 @@ const LayoutWrap = styled.div`
 `
 
 const MainContentWrap = styled.div`
-    width: calc(100%);
+    width: 100%;
     padding: 10px 20px;
 `
 
@@ -35,7 +35,6 @@ const Layout = ({children, search}) => {
             {modal.isOpen && <FolderModal type="createFolder"/>}
             {isLoginModalOpen && <Login/>}
             <LayoutWrap>
-                <Sider/>
                 <MainContentWrap>
                     <Header/>
                     {search && <Search/>}

@@ -55,7 +55,7 @@ const ContentWrap = styled.div`
 const SubContentWrap = styled.div`
     box-shadow: 0px -1px #ddd;
     width: 100%;
-    padding: 10px 15px;
+    padding: 0 15px;
     
     &>div {
         font-size: 0.8rem;
@@ -85,6 +85,7 @@ const ContentList = styled.li`
     }
     
     &>p:first-child {
+        color: #bbb;
         font-weight: 300;
         min-width: 130px;
         flex: 1;
@@ -93,6 +94,12 @@ const ContentList = styled.li`
     &>p:last-child {
         font-weight: 500;
         flex: 9;
+    }
+    
+    @media only screen and (max-width: 786px) {
+        & {
+            flex-direction: column;
+        }
     }
 `
 

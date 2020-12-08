@@ -5,15 +5,15 @@ import Search from "./Search";
 import styled, {keyframes} from 'styled-components';
 import {useSelector} from "react-redux";
 import FolderModal from "../common/FolderModal";
-import Sider from "./Sider";
 import Login from "../login/Login";
 import Toast from "../common/Toast";
+import SideMenu from "../common/SideMenu";
 
 
 const LayoutWrap = styled.div`
     display: flex;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     transition: 0.5s ease-in-out;
     background-color: rgba(243, 238, 239, 1);
     color: black;
@@ -21,11 +21,11 @@ const LayoutWrap = styled.div`
 `
 
 const MainContentWrap = styled.div`
-    width: calc(100%);
+    width: 100%;
     padding: 10px 20px;
 `
 
-const Layout = ({children}) => {
+const Layout = ({children, search}) => {
 
     const {modal, isToastMessageOpen} = useSelector((state) => state.common);
     const {isLoginModalOpen} = useSelector((state) => state.login);
@@ -35,10 +35,9 @@ const Layout = ({children}) => {
             {modal.isOpen && <FolderModal type="createFolder"/>}
             {isLoginModalOpen && <Login/>}
             <LayoutWrap>
-                <Sider/>
                 <MainContentWrap>
                     <Header/>
-                    <Search/>
+                    {search && <Search/>}
                     {children}
                     {isToastMessageOpen && <Toast/>}
                 </MainContentWrap>

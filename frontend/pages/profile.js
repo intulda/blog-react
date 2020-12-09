@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import Layout from "../component/layout/Layout";
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import kimbogeun from '../resource/images/kimbogeun.jpg';
 
 const ProfileWrap = styled.div`
@@ -14,7 +14,7 @@ const PartWrap = styled.div`
 `
 
 const TitleWrap = styled.div`
-    box-shadow: 0px -2px black;
+    box-shadow: 0px -2px white;
     min-width: 100px;
     margin-right: 20px;
     padding: 10px;
@@ -72,7 +72,7 @@ const SubContentWrap = styled.div`
     
     &>div>p:nth-child(3) {
         padding: 0 10px 10px 10px;
-        color: rgb(35, 96, 156);
+        color: #4ea1d3;
     }
 `
 
@@ -103,10 +103,23 @@ const ContentList = styled.li`
     }
 `
 
+const PageTitle = styled.p`
+    margin: 30px 0;
+    font-size: 2rem;
+    border FONT-WEIGHT: 100;
+    box-shadow: 0;
+    padding: 10px 0;
+    display: inline-block;
+    line-height: 2rem;
+`
+
 const Profile = () => {
 
     return (
         <Layout>
+            <PageTitle>
+                Profile
+            </PageTitle>
             <ProfileWrap>
                 <PartWrap>
                     <TitleWrap>
@@ -192,7 +205,7 @@ const Profile = () => {
                 </PartWrap>
                 <PartWrap>
                     <SubTitleWrap>
-                        <Title>주요 기술<br/><span style={{color: `rgb(35, 96, 156)`, fontSize: `13px`}}>[관심분야]</span></Title>
+                        <Title>주요 기술<br/><span style={{color: `#4ea1d3`, fontSize: `13px`}}>[관심분야]</span></Title>
                     </SubTitleWrap>
                     <SubContentWrap>
                         <div>

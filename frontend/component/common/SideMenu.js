@@ -27,9 +27,10 @@ const SideMenuContainer = styled.div`
     top: 0;
     right: 0;
     text-align: right;
-    background-color: rgba(255,255,255, 0.7);
+    background-color: rgb(1, 1, 1, 0.9);
     z-index: 1;
     transition: 0.6s;
+    color: white;
     
     @media only screen and (max-width: 768px) {
         & {
@@ -39,13 +40,13 @@ const SideMenuContainer = styled.div`
     
     ${props => 
         props.active
-            ? css`transform: translateX(0%)`
-            : css`transform: translateX(100%)`
+            ? css`transform: translateX(0);`
+            : css`transform: translateX(100%);`
     }
 `
 
 const SideMenuWrap = styled.ul`
-    font-size: 1.4rem;
+    font-size: 2rem;
     padding: 150px 20px 0 20px;
     
     & li {
@@ -59,7 +60,7 @@ const SideMenuWrap = styled.ul`
     }
     
     & li:hover {
-        color: orange;
+        color: #4ea1d3;
         animation: ${listAnimation} 1s infinite;
     }
 `
@@ -69,10 +70,12 @@ const SideMenu = () => {
 
     const {isSideOpen} = useSelector(state => state.common);
     const dispatch = useDispatch();
+    const [isDisplay, setIsDisplay] = useState('none');
+
     const onMoveHandler = useCallback((e) => {
-        console.log(1);
         dispatch(SIDE_ClOSE_ACTION());
     }, []);
+
     return (
         <>
             <SideMenuContainer active={isSideOpen}>

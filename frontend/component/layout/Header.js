@@ -1,10 +1,20 @@
 import React, {useCallback, useState} from 'react';
-import styled, {keyframes} from 'styled-components';
+import styled, {keyframes, css} from 'styled-components';
 import {BsChevronLeft, BsJustifyRight} from "react-icons/bs";
 import Link from "next/link";
 import {useDispatch, useSelector} from "react-redux";
 import SideMenu from "../common/SideMenu";
 import {SIDE_ClOSE_ACTION, SIDE_OPEN_ACTION} from "../../reducers/common";
+
+const BorderAnimation = keyframes`
+    0% {
+        width: 0%;
+    }
+    
+    100% {
+        width: 100%;
+    }
+`
 
 const HeaderWrap = styled.div`
     width: 100%;
@@ -12,6 +22,7 @@ const HeaderWrap = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0 1px white;
 `
 
 const CenterDiv = styled.div`
@@ -44,10 +55,14 @@ const MenuButton = styled(BsJustifyRight)`
 
 const MenuList = styled.ul`
     display: flex;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     & li {
         padding-left: 20px;
         cursor: pointer;
+    }
+    
+    & li>a {
+        position: relative;
     }
     
     @media only screen and (max-width: 768px) {
@@ -84,7 +99,6 @@ const Header = () => {
                         </a>
                     </Link>
                 </CurrentPageTitle>
-                <div>
                     <MenuButton onClick={onMenuHandler}/>
                     <SideMenu/>
                     <MenuList>
@@ -117,7 +131,6 @@ const Header = () => {
                             </Link>
                         </li>
                     </MenuList>
-                </div>
             </CenterDiv>
         </HeaderWrap>
     )

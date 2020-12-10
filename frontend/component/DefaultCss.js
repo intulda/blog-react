@@ -3,7 +3,6 @@ import reset from 'styled-reset';
 
 const DefaultCss = createGlobalStyle`
     @import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
-    
     ${reset};
     * {
         box-sizing:border-box;

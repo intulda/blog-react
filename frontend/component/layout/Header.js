@@ -22,7 +22,7 @@ const HeaderWrap = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 1px white;
+    box-shadow: inset 0 -1px white;
 `
 
 const CenterDiv = styled.div`

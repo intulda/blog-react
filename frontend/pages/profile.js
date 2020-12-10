@@ -3,8 +3,21 @@ import Layout from "../component/layout/Layout";
 import styled, {keyframes} from 'styled-components';
 import kimbogeun from '../resource/images/kimbogeun.jpg';
 
+const ProfileWrapAnimation = keyframes`
+    0% {
+        opacity: 0;
+        transform: translateY(200px);
+    }
+    
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+`
+
 const ProfileWrap = styled.div`
     width: 100%;
+    animation: ${ProfileWrapAnimation} 0.9s;
 `
 
 const PartWrap = styled.div`

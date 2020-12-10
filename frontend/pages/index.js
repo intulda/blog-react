@@ -101,16 +101,16 @@ const Index = () => {
             <Layout search={true}>
                 <LayoutChildrenWrap>
                     <Content>
-                        <ContentContainer className="content__container">
+                        <ContentContainer>
                             <ContentText>
                                 Hello,
                             </ContentText>
 
                             <ContentList>
-                                <li className="content__container__list__item">World!</li>
-                                <li className="content__container__list__item">Code!</li>
-                                <li className="content__container__list__item">User!</li>
-                                <li className="content__container__list__item">Everybody!</li>
+                                <li>World!</li>
+                                <li>Code!</li>
+                                <li>User!</li>
+                                <li>Everybody!</li>
                             </ContentList>
                         </ContentContainer>
                         <MessageWrap>

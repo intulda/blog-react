@@ -89,7 +89,7 @@ const SideMenu = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link href="#">
+                        <Link href="./project">
                             <a onClick={onMoveHandler}>
                                 <BsChevronLeft/>
                                 Project

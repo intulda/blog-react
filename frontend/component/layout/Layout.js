@@ -7,7 +7,6 @@ import {useSelector} from "react-redux";
 import FolderModal from "../common/FolderModal";
 import Login from "../login/Login";
 import Toast from "../common/Toast";
-import SideMenu from "../common/SideMenu";
 
 
 const LayoutWrap = styled.div`
@@ -15,14 +14,18 @@ const LayoutWrap = styled.div`
     width: 100%;
     min-height: 100%;
     transition: 0.5s ease-in-out;
-    background-color: rgba(243, 238, 239, 1);
-    color: black;
+    background-color: rgba(30, 30, 30, 1);
+    color: white;
     position: relative;
 `
 
 const MainContentWrap = styled.div`
     width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
     padding: 10px 20px;
+    position: relative;
+    overflow: hidden;
 `
 
 const Layout = ({children, search}) => {
@@ -37,7 +40,7 @@ const Layout = ({children, search}) => {
             <LayoutWrap>
                 <MainContentWrap>
                     <Header/>
-                    {search && <Search/>}
+                    {/*{search && <Search/>}*/}
                     {children}
                     {isToastMessageOpen && <Toast/>}
                 </MainContentWrap>

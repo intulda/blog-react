@@ -16,13 +16,19 @@ const ChangeAnimation = keyframes`
     83.3%,95.96% {transform:translate3d(0,-25%,0);}
 `;
 
+const LayoutChildrenWrap = styled.div`
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+`
+
 const Content = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     overflow:hidden;
-    font-size: 35px;
+    font-size: 2rem;
     line-height: 40px;
     color: #ecf0f1;
     
@@ -93,7 +99,7 @@ const Index = () => {
     return (
         <>
             <Layout search={true}>
-                <div>
+                <LayoutChildrenWrap>
                     <Content>
                         <ContentContainer className="content__container">
                             <ContentText>
@@ -108,13 +114,20 @@ const Index = () => {
                             </ContentList>
                         </ContentContainer>
                         <MessageWrap>
-                            I'm <PointSpan>BOGEUN.KIM</PointSpan>
+                            I'm <PointSpan>BoGeun.Kim</PointSpan>
                             <p>
-                                Mu Future is making better <PointSpan>CODE</PointSpan>
+                                My future is to make better <PointSpan>CODE</PointSpan>
                             </p>
                         </MessageWrap>
                     </Content>
-                </div>
+                </LayoutChildrenWrap>
+                <section>
+                    project
+                </section>
+                <section>
+                    github
+                    googleMail
+                </section>
             </Layout>
         </>
     )

@@ -61,6 +61,10 @@ const MenuList = styled.ul`
         cursor: pointer;
     }
     
+    & li:hover {
+        color: rgb(78, 161, 211);
+    }
+    
     & li>a {
         position: relative;
     }

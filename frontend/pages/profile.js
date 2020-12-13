@@ -552,7 +552,7 @@ const Profile = () => {
                     <NoBorderSubContentWrap>
                         <MyInformationWrap>
                             <div>
-                                개발자로의 첫 걸음
+                                성장하는 개발자
                             </div>
                             <div>
                                 <p>

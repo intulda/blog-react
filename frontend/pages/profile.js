@@ -18,12 +18,23 @@ const ProfileWrapAnimation = keyframes`
 const ProfileWrap = styled.div`
     width: 100%;
     animation: ${ProfileWrapAnimation} 0.9s;
+    padding: 80px 20px;
+    
+    &>h1 {
+        width: 100%;
+        position: relative;
+        padding: 0 15px 10px;
+        font-size: 40px;
+        font-weight: 700;
+        line-height: 1.4;
+    }
 `
 
 const PartWrap = styled.div`
     display: flex;
     width: 100%;
     margin-bottom: 25px;
+    padding: 0 15px 10px;
 `
 
 const TitleWrap = styled.div`
@@ -242,10 +253,8 @@ const Profile = () => {
 
     return (
         <Layout>
-            <PageTitle>
-                Profile
-            </PageTitle>
             <ProfileWrap>
+                <h1>Profile</h1>
                 <PartWrap>
                     <TitleWrap>
                         <Name>김보근</Name>

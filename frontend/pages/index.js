@@ -20,6 +20,7 @@ const LayoutChildrenWrap = styled.div`
     width: 100%;
     min-height: 100%;
     position: relative;
+    
 `
 
 const Content = styled.div`
@@ -126,7 +127,6 @@ const Index = () => {
                 </section>
                 <section>
                     github
-                    googleMail
                 </section>
             </Layout>
         </>

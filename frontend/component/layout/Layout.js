@@ -14,8 +14,8 @@ const LayoutWrap = styled.div`
     width: 100%;
     min-height: 100%;
     transition: 0.5s ease-in-out;
-    background-color: rgba(30, 30, 30, 1);
-    color: white;
+    background: #1B1D21;
+    color: #F2F3F6;
     position: relative;
 `
 

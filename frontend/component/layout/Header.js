@@ -18,11 +18,16 @@ const BorderAnimation = keyframes`
 
 const HeaderWrap = styled.div`
     width: 100%;
-    height: 50px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: inset 0 -1px white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0 24px;
+    background-color: #24272B;
+    z-index: 1001;
 `
 
 const CenterDiv = styled.div`
@@ -59,6 +64,11 @@ const MenuList = styled.ul`
     & li {
         padding-left: 20px;
         cursor: pointer;
+        color: #717174;
+    }
+    
+    & li:hover {
+        color: #B6B7B8;
     }
     
     & li>a {
@@ -110,7 +120,7 @@ const Header = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link href="#">
+                            <Link href="./project">
                                 <a>
                                     Project
                                 </a>

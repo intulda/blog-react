@@ -17,6 +17,8 @@ const ProfileWrapAnimation = keyframes`
 
 const ProfileWrap = styled.div`
     width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
     animation: ${ProfileWrapAnimation} 0.9s;
     padding: 80px 20px;
     

@@ -5,6 +5,7 @@ import {FOLDER_ADD_MODAL_CLOSE_ACTION} from "../../reducers/common";
 import {BsX} from "react-icons/bs";
 import {LOGIN_ACTION, LOGIN_FORM_CLOSE_ACTION} from "../../reducers/login";
 import customInput from "../hooks/customInput";
+import Toast from "../common/Toast";
 
 const ModalOpenAnimation = keyframes`
     0% {
@@ -155,8 +156,12 @@ const Login = () => {
 
     const onLoginHandler = useCallback((e) => {
         e.preventDefault();
-        if(id === '') return;
-        if(password === '') return;
+        if(id === '') {
+            return <Toast message="아이디 입력하셈."/>
+        }
+        if(password === '') {
+
+        }
         dispatch(LOGIN_ACTION());
     }, [id, password]);
 

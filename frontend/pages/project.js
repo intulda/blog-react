@@ -7,11 +7,9 @@ import Card from "../component/project/ProjectCard";
 import ProjectDetail from "../component/project/ProjectDetail";
 
 const ProjectSection = styled.section`
-    max-width: 1320px;
-    margin: 0 auto;
-    padding: 80px 20px 300px;
+    padding-top: 60px;
     
-    &>h1 {
+    &>div>h1 {
         width: 100%;
         position: relative;
         padding: 0 15px 10px;
@@ -20,11 +18,20 @@ const ProjectSection = styled.section`
         line-height: 1.4;
     }
 `
+const ProjectWrap = styled.div`
+    max-width: 1320px;
+    margin-top: 100px;
+    margin: 100px auto 0px;
+`
+
 const ProjectCardWrap = styled.ul`
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     width: 100%;
     
+    @media only screen and (min-width: 660px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
     @media only screen and (min-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -45,14 +52,14 @@ const Project = () => {
             <ProjectSection>
                 {
                     Object.entries(router.query).length === 0
-                        ? <>
+                        ? <ProjectWrap>
                             <h1>Project</h1>
                             <ProjectCardWrap>
                                 {data.map((obj, index) => {
                                     return <Card key={obj.id} data={obj} speed={index+1}/>
                                 })}
                             </ProjectCardWrap>
-                        </>
+                        </ProjectWrap>
                         : <ProjectDetail/>
                 }
             </ProjectSection>

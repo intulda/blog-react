@@ -4,6 +4,7 @@ const initialState = {
     backgroundSwitch: false,
     isSideOpen: false,
     isToastMessageOpen: false,
+    isDropdownMenuOpen: false,
     toastMessage: '',
     modal: {
         isOpen: false,
@@ -15,6 +16,18 @@ const initialState = {
                 link: 'board'
             },
         ]
+    }
+}
+
+export const DROPDOWN_MENU_ON_ACTION = () => {
+    return {
+        type: 'DROPDOWN_MENU_ON',
+    }
+}
+
+export const DROPDOWN_MENU_OFF_ACTION = () => {
+    return {
+        type: 'DROPDOWN_MENU_OFF'
     }
 }
 
@@ -143,6 +156,16 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isToastMessageOpen: false,
                 toastMessage: ''
+            }
+        case 'DROPDOWN_MENU_ON':
+            return {
+                ...state,
+                isDropdownMenuOpen: true,
+            }
+        case 'DROPDOWN_MENU_OFF':
+            return {
+                ...state,
+                isDropdownMenuOpen: false,
             }
         default :
             return state;

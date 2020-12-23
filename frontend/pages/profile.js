@@ -17,18 +17,15 @@ const ProfileWrapAnimation = keyframes`
 
 const ProfileWrap = styled.div`
     width: 100%;
-<<<<<<< HEAD
-    animation: ${ProfileWrapAnimation} 0.9s;
-=======
     max-width: 1320px;
     margin: 0 auto;
->>>>>>> feature/project
-    padding: 80px 20px;
+    padding: 60px 20px;
     
     &>h1 {
         width: 100%;
         position: relative;
-        padding: 0 15px 10px;
+        padding-bottom: 10px;
+        margin-top: 100px;
         font-size: 40px;
         font-weight: 700;
         line-height: 1.4;
@@ -39,11 +36,8 @@ const PartWrap = styled.div`
     display: flex;
     width: 100%;
     margin-bottom: 25px;
-    padding: 0 15px 10px;
-<<<<<<< HEAD
-=======
+    // padding: 0 15px 10px;
     animation: ${ProfileWrapAnimation} ${props => `0.${props.speed}s`};
->>>>>>> feature/project
 `
 
 const TitleWrap = styled.div`
@@ -99,6 +93,7 @@ const SubContentWrap = styled.div`
     
     &>div {
         font-size: 0.8rem;
+        line-height: 1.5;
     }
     
     &>div>p:nth-child(1) {
@@ -126,6 +121,7 @@ const NoBorderSubContentWrap = styled.div`
     
     &>div {
         font-size: 0.8rem;
+        line-height: 1.5;
     }
     
     &>div>p:nth-child(1) {
@@ -321,19 +317,6 @@ const Profile = () => {
                     </SubContentWrap>
                 </PartWrap>
                 <PartWrap speed={4}>
-                    <SubTitleWrap>
-                        <Title>자격사항</Title>
-                    </SubTitleWrap>
-                    <SubContentWrap>
-                        <ul>
-                            <ContentList>
-                                <p>2011</p>
-                                <p>한식조리자격증</p>
-                            </ContentList>
-                        </ul>
-                    </SubContentWrap>
-                </PartWrap>
-                <PartWrap speed={5}>
                     <SubTitleWrap>
                         <Title>병역사항</Title>
                     </SubTitleWrap>

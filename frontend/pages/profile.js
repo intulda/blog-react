@@ -19,7 +19,6 @@ const ProfileWrap = styled.div`
     width: 100%;
     max-width: 1320px;
     margin: 0 auto;
-    animation: ${ProfileWrapAnimation} 0.9s;
     padding: 80px 20px;
     
     &>h1 {
@@ -37,6 +36,7 @@ const PartWrap = styled.div`
     width: 100%;
     margin-bottom: 25px;
     padding: 0 15px 10px;
+    animation: ${ProfileWrapAnimation} ${props => `0.${props.speed}s`};
 `
 
 const TitleWrap = styled.div`
@@ -257,7 +257,7 @@ const Profile = () => {
         <Layout>
             <ProfileWrap>
                 <h1>Profile</h1>
-                <PartWrap>
+                <PartWrap speed={1}>
                     <TitleWrap>
                         <Name>김보근</Name>
                         <SubName>Bogeun Kim</SubName>
@@ -283,7 +283,7 @@ const Profile = () => {
                         </ul>
                     </ContentWrap>
                 </PartWrap>
-                <PartWrap>
+                <PartWrap speed={2}>
                     <SubTitleWrap>
                         <Title>학력사항</Title>
                     </SubTitleWrap>
@@ -300,7 +300,7 @@ const Profile = () => {
                         </ul>
                     </SubContentWrap>
                 </PartWrap>
-                <PartWrap>
+                <PartWrap speed={3}>
                     <SubTitleWrap>
                         <Title>경력사항</Title>
                     </SubTitleWrap>
@@ -313,7 +313,7 @@ const Profile = () => {
                         </ul>
                     </SubContentWrap>
                 </PartWrap>
-                <PartWrap>
+                <PartWrap speed={4}>
                     <SubTitleWrap>
                         <Title>자격사항</Title>
                     </SubTitleWrap>
@@ -326,7 +326,7 @@ const Profile = () => {
                         </ul>
                     </SubContentWrap>
                 </PartWrap>
-                <PartWrap>
+                <PartWrap speed={5}>
                     <SubTitleWrap>
                         <Title>병역사항</Title>
                     </SubTitleWrap>
@@ -339,7 +339,7 @@ const Profile = () => {
                         </ul>
                     </SubContentWrap>
                 </PartWrap>
-                <PartWrap>
+                <PartWrap speed={6}>
                     <SubTitleWrap>
                         <Title>주요 기술<br/><span style={{color: `#4ea1d3`, fontSize: `13px`}}>[관심분야]</span></Title>
                     </SubTitleWrap>
@@ -416,7 +416,7 @@ const Profile = () => {
                         </ul>
                     </ContentWrap>
                 </PartWrap>
-                <PartWrap>
+                <PartWrap speed={8}>
                     <NoBorderSubTitleWrap>
                     </NoBorderSubTitleWrap>
                     <NoBorderSubContentWrap>
@@ -444,7 +444,7 @@ const Profile = () => {
                         </ul>
                     </NoBorderSubContentWrap>
                 </PartWrap>
-                <PartWrap>
+                <PartWrap speed={9}>
                     <NoBorderSubTitleWrap>
                     </NoBorderSubTitleWrap>
                     <NoBorderSubContentWrap>
@@ -478,7 +478,7 @@ const Profile = () => {
                         </ul>
                     </NoBorderSubContentWrap>
                 </PartWrap>
-                <PartWrap>
+                <PartWrap speed={10}>
                     <NoBorderSubTitleWrap>
                     </NoBorderSubTitleWrap>
                     <NoBorderSubContentWrap>
@@ -511,7 +511,7 @@ const Profile = () => {
                         </ul>
                     </NoBorderSubContentWrap>
                 </PartWrap>
-                <PartWrap>
+                <PartWrap speed={11}>
                     <NoBorderSubTitleWrap>
                     </NoBorderSubTitleWrap>
                     <NoBorderSubContentWrap>
@@ -539,7 +539,7 @@ const Profile = () => {
                         </ul>
                     </NoBorderSubContentWrap>
                 </PartWrap>
-                <PartWrap>
+                <PartWrap speed={12}>
                     <TitleWrap>
                         <Title>자기소개</Title>
                     </TitleWrap>
@@ -556,7 +556,7 @@ const Profile = () => {
                         </MyInformationWrap>
                     </ContentWrap>
                 </PartWrap>
-                <PartWrap>
+                <PartWrap speed={13}>
                     <NoBorderSubTitleWrap>
                         <Title>성격과 강점</Title>
                     </NoBorderSubTitleWrap>
@@ -575,7 +575,7 @@ const Profile = () => {
                         </MyInformationWrap>
                     </NoBorderSubContentWrap>
                 </PartWrap>
-                <PartWrap>
+                <PartWrap speed={14}>
                     <NoBorderSubTitleWrap>
                         <Title>입사후 포부</Title>
                     </NoBorderSubTitleWrap>

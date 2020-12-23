@@ -4,8 +4,11 @@ import styled from 'styled-components';
 import {useSelector} from "react-redux";
 import {useRouter} from'next/router';
 import Card from "../component/project/ProjectCard";
+import ProjectDetail from "../component/project/ProjectDetail";
 
 const ProjectSection = styled.section`
+    max-width: 1320px;
+    margin: 0 auto;
     padding: 80px 20px 300px;
     
     &>h1 {
@@ -40,16 +43,18 @@ const Project = () => {
     return (
         <Layout>
             <ProjectSection>
-                <h1>Project</h1>
-                <ProjectCardWrap>
                 {
                     Object.entries(router.query).length === 0
-                        ? data.map((obj, index) => {
-                            return <Card key={obj.id} data={obj} speed={index+1}/>
-                        })
-                        : <div>{router.query.id}</div>
+                        ? <>
+                            <h1>Project</h1>
+                            <ProjectCardWrap>
+                                {data.map((obj, index) => {
+                                    return <Card key={obj.id} data={obj} speed={index+1}/>
+                                })}
+                            </ProjectCardWrap>
+                        </>
+                        : <ProjectDetail/>
                 }
-                </ProjectCardWrap>
             </ProjectSection>
         </Layout>
     )

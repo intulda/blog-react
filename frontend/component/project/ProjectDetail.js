@@ -1,5 +1,4 @@
 import React from 'react';
-import Slider from "react-slick";
 import styled, {keyframes, css} from 'styled-components';
 import TiclyIntro from '../../resource/images/img_ticly_main.png';
 import content1 from '../../resource/images/ticly_content/1.png';
@@ -64,7 +63,7 @@ const IntroTitle = styled.h1`
     position: relative;
     font-weight: 700;
     width: 100%;
-    font-size: 52px;
+    font-size: 45px;
     letter-spacing: -0.5px;
     background-repeat: no-repeat;
     transition: background-size 0.4s;
@@ -162,6 +161,10 @@ const SubTitle = styled.h1`
             content: 'Part ${props.number}_';
         }`
     }
+    
+    @media only screen and (max-width: 768px) {
+        font-size: 1.5rem;
+    }
 `
 
 const Role__ListWrap = styled.ul`
@@ -195,9 +198,9 @@ const ChainCardContent = styled.li`
     min-height: 180px;
     position: relative;
     margin: 10px;
-    border: 1px solid white;
     border-radius: 6px;
     overflow: hidden;
+    box-shadow: 0px 0px 20px 1px #0000008c;
     
     ${props => props.index
         && `&:before {

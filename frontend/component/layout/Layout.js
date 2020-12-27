@@ -8,7 +8,6 @@ import FolderModal from "../common/FolderModal";
 import Login from "../login/Login";
 import Toast from "../common/Toast";
 
-
 const LayoutWrap = styled.div`
     display: flex;
     width: 100%;
@@ -22,7 +21,6 @@ const LayoutWrap = styled.div`
 const MainContentWrap = styled.div`
     width: 100%;
     margin: 0 auto;
-    padding: 10px 20px;
     position: relative;
     overflow: hidden;
 `

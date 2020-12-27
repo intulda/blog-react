@@ -6,16 +6,6 @@ import {useDispatch, useSelector} from "react-redux";
 import SideMenu from "../common/SideMenu";
 import {SIDE_ClOSE_ACTION, SIDE_OPEN_ACTION} from "../../reducers/common";
 
-const BorderAnimation = keyframes`
-    0% {
-        width: 0%;
-    }
-    
-    100% {
-        width: 100%;
-    }
-`
-
 const HeaderWrap = styled.div`
     width: 100%;
     height: 60px;
@@ -27,6 +17,7 @@ const HeaderWrap = styled.div`
     left: 0;
     padding: 0 24px;
     background-color: #24272B;
+    color: #F2F3F6;
     z-index: 1001;
 `
 

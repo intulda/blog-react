@@ -35,7 +35,7 @@ const PartWrap = styled.div`
     display: flex;
     width: 100%;
     margin-bottom: 25px;
-    padding: 0 15px 10px;
+    // padding: 0 15px 10px;
     animation: ${ProfileWrapAnimation} ${props => `0.${props.speed}s`};
 `
 
@@ -92,6 +92,7 @@ const SubContentWrap = styled.div`
     
     &>div {
         font-size: 0.8rem;
+        line-height: 1.5;
     }
     
     &>div>p:nth-child(1) {
@@ -119,6 +120,7 @@ const NoBorderSubContentWrap = styled.div`
     
     &>div {
         font-size: 0.8rem;
+        line-height: 1.5;
     }
     
     &>div>p:nth-child(1) {

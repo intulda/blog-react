@@ -19,12 +19,13 @@ const ProfileWrap = styled.div`
     width: 100%;
     max-width: 1320px;
     margin: 0 auto;
-    padding: 80px 20px;
+    padding: 60px 20px;
     
     &>h1 {
         width: 100%;
         position: relative;
-        padding: 0 15px 10px;
+        padding-bottom: 10px;
+        margin-top: 100px;
         font-size: 40px;
         font-weight: 700;
         line-height: 1.4;
@@ -316,19 +317,6 @@ const Profile = () => {
                     </SubContentWrap>
                 </PartWrap>
                 <PartWrap speed={4}>
-                    <SubTitleWrap>
-                        <Title>자격사항</Title>
-                    </SubTitleWrap>
-                    <SubContentWrap>
-                        <ul>
-                            <ContentList>
-                                <p>2011</p>
-                                <p>한식조리자격증</p>
-                            </ContentList>
-                        </ul>
-                    </SubContentWrap>
-                </PartWrap>
-                <PartWrap speed={5}>
                     <SubTitleWrap>
                         <Title>병역사항</Title>
                     </SubTitleWrap>

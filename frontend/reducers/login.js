@@ -3,6 +3,7 @@ const initialState = {
     isLoginModalOpen: false,
     user : {
         nickname: '김코몽',
+        profile_image: null,
     }
 }
 

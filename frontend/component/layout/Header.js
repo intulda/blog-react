@@ -4,7 +4,14 @@ import {BsChevronLeft, BsJustifyRight} from "react-icons/bs";
 import Link from "next/link";
 import {useDispatch, useSelector} from "react-redux";
 import SideMenu from "../common/SideMenu";
-import {SIDE_ClOSE_ACTION, SIDE_OPEN_ACTION} from "../../reducers/common";
+import {
+    DROPDOWN_MENU_OFF_ACTION,
+    DROPDOWN_MENU_ON_ACTION,
+    SIDE_ClOSE_ACTION,
+    SIDE_OPEN_ACTION
+} from "../../reducers/common";
+import {LOGIN_FORM_OPEN_ACTION, LOGOUT_ACTION} from "../../reducers/login";
+import DropdownProfile from "./DropdownProfile";
 
 const HeaderWrap = styled.div`
     width: 100%;
@@ -32,43 +39,66 @@ const CurrentPageTitle = styled.span`
     font-weight: bold;
 `
 
-const MenuButton = styled(BsJustifyRight)`
-    display: none;
-    font-size: 1.5rem;
+const HamburgerMenuWrap = styled.div`
+    width: 30px;
+    height: 20px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    z-index: 12;
     cursor: pointer;
-    position: relative;
+      
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background-color: white;
+        transition: transform 0.3s ease-out;
+    }
     
-    @media only screen and (max-width: 768px) {
-        & {
-            display: block;
-            position: absolute;
-            top: 25px;
-            right: 20px;
-            z-index: 10;
+    & .hamburger__middle {
+        position: absolute;
+        top: 8px;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background-color: white;
+        transition: all 0.3s ease-out;
+    }
+    
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background-color: white;
+        transition: transform 0.3s ease-out;
+    }
+    
+    &.hamburger__close {
+        &:before {
+          transform: rotate(45deg) translateY(0px);
+          top: 8px;
+          width: 30px;
+          background: #fff;
         }
-    }
-`
-
-const MenuList = styled.ul`
-    display: flex;
-    font-size: 1.1rem;
-    & li {
-        padding-left: 20px;
-        cursor: pointer;
-        color: #717174;
-    }
     
-    & li:hover {
-        color: #B6B7B8;
-    }
+        &.hamburger__close .hamburger__middle {
+          opacity: 0;
+          transform: scaleX(0);
+          background: #fff;
+        }
     
-    & li>a {
-        position: relative;
-    }
-    
-    @media only screen and (max-width: 768px) {
-        & {
-            display: none;
+        &:after {
+          transform: rotate(-45deg) translateY(1px);
+          bottom: 8px;
+          background: #fff;
+          width: 30px;
         }
     }
 `
@@ -76,7 +106,8 @@ const MenuList = styled.ul`
 const Header = () => {
     const {currentPageTitle, isPrevAction, isSideOpen} = useSelector((state) => state.common);
     const dispatch = useDispatch();
-    const onMenuHandler = useCallback(() => {
+
+    const onMenuOpenHandler = useCallback(() => {
         if(!isSideOpen) {
             dispatch(SIDE_OPEN_ACTION());
             return;
@@ -100,38 +131,15 @@ const Header = () => {
                         </a>
                     </Link>
                 </CurrentPageTitle>
-                    <MenuButton onClick={onMenuHandler}/>
+                <div>
+                    <HamburgerMenuWrap onClick={onMenuOpenHandler} className={isSideOpen && `hamburger__close`}>
+                        <div className="hamburger__middle"></div>
+                    </HamburgerMenuWrap>
                     <SideMenu/>
-                    <MenuList>
-                        <li>
-                            <Link href="./profile">
-                                <a>
-                                    Profile
-                                </a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="./project">
-                                <a>
-                                    Project
-                                </a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="#">
-                                <a>
-                                    Free
-                                </a>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="#">
-                                <a>
-                                    Study
-                                </a>
-                            </Link>
-                        </li>
-                    </MenuList>
+                </div>
+                <div>
+                    <DropdownProfile/>
+                </div>
             </CenterDiv>
         </HeaderWrap>
     )

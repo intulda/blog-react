@@ -43,7 +43,7 @@ const ToastWrap = styled.div`
 `
 
 
-const Toast = () => {
+const Toast = ({message}) => {
 
 
     const {isToastMessageOpen, toastMessage} = useSelector(state => state.common);
@@ -55,7 +55,7 @@ const Toast = () => {
                 dispatch(TOAST_CLOSE_ACTION());
             }, 2000);
         }
-    }, [isToastMessageOpen]);
+    }, [message]);
 
 
     return (

@@ -1,56 +1,113 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import styled, {keyframes, css} from 'styled-components';
 import Link from "next/link";
-import {BsChevronLeft} from "react-icons/bs";
+import {AiFillGithub} from "react-icons/ai";
 import {useDispatch, useSelector} from "react-redux";
 import {SIDE_ClOSE_ACTION} from "../../reducers/common";
 
-const listAnimation = keyframes`
+const SideMenuAni = keyframes`
     0% {
-        transform: translateX(0px);
-    }
-    
-    50% {
-        transform: translateX(-10px);
+        min-height: 0vh;
+        transform: translateY(-100%) skew(0deg, 2deg);
     }
     
     100% {
-        transform: translateX(0px);
+        min-height: 100vh;
+        transform: translateY(0);
+    }
+`
+
+const SideMenuAniBack = keyframes`
+    0% {
+        min-height: 70vh;
+        transform: translateY(-100%);
+    }
+    
+    100% {
+        min-height: 100vh;
+        transform: translateY(0);
     }
 `
 
 const SideMenuContainer = styled.div`
-    display: none;
-    width: 80%;
-    min-height: 100vh;
+    width: 100%;
+    min-height: 0vh;
     position: absolute;
     top: 0;
     right: 0;
-    text-align: right;
-    background-color: rgb(1, 1, 1, 0.9);
-    z-index: 1;
+    text-align: left;
+    background-color: orange;
+    z-index: 11;
     transition: 0.6s;
-    color: white;
+    color: white;    
+    transform-origin: bottom right;
+    transform: skew(0deg, 2deg); 
+    transition: cubic-bezier(0.61,-0.08, 1, 1) 0.6s;
     
-    @media only screen and (max-width: 768px) {
-        & {
-            display: block;
-        }
+    ${props => props.active ?
+        css`
+            transition: 0.6s 0.4s;
+            transform: translateY(0%) skew(0deg, 0deg);
+            min-height: 100vh; 
+        ` :
+        css`
+            transform: translateY(-100%) skew(0deg, 2deg);
+            min-height: 0vh; 
+        `
+    }
+
+    &>h1 {
+        width: calc(100% - 80px);
+        position: absolute;
+        top: 70px;
+        left: 40px;
+        font-size: 4rem;
+        font-weight: bold;
+        padding: 20px 0;
+        border-bottom: 2px solid white;
     }
     
-    ${props => 
-        props.active
-            ? css`transform: translateX(0);`
-            : css`transform: translateX(100%);`
+    @media only screen and (max-width: 768px) {
+        &>h1 {
+            font-size: 2rem;
+            border-bottom: 1px solid white;
+        }
+    }
+`
+
+const Background = styled.div`
+    width: 100%;
+    min-height: 0vh;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: left;
+    background-color: white;
+    z-index: 10;
+    transition: cubic-bezier(0.61,-0.08, 1, 1) 0.6s;
+    color: white;      
+    
+    ${props => props.active ?
+    css`
+            min-height: 100vh;
+            transform: translateY(0%);
+        ` :
+    css`
+            transition: 0.6s 0.4s;
+            transform: translateY(-100%);
+            min-height: 0vh; 
+        `
     }
 `
 
 const SideMenuWrap = styled.ul`
-    font-size: 2rem;
-    padding: 150px 20px 0 20px;
+    font-size: 3rem;
+    padding: 200px 20px;
     
     & li {
-        padding-bottom: 25px;
+        margin: 20px;
+        padding-bottom: 20px;
+        font-weight: bold;
     }
     
     & li > a {
@@ -60,10 +117,29 @@ const SideMenuWrap = styled.ul`
     }
     
     & li:hover {
-        color: #4ea1d3;
-        animation: ${listAnimation} 1s infinite;
+        color: #1B1D21;
+    }
+    
+    @media only screen and (max-width: 768px) {
+        & {
+            font-size: 2rem;
+            padding: 160px 20px;
+        }
     }
 `
+
+const SideMenuEtcWrap = styled.ul`
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    padding: 20px 40px;
+    font-size: 3rem;
+    &>li {
+        margin-right: 10px;
+        cursor: pointer;
+    }
+`
+
 
 
 const SideMenu = () => {
@@ -79,11 +155,11 @@ const SideMenu = () => {
     return (
         <>
             <SideMenuContainer active={isSideOpen}>
+                <h1>Menu</h1>
                 <SideMenuWrap>
                     <li>
                         <Link href="./profile">
                             <a onClick={onMoveHandler}>
-                                <BsChevronLeft/>
                                 Profile
                             </a>
                         </Link>
@@ -91,29 +167,28 @@ const SideMenu = () => {
                     <li>
                         <Link href="./project">
                             <a onClick={onMoveHandler}>
-                                <BsChevronLeft/>
                                 Project
                             </a>
                         </Link>
                     </li>
                     <li>
-                        <Link href="#">
+                        <Link href="./post">
                             <a onClick={onMoveHandler}>
-                                <BsChevronLeft/>
-                                Free
-                            </a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="#">
-                            <a onClick={onMoveHandler}>
-                                <BsChevronLeft/>
-                                Study
+                                Blog
                             </a>
                         </Link>
                     </li>
                 </SideMenuWrap>
+                <SideMenuEtcWrap className="SideMenu__etc-wrap">
+                    <li>
+                        <Link href="www.naver.com" target="_blank">
+                            <a>
+                                <AiFillGithub/>
+                            </a>
+                        </Link></li>
+                </SideMenuEtcWrap>
             </SideMenuContainer>
+            <Background active={isSideOpen}/>
         </>
     )
 }

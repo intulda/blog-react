@@ -29,6 +29,9 @@ const ProjectCardWrap = styled.ul`
     grid-template-columns: repeat(1, 1fr);
     width: 100%;
     
+    @media only screen and (min-width: 660px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
     @media only screen and (min-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
     }

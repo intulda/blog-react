@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import Header from './Header';
 import Search from "./Search";
 import styled, {keyframes} from 'styled-components';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import FolderModal from "../common/FolderModal";
 import Login from "../login/Login";
 import Toast from "../common/Toast";
+import {DROPDOWN_MENU_OFF_ACTION} from "../../reducers/common";
+import DropdownProfile from "./DropdownProfile";
 
 const LayoutWrap = styled.div`
     display: flex;
@@ -37,7 +39,6 @@ const Layout = ({children, search}) => {
             <LayoutWrap>
                 <MainContentWrap>
                     <Header/>
-                    {/*{search && <Search/>}*/}
                     {children}
                     {isToastMessageOpen && <Toast/>}
                 </MainContentWrap>

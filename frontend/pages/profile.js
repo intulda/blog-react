@@ -69,8 +69,12 @@ const Title = styled.p`
     font-weight: bold;
     margin-bottom: 5px;
     text-align: center;
+    
+    & span {
+        color: 4ea1d3,
+        font-size: 13px;
+    }
 `
-
 
 const SubName = styled.p`
     font-size: 0.8rem;
@@ -331,7 +335,13 @@ const Profile = () => {
                 </PartWrap>
                 <PartWrap speed={6}>
                     <SubTitleWrap>
-                        <Title>주요 기술<br/><span style={{color: `#4ea1d3`, fontSize: `13px`}}>[관심분야]</span></Title>
+                        <Title>
+                            주요 기술
+                            <br/>
+                            <span>
+                                [관심분야]
+                            </span>
+                        </Title>
                     </SubTitleWrap>
                     <SubContentWrap>
                         <div>

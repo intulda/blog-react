@@ -37,6 +37,9 @@ const CenterDiv = styled.div`
 
 const CurrentPageTitle = styled.span`
     font-weight: bold;
+    &>a {
+        color: white !important;
+    }
 `
 
 const HamburgerMenuWrap = styled.div`
@@ -104,7 +107,7 @@ const HamburgerMenuWrap = styled.div`
 `
 
 const Header = () => {
-    const {currentPageTitle, isPrevAction, isSideOpen} = useSelector((state) => state.common);
+    const {currentPageTitle, isSideOpen} = useSelector((state) => state.common);
     const dispatch = useDispatch();
 
     const onMenuOpenHandler = useCallback(() => {
@@ -119,12 +122,6 @@ const Header = () => {
         <HeaderWrap>
             <CenterDiv>
                 <CurrentPageTitle>
-                    {
-                        isPrevAction
-                        && <Link href="/">
-                            <a style={{marginRight: `5px`}}><BsChevronLeft/></a>
-                        </Link>
-                    }
                     <Link href="/">
                         <a>
                             {currentPageTitle}

@@ -26,6 +26,7 @@ const ProfileContainer = styled.a`
     display: flex; 
     alignItems: center; 
     position: relative;
+    color: white !important;
 `
 
 const DropdownMenuWrap = styled.ul`
@@ -121,7 +122,7 @@ const DropdownProfile = () => {
         <>
         {
             isLoggedIn ?
-                    <ProfileContainer href="javascript:void(0)">
+                    <ProfileContainer href="#!">
                         <img src={null} onError={onErrorHandler}/>
                         <ProfileWrap onClick={onDropDownHandler} ref={refWrapper}>
                             {user.nickname[0]}
@@ -131,7 +132,7 @@ const DropdownProfile = () => {
                         </ProfileWrap>
                     </ProfileContainer>
                 :
-                    <ProfileContainer href="javascript:void(0)">
+                    <ProfileContainer href="#!">
                         <ProfileWrap onClick={onDropDownHandler} ref={refWrapper}>
                             Gu
                             <DropdownMenuWrap className={isDropdownMenuOpen && `active`} >

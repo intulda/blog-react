@@ -4,6 +4,7 @@ const initialState = {
     user : {
         nickname: '김코몽',
         profile_image: null,
+        authentication: 'guest'
     }
 }
 
@@ -48,11 +49,19 @@ const reducer = ((state = initialState, action) => {
                 ...state,
                 isLoginModalOpen: false,
                 isLoggedIn: true,
+                user: {
+                    ...state.user,
+                    authentication: 'admin',
+                }
             }
         case 'LOGOUT':
             return {
                 ...state,
                 isLoggedIn: false,
+                user: {
+                    ...state.user,
+                    authentication: 'guest',
+                }
             }
         default:
             return state;

@@ -2,6 +2,7 @@ import { HYDRATE } from "next-redux-wrapper";
 import {combineReducers} from "redux";
 import common from './common';
 import login from './login';
+import post from './post';
 import project from './project';
 
 const rootReducer = combineReducers({
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     },
     common,
     login,
-    project
+    project,
+    post,
 });
 
 export default rootReducer;

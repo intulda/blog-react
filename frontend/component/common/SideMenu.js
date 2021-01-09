@@ -114,6 +114,7 @@ const SideMenuWrap = styled.ul`
         display:flex;
         align-items: center;
         justify-content: space-between;
+        color: white !important;
     }
     
     & li:hover {
@@ -134,9 +135,14 @@ const SideMenuEtcWrap = styled.ul`
     display: flex;
     padding: 20px 40px;
     font-size: 3rem;
+    
     &>li {
         margin-right: 10px;
         cursor: pointer;
+    }
+    
+    &>li a {
+        color: white !important;
     }
 `
 
@@ -158,21 +164,21 @@ const SideMenu = () => {
                 <h1>Menu</h1>
                 <SideMenuWrap>
                     <li>
-                        <Link href="./profile">
+                        <Link href="/profile">
                             <a onClick={onMoveHandler}>
                                 Profile
                             </a>
                         </Link>
                     </li>
                     <li>
-                        <Link href="./project">
+                        <Link href="/project">
                             <a onClick={onMoveHandler}>
                                 Project
                             </a>
                         </Link>
                     </li>
                     <li>
-                        <Link href="./post">
+                        <Link href="/post">
                             <a onClick={onMoveHandler}>
                                 Blog
                             </a>

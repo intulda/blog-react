@@ -33,12 +33,9 @@ const PostContentWrap = styled.div`
         background-color: #257FF9;
         border-radius: 5px;
         position: relative;
+        margin-right: 5px;
     }
     
-    &>p:before {
-        content: '#';
-        margin-right: 2px;
-    }
     &>p:after {
         content: '';
         position: absolute;
@@ -65,12 +62,16 @@ const PostCard = (props) => {
                 <p>{props.data.author}</p>
             </PostContentAuthor>
             <PostContentWrap>
-                <p>{props.data.category}</p>
+                {
+                    props.data.tags.map((v, index) => {
+                        return <p key={index}>{v}</p>
+                    })
+                }
             </PostContentWrap>
             <PostContentWrap>
                 <h1>{props.data.title}</h1>
                 <div>
-                    <PostContent>{props.data.content}</PostContent>
+                    <PostContent>{props.data.description}</PostContent>
                 </div>
             </PostContentWrap>
         </PostCardWrap>

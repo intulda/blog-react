@@ -16,8 +16,8 @@ const DefaultCss = createGlobalStyle`
         height: 100%;
     }
     a {
-        text-decoration:none;
-        color:inherit;
+        text-decoration: none !important;
+        color: inherit;
     };
     #__next {
         height: 100%;

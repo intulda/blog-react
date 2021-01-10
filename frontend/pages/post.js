@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import PostList from "../component/post/PostList";
 
 export const PostWrap = styled.div`
-    max-width: 1320px;
+    max-width: 1100px;
     margin: 100px auto 0;
     padding: 60px 15px 0;
     

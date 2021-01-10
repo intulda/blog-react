@@ -19,7 +19,7 @@ const ProjectSection = styled.section`
     }
 `
 const ProjectWrap = styled.div`
-    max-width: 1320px;
+    max-width: 1100px;
     margin-top: 100px;
     margin: 100px auto 0px;
 `

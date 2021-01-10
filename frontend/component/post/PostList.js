@@ -10,6 +10,10 @@ const PostCardSection = styled.ul`
     width: 65%;  
     float: left;
     margin-bottom: 30px;
+    
+    &>li {
+        cursor: pointer;
+    }
   
     @media only screen and (max-width: 600px) {
         width: 100%;      
@@ -25,6 +29,11 @@ const PostList = () => {
     const onWriteHandler = useCallback(() => {
         dispatch(POST_WRITE_ACTION());
     }, []);
+
+    const onClickDetailHandler = useCallback(() => {
+
+    }, []);
+
     return (
         <>
             <h1>
@@ -44,7 +53,11 @@ const PostList = () => {
                         post.posts.map((v, index) => {
                             return (
                                 <li>
-                                    <PostCard key={v.postSeq} data={v}/>
+                                    <Link href={`/post/detail?post=${v.postSeq}`}>
+                                        <a>
+                                            <PostCard key={v.postSeq} data={v}/>
+                                        </a>
+                                    </Link>
                                 </li>
                             )
                         })

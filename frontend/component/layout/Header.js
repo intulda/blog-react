@@ -1,17 +1,10 @@
-import React, {useCallback, useState} from 'react';
-import styled, {keyframes, css} from 'styled-components';
-import {BsChevronLeft, BsJustifyRight} from "react-icons/bs";
-import Link from "next/link";
-import {useDispatch, useSelector} from "react-redux";
-import SideMenu from "../common/SideMenu";
-import {
-    DROPDOWN_MENU_OFF_ACTION,
-    DROPDOWN_MENU_ON_ACTION,
-    SIDE_ClOSE_ACTION,
-    SIDE_OPEN_ACTION
-} from "../../reducers/common";
-import {LOGIN_FORM_OPEN_ACTION, LOGOUT_ACTION} from "../../reducers/login";
-import DropdownProfile from "./DropdownProfile";
+import React, { useCallback } from 'react';
+import styled from 'styled-components';
+import Link from 'next/link';
+import { useDispatch, useSelector } from 'react-redux';
+import SideMenu from '../common/SideMenu';
+import { SIDE_ClOSE_ACTION, SIDE_OPEN_ACTION } from '../../reducers/common';
+import DropdownProfile from './DropdownProfile';
 
 const HeaderWrap = styled.div`
     width: 100%;
@@ -26,21 +19,21 @@ const HeaderWrap = styled.div`
     background-color: #24272B;
     color: #F2F3F6;
     z-index: 1001;
-`
+`;
 
 const CenterDiv = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-`
+`;
 
 const CurrentPageTitle = styled.span`
     font-weight: bold;
     &>a {
         color: white !important;
     }
-`
+`;
 
 const HamburgerMenuWrap = styled.div`
     width: 30px;
@@ -104,42 +97,42 @@ const HamburgerMenuWrap = styled.div`
           width: 30px;
         }
     }
-`
+`;
 
 const Header = () => {
-    const {currentPageTitle, isSideOpen} = useSelector((state) => state.common);
-    const dispatch = useDispatch();
+  const { currentPageTitle, isSideOpen } = useSelector((state) => state.common);
+  const dispatch = useDispatch();
 
-    const onMenuOpenHandler = useCallback(() => {
-        if(!isSideOpen) {
-            dispatch(SIDE_OPEN_ACTION());
-            return;
-        }
-        dispatch(SIDE_ClOSE_ACTION());
-    }, [isSideOpen]);
+  const onMenuOpenHandler = useCallback(() => {
+    if (!isSideOpen) {
+      dispatch(SIDE_OPEN_ACTION());
+      return;
+    }
+    dispatch(SIDE_ClOSE_ACTION());
+  }, [isSideOpen]);
 
-    return (
-        <HeaderWrap>
-            <CenterDiv>
-                <CurrentPageTitle>
-                    <Link href="/">
-                        <a>
-                            {currentPageTitle}
-                        </a>
-                    </Link>
-                </CurrentPageTitle>
-                <div>
-                    <HamburgerMenuWrap onClick={onMenuOpenHandler} className={isSideOpen && `hamburger__close`}>
-                        <div className="hamburger__middle"></div>
-                    </HamburgerMenuWrap>
-                    <SideMenu/>
-                </div>
-                <div>
-                    <DropdownProfile/>
-                </div>
-            </CenterDiv>
-        </HeaderWrap>
-    )
-}
+  return (
+    <HeaderWrap>
+      <CenterDiv>
+        <CurrentPageTitle>
+          <Link href="/">
+            <a>
+              {currentPageTitle}
+            </a>
+          </Link>
+        </CurrentPageTitle>
+        <div>
+          <HamburgerMenuWrap onClick={onMenuOpenHandler} className={isSideOpen && 'hamburger__close'}>
+            <div className="hamburger__middle" />
+          </HamburgerMenuWrap>
+          <SideMenu />
+        </div>
+        <div>
+          <DropdownProfile />
+        </div>
+      </CenterDiv>
+    </HeaderWrap>
+  );
+};
 
 export default Header;

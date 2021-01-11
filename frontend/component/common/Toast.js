@@ -1,7 +1,7 @@
-import React, {useCallback, useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import styled, {keyframes} from 'styled-components';
-import {TOAST_CLOSE_ACTION} from "../../reducers/common";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled, { keyframes } from 'styled-components';
+import { TOAST_CLOSE_ACTION } from '../../reducers/common';
 
 const ToastAnimation = keyframes`
     0% {
@@ -23,7 +23,7 @@ const ToastAnimation = keyframes`
         opacity: 0;
         right: -100px;
     }
-`
+`;
 
 const ToastWrap = styled.div`
     max-width: 300px;
@@ -40,32 +40,27 @@ const ToastWrap = styled.div`
     opacity: 0;
     overflow: hidden;
     word-wrap: break-word;
-`
+`;
 
+const Toast = ({ message }) => {
+  const { isToastMessageOpen, toastMessage } = useSelector((state) => state.common);
+  const dispatch = useDispatch();
 
-const Toast = ({message}) => {
+  useEffect(() => {
+    if (isToastMessageOpen) {
+      setTimeout(() => {
+        dispatch(TOAST_CLOSE_ACTION());
+      }, 2000);
+    }
+  }, [message]);
 
-
-    const {isToastMessageOpen, toastMessage} = useSelector(state => state.common);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if(isToastMessageOpen) {
-            setTimeout(() => {
-                dispatch(TOAST_CLOSE_ACTION());
-            }, 2000);
-        }
-    }, [message]);
-
-
-    return (
-        <>
-            <ToastWrap>
-                <span>{toastMessage}</span>
-            </ToastWrap>
-        </>
-    )
-}
+  return (
+    <>
+      <ToastWrap>
+        <span>{toastMessage}</span>
+      </ToastWrap>
+    </>
+  );
+};
 
 export default Toast;
-

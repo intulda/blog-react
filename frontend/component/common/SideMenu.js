@@ -1,33 +1,9 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import styled, {keyframes, css} from 'styled-components';
-import Link from "next/link";
-import {AiFillGithub} from "react-icons/ai";
-import {useDispatch, useSelector} from "react-redux";
-import {SIDE_ClOSE_ACTION} from "../../reducers/common";
-
-const SideMenuAni = keyframes`
-    0% {
-        min-height: 0vh;
-        transform: translateY(-100%) skew(0deg, 2deg);
-    }
-    
-    100% {
-        min-height: 100vh;
-        transform: translateY(0);
-    }
-`
-
-const SideMenuAniBack = keyframes`
-    0% {
-        min-height: 70vh;
-        transform: translateY(-100%);
-    }
-    
-    100% {
-        min-height: 100vh;
-        transform: translateY(0);
-    }
-`
+import React, { useCallback, useState } from 'react';
+import styled, { keyframes, css } from 'styled-components';
+import Link from 'next/link';
+import { AiFillGithub } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { SIDE_ClOSE_ACTION } from '../../reducers/common';
 
 const SideMenuContainer = styled.div`
     width: 100%;
@@ -44,17 +20,17 @@ const SideMenuContainer = styled.div`
     transform: skew(0deg, 2deg); 
     transition: cubic-bezier(0.61,-0.08, 1, 1) 0.6s;
     
-    ${props => props.active ?
-        css`
+    ${(props) => (props.active
+    ? css`
             transition: 0.6s 0.4s;
             transform: translateY(0%) skew(0deg, 0deg);
             min-height: 100vh; 
-        ` :
-        css`
+        `
+    : css`
             transform: translateY(-100%) skew(0deg, 2deg);
             min-height: 0vh; 
-        `
-    }
+        `)
+}
 
     &>h1 {
         width: calc(100% - 80px);
@@ -73,7 +49,7 @@ const SideMenuContainer = styled.div`
             border-bottom: 1px solid white;
         }
     }
-`
+`;
 
 const Background = styled.div`
     width: 100%;
@@ -87,18 +63,18 @@ const Background = styled.div`
     transition: cubic-bezier(0.61,-0.08, 1, 1) 0.6s;
     color: white;      
     
-    ${props => props.active ?
-    css`
+    ${(props) => (props.active
+    ? css`
             min-height: 100vh;
             transform: translateY(0%);
-        ` :
-    css`
+        `
+    : css`
             transition: 0.6s 0.4s;
             transform: translateY(-100%);
             min-height: 0vh; 
-        `
-    }
-`
+        `)
+}
+`;
 
 const SideMenuWrap = styled.ul`
     font-size: 3rem;
@@ -127,7 +103,7 @@ const SideMenuWrap = styled.ul`
             padding: 160px 20px;
         }
     }
-`
+`;
 
 const SideMenuEtcWrap = styled.ul`
     position: absolute;
@@ -144,59 +120,56 @@ const SideMenuEtcWrap = styled.ul`
     &>li a {
         color: white !important;
     }
-`
-
-
+`;
 
 const SideMenu = () => {
+  const { isSideOpen } = useSelector((state) => state.common);
+  const dispatch = useDispatch();
 
-    const {isSideOpen} = useSelector(state => state.common);
-    const dispatch = useDispatch();
-    const [isDisplay, setIsDisplay] = useState('none');
+  const onMoveHandler = useCallback(() => {
+    dispatch(SIDE_ClOSE_ACTION());
+  }, []);
 
-    const onMoveHandler = useCallback((e) => {
-        dispatch(SIDE_ClOSE_ACTION());
-    }, []);
-
-    return (
-        <>
-            <SideMenuContainer active={isSideOpen}>
-                <h1>Menu</h1>
-                <SideMenuWrap>
-                    <li>
-                        <Link href="/profile">
-                            <a onClick={onMoveHandler}>
-                                Profile
-                            </a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/project">
-                            <a onClick={onMoveHandler}>
-                                Project
-                            </a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/post">
-                            <a onClick={onMoveHandler}>
-                                Blog
-                            </a>
-                        </Link>
-                    </li>
-                </SideMenuWrap>
-                <SideMenuEtcWrap className="SideMenu__etc-wrap">
-                    <li>
-                        <Link href="www.naver.com" target="_blank">
-                            <a>
-                                <AiFillGithub/>
-                            </a>
-                        </Link></li>
-                </SideMenuEtcWrap>
-            </SideMenuContainer>
-            <Background active={isSideOpen}/>
-        </>
-    )
-}
+  return (
+    <>
+      <SideMenuContainer active={isSideOpen}>
+        <h1>Menu</h1>
+        <SideMenuWrap>
+          <li>
+            <Link href="/profile">
+              <a onClick={onMoveHandler}>
+                Profile
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/project">
+              <a onClick={onMoveHandler}>
+                Project
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/post">
+              <a onClick={onMoveHandler}>
+                Blog
+              </a>
+            </Link>
+          </li>
+        </SideMenuWrap>
+        <SideMenuEtcWrap className="SideMenu__etc-wrap">
+          <li>
+            <Link href="www.naver.com" target="_blank">
+              <a>
+                <AiFillGithub />
+              </a>
+            </Link>
+          </li>
+        </SideMenuEtcWrap>
+      </SideMenuContainer>
+      <Background active={isSideOpen} />
+    </>
+  );
+};
 
 export default SideMenu;

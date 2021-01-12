@@ -3,7 +3,7 @@ import PostCard from "./PostCard";
 import Category from "./Category";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
-import {POST_WRITE_ACTION} from "../../reducers/post";
+import {ADD_POST_REQUEST_ACTION} from "../../reducers/post";
 import Link from "next/link";
 
 const PostCardSection = styled.ul`
@@ -24,15 +24,6 @@ const PostList = () => {
 
     const {user} = useSelector(state => state.login);
     const post = useSelector(state => state.post);
-    const dispatch = useDispatch();
-
-    const onWriteHandler = useCallback(() => {
-        dispatch(POST_WRITE_ACTION());
-    }, []);
-
-    const onClickDetailHandler = useCallback(() => {
-
-    }, []);
 
     return (
         <>

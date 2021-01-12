@@ -1,7 +1,7 @@
-import React, {useCallback, useRef, useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import styled, {keyframes} from 'styled-components';
-import {FOLDER_ADD_ACTION, FOLDER_ADD_MODAL_CLOSE_ACTION} from "../../reducers/common";
+import React, { useCallback, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled, { keyframes } from 'styled-components';
+import { FOLDER_ADD_ACTION, FOLDER_ADD_MODAL_CLOSE_ACTION } from '../../reducers/common';
 
 const ModalOpenAnimation = keyframes`
     0% {
@@ -14,7 +14,7 @@ const ModalOpenAnimation = keyframes`
         opacity: 1;
     }
 
-`
+`;
 
 const ModalContainer = styled.div`
     width: 100%;
@@ -39,7 +39,7 @@ const ModalContainer = styled.div`
         opacity: 0.5;
         z-index: 5;    
     }
-`
+`;
 
 const ModalWrap = styled.div`
     width: 250px;
@@ -50,13 +50,13 @@ const ModalWrap = styled.div`
     background-color: white;
     z-index: 10;
     animation: ${ModalOpenAnimation} 0.5s;
-`
+`;
 
 const ModalTop = styled.div`
     width: 100%;
     padding: 20px 20px 10px 20px;
     text-align: center;
-`
+`;
 
 const ModalContent = styled.div`
     width: 100%;
@@ -88,14 +88,14 @@ const ModalContent = styled.div`
         outline: none;
         padding: 0 10px;
     }
-`
+`;
 
 const ModalBottom = styled.div`
     display: flex;
     width: 100%;
     background-color: #eee;
     border-radius: 0 0 10px 10px;
-`
+`;
 
 const ChoiceButton = styled.button`
     width: 100%;
@@ -107,68 +107,68 @@ const ChoiceButton = styled.button`
     outline: none;
     cursor: pointer;
     border-radius: inherit;
-`
+`;
 
 const ConfirmLeft = styled(ChoiceButton)`
     border-radius: 0 0 0px 10px;
     border-right: 1px solid #ccc;
-`
+`;
 const ConfirmRight = styled(ChoiceButton)`
     border-radius: 0 0 10px 0px;
-`
+`;
 const AlertButton = styled(ChoiceButton)`
     border-radius: 0 0 10px 10px;
-`
+`;
 
 const FolderModal = () => {
+  const { modal } = useSelector((state) => state.common);
+  const dispatch = useDispatch();
 
-    const {modal} = useSelector(state => state.common);
-    const dispatch = useDispatch();
+  const inputElement = useRef(null);
 
-    const inputElement= useRef(null);
+  const onClickModalCloseHandler = useCallback(() => {
+    dispatch(FOLDER_ADD_MODAL_CLOSE_ACTION());
+  }, []);
 
-    const onClickModalCloseHandler = useCallback(() => {
-        dispatch(FOLDER_ADD_MODAL_CLOSE_ACTION());
-    }, [])
+  const onClickAddFolder = useCallback(() => {
+    dispatch(FOLDER_ADD_ACTION());
+  }, []);
 
-    const onClickAddFolder = useCallback(() => {
-        dispatch(FOLDER_ADD_ACTION());
-    }, []);
+  useEffect(() => {
+    inputElement.current.focus();
+  }, []);
 
-    useEffect(() => {
-        inputElement.current.focus();
-    }, [])
-
-    return (
-        <>
-            <ModalContainer>
-                <ModalWrap>
-                    <ModalTop>
-                        <div>새로운 폴더</div>
-                    </ModalTop>
-                    <ModalContent>
-                        <div>
-                            <span>이 폴더의 이름을 입력하십시오.</span>
-                            <div>
-                                <input type="text" name="title" ref={inputElement}/>
-                            </div>
-                        </div>
-                    </ModalContent>
-                    <ModalBottom>
-                        {
-                            modal.isConfirm
-                            ?   <>
-                                    <ConfirmLeft onClick={onClickModalCloseHandler}>취소</ConfirmLeft>
-                                    <ConfirmRight onClick={onClickAddFolder}>생성</ConfirmRight>
-                                </>
-                            :   <AlertButton>확인</AlertButton>
-                        }
-
-                    </ModalBottom>
-                </ModalWrap>
-            </ModalContainer>
-        </>
-    )
-}
+  return (
+    <>
+      <ModalContainer>
+        <ModalWrap>
+          <ModalTop>
+            <div>새로운 폴더</div>
+          </ModalTop>
+          <ModalContent>
+            <div>
+              <span>이 폴더의 이름을 입력하십시오.</span>
+              <div>
+                <input type="text" name="title" ref={inputElement} />
+              </div>
+            </div>
+          </ModalContent>
+          <ModalBottom>
+            {
+                modal.isConfirm
+                  ? (
+                    <>
+                      <ConfirmLeft onClick={onClickModalCloseHandler}>취소</ConfirmLeft>
+                      <ConfirmRight onClick={onClickAddFolder}>생성</ConfirmRight>
+                    </>
+                  )
+                  : <AlertButton>확인</AlertButton>
+            }
+          </ModalBottom>
+        </ModalWrap>
+      </ModalContainer>
+    </>
+  );
+};
 
 export default FolderModal;

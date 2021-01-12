@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
 const DefaultCss = createGlobalStyle`
@@ -22,6 +22,6 @@ const DefaultCss = createGlobalStyle`
     #__next {
         height: 100%;
     }
-`
+`;
 
 export default DefaultCss;

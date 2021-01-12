@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Layout from "../component/layout/Layout";
 import styled, {keyframes} from 'styled-components';
-import kimbogeun from '../resource/images/kimbogeun.jpg';
 
 const ProfileWrapAnimation = keyframes`
     0% {
@@ -13,7 +12,7 @@ const ProfileWrapAnimation = keyframes`
         opacity: 1;
         transform: translateY(0);
     }
-`
+`;
 
 const ProfileWrap = styled.div`
     width: 100%;

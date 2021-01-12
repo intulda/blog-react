@@ -1,10 +1,10 @@
 import React from 'react';
-import Layout from "../component/layout/Layout";
 import styled from 'styled-components';
-import {useSelector} from "react-redux";
-import {useRouter} from'next/router';
-import Card from "../component/project/ProjectCard";
-import ProjectDetail from "../component/project/ProjectDetail";
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import Layout from '../component/layout/Layout';
+import Card from '../component/project/ProjectCard';
+import ProjectDetail from '../component/project/ProjectDetail';
 
 const ProjectSection = styled.section`
     padding-top: 60px;
@@ -17,12 +17,12 @@ const ProjectSection = styled.section`
         font-weight: 700;
         line-height: 1.4;
     }
-`
+`;
 const ProjectWrap = styled.div`
     max-width: 1100px;
     margin-top: 100px;
     margin: 100px auto 0px;
-`
+`;
 
 const ProjectCardWrap = styled.ul`
     display: grid;
@@ -41,30 +41,30 @@ const ProjectCardWrap = styled.ul`
     @media only screen and (min-width: 1200px) {
         grid-template-columns: repeat(4, 1fr);
     }
-`
+`;
 
 const Project = () => {
-    const {data} = useSelector(state => state.project);
-    const router = useRouter();
+  const { data } = useSelector((state) => state.project);
+  const router = useRouter();
 
-    return (
-        <Layout>
-            <ProjectSection>
-                {
+  return (
+    <Layout>
+      <ProjectSection>
+        {
                     Object.entries(router.query).length === 0
-                        ? <ProjectWrap>
-                            <h1>Project</h1>
-                            <ProjectCardWrap>
-                                {data.map((obj, index) => {
-                                    return <Card key={obj.id} data={obj} speed={index+1}/>
-                                })}
-                            </ProjectCardWrap>
+                      ? (
+                        <ProjectWrap>
+                          <h1>Project</h1>
+                          <ProjectCardWrap>
+                            {data.map((obj, index) => <Card key={obj.id} data={obj} speed={index + 1} />)}
+                          </ProjectCardWrap>
                         </ProjectWrap>
-                        : <ProjectDetail/>
+                      )
+                      : <ProjectDetail />
                 }
-            </ProjectSection>
-        </Layout>
-    )
+      </ProjectSection>
+    </Layout>
+  );
 };
 
 export default Project;

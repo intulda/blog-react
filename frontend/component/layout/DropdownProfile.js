@@ -1,8 +1,8 @@
-import React, {useCallback, useEffect, useRef} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import styled from "styled-components";
-import {LOGIN_FORM_OPEN_ACTION, LOGOUT_ACTION} from "../../reducers/login";
-import {DROPDOWN_MENU_OFF_ACTION, DROPDOWN_MENU_ON_ACTION} from "../../reducers/common";
+import React, { useCallback, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { LOGIN_FORM_OPEN_ACTION, LOGOUT_REQUEST_ACTION } from '../../reducers/login';
+import { DROPDOWN_MENU_OFF_ACTION, DROPDOWN_MENU_ON_ACTION } from '../../reducers/common';
 
 const ProfileWrap = styled.div`
     min-width: 40px;
@@ -18,7 +18,7 @@ const ProfileWrap = styled.div`
     font-weight: bold;
     font-size: 1rem;
     padding: 5px;
-`
+`;
 
 const ProfileContainer = styled.a`
     max-width: 40px;
@@ -27,7 +27,7 @@ const ProfileContainer = styled.a`
     alignItems: center; 
     position: relative;
     color: white !important;
-`
+`;
 
 const DropdownMenuWrap = styled.ul`
     display: none;
@@ -72,78 +72,84 @@ const DropdownMenuWrap = styled.ul`
         background: white;
         transform: rotate(45deg);
     }
-`
+`;
 
 const DropdownProfile = () => {
+  const { isDropdownMenuOpen } = useSelector((state) => state.common);
+  const { isLoggedIn, isLoginModalOpen, user } = useSelector((state) => state.login);
+  const refWrapper = useRef(null);
+  const dispatch = useDispatch();
 
-    const {isDropdownMenuOpen} = useSelector((state) => state.common);
-    const {isLoggedIn, isLoginModalOpen, user} = useSelector((state) => state.login);
-    const refWrapper = useRef(null);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        function handleClickOutside(e) {
-            let target = e.target;
-            if(target.nodeName === 'LI') {
-                target = e.target.parentNode.parentNode;
-            }
-            if(isDropdownMenuOpen && refWrapper.current != target) {
-                return dispatch(DROPDOWN_MENU_OFF_ACTION());
-            }
-        }
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [isDropdownMenuOpen]);
-
-    const onErrorHandler = useCallback((e) => {
-
-    }, []);
-
-    const onLoginHandler = useCallback((e) => {
-        if(!isLoginModalOpen) {
-            return dispatch(LOGIN_FORM_OPEN_ACTION());
-        }
-    }, [isLoginModalOpen]);
-
-    const onLogoutHandler = useCallback((e) => {
-        dispatch(LOGOUT_ACTION())
-    }, []);
-
-    const onDropDownHandler = useCallback((e) => {
-        if(!isDropdownMenuOpen) {
-            return dispatch(DROPDOWN_MENU_ON_ACTION());
-        }
+  useEffect(() => {
+    function handleClickOutside(e) {
+      let { target } = e;
+      if (target.nodeName === 'LI') {
+        target = e.target.parentNode.parentNode;
+      }
+      // eslint-disable-next-line eqeqeq
+      if (isDropdownMenuOpen && refWrapper.current != target) {
         dispatch(DROPDOWN_MENU_OFF_ACTION());
-    }, [isDropdownMenuOpen]);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownMenuOpen]);
 
-    return (
-        <>
-        {
-            isLoggedIn ?
-                    <ProfileContainer href="#!">
-                        <img src={null} onError={onErrorHandler}/>
-                        <ProfileWrap onClick={onDropDownHandler} ref={refWrapper}>
-                            {user.nickname[0]}
-                            <DropdownMenuWrap className={isDropdownMenuOpen && `active`}>
-                                <li onClick={onLogoutHandler}>로그아웃</li>
-                            </DropdownMenuWrap>
-                        </ProfileWrap>
-                    </ProfileContainer>
-                :
-                    <ProfileContainer href="#!">
-                        <ProfileWrap onClick={onDropDownHandler} ref={refWrapper}>
-                            Gu
-                            <DropdownMenuWrap className={isDropdownMenuOpen && `active`} >
-                                <li onClick={onLoginHandler}>로그인</li>
-                            </DropdownMenuWrap>
-                        </ProfileWrap>
-                    </ProfileContainer>
+  const onErrorHandler = useCallback(() => {
+
+  }, []);
+
+  const onLoginHandler = useCallback(() => {
+    if (!isLoginModalOpen) {
+      dispatch(LOGIN_FORM_OPEN_ACTION());
+    }
+  }, [isLoginModalOpen]);
+
+  const onLogoutHandler = useCallback(() => {
+    dispatch(LOGOUT_REQUEST_ACTION());
+  }, []);
+
+  const onDropDownHandler = useCallback(() => {
+    if (!isDropdownMenuOpen) {
+      dispatch(DROPDOWN_MENU_ON_ACTION());
+      return;
+    }
+    dispatch(DROPDOWN_MENU_OFF_ACTION());
+  }, [isDropdownMenuOpen]);
+
+  return (
+    <>
+      {
+            isLoggedIn
+              ? (
+                <ProfileContainer href="#!">
+                  {/* eslint-disable-next-line jsx-a11y/alt-text */}
+                  <img src={null} onError={onErrorHandler} />
+                  <ProfileWrap onClick={onDropDownHandler} ref={refWrapper}>
+                    {user.nickname[0]}
+                    <DropdownMenuWrap className={isDropdownMenuOpen && 'active'}>
+                      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                      <li onClick={onLogoutHandler}>로그아웃</li>
+                    </DropdownMenuWrap>
+                  </ProfileWrap>
+                </ProfileContainer>
+              )
+              : (
+                <ProfileContainer href="#!">
+                  <ProfileWrap onClick={onDropDownHandler} ref={refWrapper}>
+                    Gu
+                    <DropdownMenuWrap className={isDropdownMenuOpen && 'active'}>
+                      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                      <li onClick={onLoginHandler}>로그인</li>
+                    </DropdownMenuWrap>
+                  </ProfileWrap>
+                </ProfileContainer>
+              )
             }
-        </>
-    )
-}
+    </>
+  );
+};
 
 export default DropdownProfile;
-

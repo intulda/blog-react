@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Layout from '../component/layout/Layout';
 
 const MaskWrapper = keyframes`
@@ -10,7 +10,7 @@ const MaskWrapper = keyframes`
     100% {
         transform: translateX(0)
     }
-`
+`;
 
 const MaskContent = keyframes`
      0% {
@@ -20,7 +20,7 @@ const MaskContent = keyframes`
     100% {
         transform: translateX(0)
     }
-`
+`;
 
 const CdPulse = keyframes`
     0%,30.8% {
@@ -34,7 +34,7 @@ const CdPulse = keyframes`
     100% {
         opacity: 0
     }
-`
+`;
 
 const ContentWrapper = styled.div`
     position: relative;
@@ -91,7 +91,7 @@ const ContentWrapper = styled.div`
             font-size: 1rem;
         }
     }
-`
+`;
 
 const LayoutChildrenWrap = styled.div`
     width: 100%;
@@ -105,29 +105,27 @@ const LayoutChildrenWrap = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-`
+`;
 
-const Index = () => {
-    return (
-        <>
-            <Layout search={true}>
-                <LayoutChildrenWrap>
-                    <ContentWrapper>
-                        <div>
-                            <h1>Hello, Everybody!</h1>
-                            <p>김보근 포트폴리오 겸 블로그</p>
-                        </div>
-                    </ContentWrapper>
-                </LayoutChildrenWrap>
-                <section>
-                    project
-                </section>
-                <section>
-                    github
-                </section>
-            </Layout>
-        </>
-    )
-}
+const Index = () => (
+  <>
+    <Layout search>
+      <LayoutChildrenWrap>
+        <ContentWrapper>
+          <div>
+            <h1>Hello, Everybody!</h1>
+            <p>김보근 포트폴리오 겸 블로그</p>
+          </div>
+        </ContentWrapper>
+      </LayoutChildrenWrap>
+      <section>
+        project
+      </section>
+      <section>
+        github
+      </section>
+    </Layout>
+  </>
+);
 
 export default Index;

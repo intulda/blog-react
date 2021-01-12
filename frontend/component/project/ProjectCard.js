@@ -1,7 +1,7 @@
 import React from 'react';
-import thumbnail from "../../resource/images/default-thumbnail.jpg";
-import styled, {keyframes} from "styled-components";
-import Link from "next/link";
+import styled, { keyframes } from 'styled-components';
+import Link from 'next/link';
+import thumbnail from '../../resource/images/default-thumbnail.jpg';
 
 const CardAnimation = keyframes`
     0% {
@@ -13,7 +13,7 @@ const CardAnimation = keyframes`
         opacity: 1;
         transform: translateY(0px);
     }
-`
+`;
 
 const ProjectCard = styled.li`
     border-radius: 6px;
@@ -26,7 +26,7 @@ const ProjectCard = styled.li`
     padding-bottom: 50px;
     cursor: pointer;
     transition: all 0.2s;
-    animation: ${CardAnimation} ${props => `1.${props.speed}s`};
+    animation: ${CardAnimation} ${(props) => `1.${props.speed}s`};
     
     &:hover {
         box-shadow: rgba(23,25,29,0.5) 0 0 40px;
@@ -47,7 +47,7 @@ const ProjectCard = styled.li`
     @media only screen and (min-width: 1200px) {
         max-width: 100%;
     }
-`
+`;
 
 const CardHeader = styled.div`
     width: 100%;
@@ -65,7 +65,7 @@ const CardHeader = styled.div`
         top: 0;
         object-fit: cover;
     }
-`
+`;
 
 const CardContent = styled.div`
     padding: 15px 18px;
@@ -75,7 +75,7 @@ const CardContent = styled.div`
         font-size: 1.2rem;
         font-weight: bold;
     }
-`
+`;
 
 const CardContentText = styled.div`
     display: -webkit-box;
@@ -87,7 +87,7 @@ const CardContentText = styled.div`
     font-size: 13px;
     line-height: 1.5;
     padding-top: 6px;
-`
+`;
 
 const CardFooter = styled.div`
     position: absolute;
@@ -98,20 +98,20 @@ const CardFooter = styled.div`
     display: flex;
     align-items: center;
     height: 50px;
-`
+`;
 
 const CardFooter__text = styled.p`
     font-size: 13px;
     position: absolute;
     left: 18px;
     top: 9px;
-`
+`;
 
 const CardProgressBarWrap = styled.div`
     width: calc(100% - 72px);
     position: relative;
     height: 100%;
-`
+`;
 
 const CardProgressBar__Back = styled.div`
     position: absolute;
@@ -121,7 +121,7 @@ const CardProgressBar__Back = styled.div`
     border-radius: 6px;
     left: 18px;
     top: 30px;
-`
+`;
 
 const CardProgressBar__front = styled.div`
     position: absolute;
@@ -129,10 +129,10 @@ const CardProgressBar__front = styled.div`
     border-radius: 6px;
     left: 18px;
     top: 30px;
-    width: ${props => `${props.percent}%`};
+    width: ${(props) => `${props.percent}%`};
     background-color: #257FF9;
     transition: 0.8s;
-`
+`;
 
 const CardFooter__percent = styled.p`
     font-size: 13px;
@@ -140,46 +140,45 @@ const CardFooter__percent = styled.p`
     right: 18px;
     top: 25px;
     color: #257FF9;
-`
+`;
 
-const Card = ({data, speed}) => {
+const Card = ({ data, speed }) => {
+  const onErrorHandler = (e) => {
+    e.target.src = thumbnail;
+  };
 
-    const onErrorHandler = (e) => {
-        e.target.src = thumbnail;
-    };
-
-    return (
-        <ProjectCard speed={speed}>
-            <Link
-                href={{
-                    pathname: './project',
-                    query: { id: data.id },
-                }}
-            >
-               <a>
-                   <div>
-                        <CardHeader>
-                            <img src={data.imageUrl} onError={onErrorHandler}/>
-                        </CardHeader>
-                        <CardContent>
-                            <h1>{data.title}</h1>
-                            <CardContentText>
-                                {data.description}
-                            </CardContentText>
-                        </CardContent>
-                   </div>
-                   <CardFooter>
-                        <CardFooter__text>기여도</CardFooter__text>
-                        <CardProgressBarWrap>
-                            <CardProgressBar__Back/>
-                            <CardProgressBar__front percent={data.percent}/>
-                        </CardProgressBarWrap>
-                        <CardFooter__percent>{data.percent}%</CardFooter__percent>
-                   </CardFooter>
-               </a>
-            </Link>
-        </ProjectCard>
-    )
+  return (
+    <ProjectCard speed={speed}>
+      <Link
+        href={{
+          pathname: './project',
+          query: { id: data.id },
+        }}
+      >
+        <a>
+          <div>
+            <CardHeader>
+              <img src={data.imageUrl} onError={onErrorHandler} />
+            </CardHeader>
+            <CardContent>
+              <h1>{data.title}</h1>
+              <CardContentText>
+                {data.description}
+              </CardContentText>
+            </CardContent>
+          </div>
+          <CardFooter>
+            <CardFooter__text>기여도</CardFooter__text>
+            <CardProgressBarWrap>
+              <CardProgressBar__Back />
+              <CardProgressBar__front percent={data.percent} />
+            </CardProgressBarWrap>
+            <CardFooter__percent>{data.percent}%</CardFooter__percent>
+          </CardFooter>
+        </a>
+      </Link>
+    </ProjectCard>
+  );
 };
 
 export default Card;

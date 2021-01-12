@@ -1,8 +1,7 @@
 import React from 'react';
-import Layout from "../component/layout/Layout";
 import styled from 'styled-components';
-import {useSelector} from "react-redux";
-import PostList from "../component/post/PostList";
+import Layout from '../component/layout/Layout';
+import PostList from '../component/post/PostList';
 
 export const PostWrap = styled.div`
     max-width: 1100px;
@@ -35,17 +34,14 @@ export const PostWrap = styled.div`
         align-items: center;
         cursor: pointer;
     }
-`
+`;
 
-const Post = () => {
-
-    return (
-        <Layout>
-            <PostWrap>
-                <PostList/>
-            </PostWrap>
-        </Layout>
-    );
-}
+const Post = () => (
+  <Layout>
+    <PostWrap>
+      <PostList />
+    </PostWrap>
+  </Layout>
+);
 
 export default Post;

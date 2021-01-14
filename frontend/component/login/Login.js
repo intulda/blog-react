@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { keyframes } from 'styled-components';
 import { BsX } from 'react-icons/bs';
-import { LOGIN_REQUEST_ACTION, LOGIN_FORM_CLOSE_ACTION } from '../../reducers/login';
-import customInput from '../hooks/customInput';
+import { LOGIN_FORM_CLOSE_ACTION } from '../../reducers/login';
+// eslint-disable-next-line import/no-cycle
+import LoginFrom from './LoginForm';
+import RegisterForm from './RegisterForm';
 
 const ModalOpenAnimation = keyframes`
     0% {
@@ -54,13 +56,13 @@ const ModalWrap = styled.div`
     position: relative;
 `;
 
-const ModalTop = styled.div`
+export const ModalTop = styled.div`
     width: 100%;
     padding: 20px 20px 10px 20px;
     text-align: center;
 `;
 
-const ModalContent = styled.div`
+export const ModalContent = styled.div`
     width: 100%;
     text-align: center;
     font-size: 0.9rem;
@@ -78,9 +80,9 @@ const ModalContent = styled.div`
         font-size: 0.8rem;
     }
     
-    &>div:nth-child(1) div {
-        padding: 15px 0;
-    }
+    // &>div:nth-child(1) div {
+    //     padding: 15px 0;
+    // }
     
     &>div:nth-child(1) input {
         width: 100%;
@@ -97,7 +99,7 @@ const ModalContent = styled.div`
     }
 `;
 
-const ModalBottom = styled.div`
+export const ModalBottom = styled.div`
     display: flex;
     width: 100%;
     background-color: #eee;
@@ -116,12 +118,29 @@ const ChoiceButton = styled.button`
     border-radius: inherit;
 `;
 
-const ConfirmLeft = styled(ChoiceButton)`
+export const ConfirmLeft = styled(ChoiceButton)`
     border-radius: 0 0 0px 10px;
     border-right: 1px solid #ccc;
 `;
-const ConfirmRight = styled(ChoiceButton)`
+
+export const ConfirmRight = styled(ChoiceButton)`
     border-radius: 0 0 10px 0px;
+    position: relative;
+    overflow: hidden;
+    transition: 1s;
+    &:disabled {
+      cursor: default;
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #aaa;
+        opacity: 0.5;
+      }  
+    }
 `;
 
 const ModalCancel = styled.div`
@@ -134,23 +153,11 @@ const ModalCancel = styled.div`
 
 const Login = () => {
   const dispatch = useDispatch();
-  const inputElement = useRef(null);
-
-  const [id, onChangeId] = customInput('');
-  const [password, onChangePassword] = customInput('');
-
-  useEffect(() => {
-    inputElement.current.focus();
-  }, []);
+  const { isLoginFormState } = useSelector((state) => state.login);
 
   const onClickModalCloseHandler = useCallback(() => {
     dispatch(LOGIN_FORM_CLOSE_ACTION());
   }, []);
-
-  const onLoginHandler = useCallback((e) => {
-    e.preventDefault();
-    dispatch(LOGIN_REQUEST_ACTION());
-  }, [id, password]);
 
   return (
     <>
@@ -159,21 +166,11 @@ const Login = () => {
           <ModalCancel onClick={onClickModalCloseHandler}>
             <BsX />
           </ModalCancel>
-          <ModalTop>
-            <div>로그인 / 회원가입</div>
-          </ModalTop>
-          <ModalContent>
-            <div>
-              <input type="text" name="id" placeholder="아이디를 입력해주세요." ref={inputElement} onChange={onChangeId} value={id} />
-              <input type="password" name="password" placeholder="비밀번호를 입력해주세요." onChange={onChangePassword} value={password} />
-            </div>
-          </ModalContent>
-          <ModalBottom>
-            <>
-              <ConfirmLeft onClick={onLoginHandler}>로그인</ConfirmLeft>
-              <ConfirmRight>회원가입</ConfirmRight>
-            </>
-          </ModalBottom>
+          {
+            isLoginFormState === 'LOGIN'
+              ? <LoginFrom />
+              : <RegisterForm />
+          }
         </ModalWrap>
       </ModalContainer>
     </>

@@ -4,6 +4,7 @@ const initialState = {
   loginLoading: false,
   loginError: false,
   logoutLoading: false,
+  isLoginFormState: 'LOGIN',
   user: {
     nickname: '',
     profile_image: null,
@@ -19,8 +20,36 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
+export const LOGIN_FORM = 'LOGIN_FORM';
+export const REGISTER_FORM = 'REGISTER_FORM';
+
+export const ID_CHECK_REQUEST = 'ID_CHECK_REQUEST';
+export const ID_CHECK_SUCCESS = 'ID_CHECK_SUCCESS';
+export const ID_CHECK_FAILURE = 'ID_CHECK_FAILURE';
+
+export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
+export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
+
 const LOGIN_FORM_OPEN = 'LOGIN_FORM_OPEN';
 const LOGIN_FORM_CLOSE = 'LOGIN_FORM_CLOSE';
+
+export const SIGN_UP_REQUEST_ACTION = (data) => ({
+  type: SIGN_UP_REQUEST,
+  data,
+});
+
+export const ID_CHECK_REQUEST_ACTION = () => ({
+  type: ID_CHECK_REQUEST,
+});
+
+export const LOGIN_FORM_MOVE_ACTION = () => ({
+  type: LOGIN_FORM,
+});
+
+export const REGISTER_FORM_MOVE_ACTION = () => ({
+  type: REGISTER_FORM,
+});
 
 export const LOGIN_FORM_OPEN_ACTION = () => ({
   type: LOGIN_FORM_OPEN,
@@ -40,6 +69,16 @@ export const LOGOUT_REQUEST_ACTION = () => ({
 
 const reducer = ((state = initialState, action) => {
   switch (action.type) {
+    case LOGIN_FORM:
+      return {
+        ...state,
+        isLoginFormState: 'LOGIN',
+      };
+    case REGISTER_FORM:
+      return {
+        ...state,
+        isLoginFormState: 'REGISTER',
+      };
     case LOGIN_FORM_OPEN:
       return {
         ...state,
@@ -49,6 +88,7 @@ const reducer = ((state = initialState, action) => {
       return {
         ...state,
         isLoginModalOpen: false,
+        isLoginFormState: 'LOGIN',
       };
     case LOGIN_REQUEST:
       return {
@@ -76,6 +116,10 @@ const reducer = ((state = initialState, action) => {
       return {
         ...state,
         logoutLoading: true,
+      };
+    case SIGN_UP_REQUEST:
+      return {
+        ...state,
       };
     case LOGOUT_SUCCESS:
       return {

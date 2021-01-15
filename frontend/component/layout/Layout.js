@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Header from './Header';
 import FolderModal from '../common/FolderModal';
 import Login from '../login/Login';
-import Toast from '../common/Toast';
+import ToastMessage from '../common/ToastMessage';
 
 const LayoutWrap = styled.div`
     display: flex;
@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
         <MainContentWrap>
           <Header />
           {children}
-          {isToastMessageOpen && <Toast />}
+          {isToastMessageOpen && <ToastMessage />}
         </MainContentWrap>
       </LayoutWrap>
     </>

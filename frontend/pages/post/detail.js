@@ -27,6 +27,21 @@ const PostDetailWrap = styled.div`
 
 const PostDetailContentWrap = styled.div`
     margin-bottom: 15px;
+    &>div pre {
+        background-color: #ddd;
+        border-radius: 2px;
+        padding: 15px;
+    }
+    
+    &>div code {
+      background-color: #ddd;
+      border-radius: 2px;
+      padding: 15px;
+    }
+    &>div ol, ul {
+        padding-left: 40px;
+        list-style: revert;
+    }
 `;
 
 const PostFooterWrap = styled.div`

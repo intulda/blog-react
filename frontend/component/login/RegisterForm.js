@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { ConfirmLeft, ConfirmRight, ModalBottom, ModalContent, ModalTop } from './Login';
 import CustomCheckbox from '../common/CustomCheckbox';
 import customInput from '../hooks/customInput';
-import { SIGN_UP_REQUEST_ACTION } from '../../reducers/login';
+import { LOGIN_FORM_MOVE_ACTION, SIGN_UP_REQUEST_ACTION } from '../../reducers/login';
 
 const RegisterFormWrap = styled.form`
   width: 100%;
@@ -49,6 +49,7 @@ const RegisterForm = () => {
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [nickname, onChangeNickname] = customInput('');
+  const [authentication, setAuthentication] = useState('USER');
   const [term, setTerm] = useState(false);
 
   const onRegisterSubmitHandler = useCallback((e) => {
@@ -57,8 +58,9 @@ const RegisterForm = () => {
       account: id,
       password,
       nickname,
+      authentication,
     }));
-  }, [id, password, passwordCheck, nickname]);
+  }, [id, password, passwordCheck, nickname, authentication]);
 
   const onChangeIdHandler = useCallback((e) => {
     setId(e.target.value);
@@ -75,6 +77,10 @@ const RegisterForm = () => {
 
   const onChangeAgreeHandler = useCallback((e) => {
     setTerm(e.target.value);
+  }, []);
+
+  const onPrevHandler = useCallback(() => {
+    dispatch(LOGIN_FORM_MOVE_ACTION());
   }, []);
 
   return (
@@ -110,7 +116,7 @@ const RegisterForm = () => {
         </div>
       </ModalContent>
       <ModalBottom>
-        <ConfirmLeft type="button">이전</ConfirmLeft>
+        <ConfirmLeft type="button" onClick={onPrevHandler}>이전</ConfirmLeft>
         <ConfirmRight>회원가입</ConfirmRight>
       </ModalBottom>
     </RegisterFormWrap>

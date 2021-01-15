@@ -61,8 +61,8 @@ const PostCard = ({ data }) => (
     </PostContentAuthor>
     <PostContentWrap>
       {
-                data.tags.map((v, index) => <p key={index}>{v}</p>)
-            }
+        data.tags && data.tags.map((v, index) => <p key={index}>{v}</p>)
+      }
     </PostContentWrap>
     <PostContentWrap>
       <h1>{data.title}</h1>

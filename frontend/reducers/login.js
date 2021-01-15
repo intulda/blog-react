@@ -5,6 +5,8 @@ const initialState = {
   loginError: false,
   logoutLoading: false,
   isLoginFormState: 'LOGIN',
+  isSignUpLoading: false,
+  isSignUpSuccess: false,
   user: {
     nickname: '',
     profile_image: null,
@@ -68,6 +70,7 @@ export const LOGOUT_REQUEST_ACTION = () => ({
 });
 
 const reducer = ((state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case LOGIN_FORM:
       return {
@@ -101,16 +104,13 @@ const reducer = ((state = initialState, action) => {
         isLoginModalOpen: false,
         loginLoading: false,
         isLoggedIn: true,
-        user: {
-          ...state.user,
-          authentication: 'admin',
-        },
+        user: action.data,
       };
     case LOGIN_FAILURE:
       return {
         ...state,
         loginLoading: false,
-        loginError: true,
+        loginError: action.data,
       };
     case LOGOUT_REQUEST:
       return {
@@ -120,16 +120,21 @@ const reducer = ((state = initialState, action) => {
     case SIGN_UP_REQUEST:
       return {
         ...state,
+        isSignUpLoading: true,
+      };
+    case SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        isSignUpLoading: false,
+        isSignUpSuccess: true,
+        isLoginFormState: 'LOGIN',
       };
     case LOGOUT_SUCCESS:
       return {
         ...state,
         isLoggedIn: false,
         logoutLoading: false,
-        user: {
-          ...state.user,
-          authentication: 'guest',
-        },
+        message: action.data,
       };
     case LOGOUT_FAILURE:
       return {

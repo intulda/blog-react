@@ -1,4 +1,4 @@
-import { all, call, fork, put, take } from 'redux-saga/effects';
+import { all, call, fork, put, take, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import {
   ID_CHECK_REQUEST,
@@ -6,22 +6,22 @@ import {
   LOGIN_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  ID_CHECK_SUCCESS, SIGN_UP_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_REQUEST,
+  ID_CHECK_SUCCESS, SIGN_UP_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_REQUEST, LOGOUT_REQUEST,
 } from '../reducers/login';
 
 function loginAPI(data) {
-  return axios.post('/api/login', data);
+  return axios.post('/login/loginReq', data);
 }
 function logoutAPI() {
-  return axios.post('/api/logout');
+  return axios.post('/login/logoutReq');
 }
 
 function idCheckAPI(data) {
-  return axios.post('/api/idCheck', data);
+  return axios.post('/login/idCheck', data);
 }
 
 function signUpAPI(data) {
-  return axios.post('http://localhost:3065/api/login/signUp', data);
+  return axios.post('/login/signUp', data);
 }
 
 function* idCheck(action) {
@@ -40,6 +40,7 @@ function* idCheck(action) {
 }
 
 function* login(action) {
+  console.log(action.data);
   try {
     const result = yield call(loginAPI, action.data);
     yield put({
@@ -85,19 +86,19 @@ function* signUp(action) {
 }
 
 function* watchLogin() {
-  yield take(LOGIN_REQUEST, login);
+  yield takeLatest(LOGIN_REQUEST, login);
 }
 
 function* watchLogout() {
-  yield take('LOGOUT_REQUEST', logout);
+  yield takeLatest(LOGOUT_REQUEST, logout);
 }
 
 function* watchIdCheck() {
-  yield take(ID_CHECK_REQUEST, idCheck);
+  yield takeLatest(ID_CHECK_REQUEST, idCheck);
 }
 
 function* watchSignUp() {
-  yield take(SIGN_UP_REQUEST, signUp);
+  yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
 
 export default function* loginSaga() {

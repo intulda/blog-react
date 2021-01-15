@@ -80,20 +80,14 @@ const PostWrite = () => {
     e.preventDefault();
     const _html = document.querySelector('#gee').innerHTML;
     const _text = document.querySelector('#gee').innerText;
-    const date = new Date();
-    const currentDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay()}`;
     const data = {
-      postSeq: 2,
       title,
-      description: _text,
-      descriptionHtml: _html,
-      regDate: currentDate,
-      tags: tag,
-      author: user.author,
+      content: _text,
+      contentHTML: _html,
     };
     dispatch(ADD_POST_REQUEST_ACTION(data));
     const targetPage = '/post';
-    Router.push(targetPage);
+    Router.replace(targetPage);
   }, [title, tag]);
 
   const onChangeTagHandler = useCallback((e) => {

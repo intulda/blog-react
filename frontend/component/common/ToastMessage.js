@@ -6,43 +6,42 @@ import { TOAST_CLOSE_ACTION } from '../../reducers/common';
 const ToastAnimation = keyframes`
     0% {
         opacity: 0;
-        right: -100px;
+        transform: translateY(50px);
     }
     
     25% {
         opacity: 0.7;
-        right: 10px;
     }
     
     75% {
         opacity: 0.7;
-        right: 10px;
     }
     
     100% {
         opacity: 0;
-        right: -100px;
+        transform: translateY(0);
     }
 `;
 
 const ToastWrap = styled.div`
-    max-width: 300px;
-    background: rgba(30, 30, 30);
+    width: 300px;
+    background: orange;
     position: absolute;
-    top: 10px;
-    right: 0;
+    top: 10%;
+    left: calc(50% - 150px);
     display: flex;
     justify-content: center;
-    padding: 20px 30px;
+    padding: 15px 30px;
     border-radius: 10px;
-    color: orange;
-    animation: ${ToastAnimation} 2s;
+    color: white;
+    animation: ${ToastAnimation} 1s;
     opacity: 0;
     overflow: hidden;
     word-wrap: break-word;
+    z-index: 20;
 `;
 
-const Toast = ({ message }) => {
+const ToastMessage = () => {
   const { isToastMessageOpen, toastMessage } = useSelector((state) => state.common);
   const dispatch = useDispatch();
 
@@ -52,7 +51,7 @@ const Toast = ({ message }) => {
         dispatch(TOAST_CLOSE_ACTION());
       }, 2000);
     }
-  }, [message]);
+  }, []);
 
   return (
     <>
@@ -63,4 +62,4 @@ const Toast = ({ message }) => {
   );
 };
 
-export default Toast;
+export default ToastMessage;

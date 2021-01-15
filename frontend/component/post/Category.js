@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { GET_ALL_HASHTAG_LIST_REQUEST_ACTION } from '../../reducers/post';
 
 const CategoryWrap = styled.aside`
     width: 25%;
@@ -26,15 +28,20 @@ const CategoryList = styled.li`
     cursor: pointer;
 `;
 
-const Category = () => (
-  <CategoryWrap>
-    <strong>Categories</strong>
-    <ul>
-      <CategoryList>java (1)</CategoryList>
-      <CategoryList>react (1)</CategoryList>
-      <CategoryList>db (0)</CategoryList>
-    </ul>
-  </CategoryWrap>
-);
+const Category = () => {
+  const dispatch = useDispatch();
+  const { posts } = useSelector((state) => state.post);
+  useEffect(() => {
+    dispatch(GET_ALL_HASHTAG_LIST_REQUEST_ACTION());
+  }, []);
+  return (
+    <CategoryWrap>
+      <strong>Categories</strong>
+      <ul>
+        <CategoryList>1</CategoryList>
+      </ul>
+    </CategoryWrap>
+  );
+};
 
 export default Category;

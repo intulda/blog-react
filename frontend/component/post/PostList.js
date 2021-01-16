@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import PostCard from './PostCard';
 import Category from './Category';
-import { GET_ALL_POST_LIST_REQUEST, GET_ALL_POST_LIST_REQUEST_ACTION } from '../../reducers/post';
+import { GET_ALL_POST_LIST_REQUEST_ACTION, LIST_FILTER_ACTION } from '../../reducers/post';
 
 const PostCardSection = styled.ul`
     width: 65%;  
@@ -23,13 +23,25 @@ const PostCardSection = styled.ul`
 const PostList = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.login);
-  const { isPostError, posts } = useSelector((state) => state.post);
+  const { isPostError, posts, dummyPosts } = useSelector((state) => state.post);
 
   useEffect(() => {
     dispatch(GET_ALL_POST_LIST_REQUEST_ACTION());
   }, []);
 
-  console.log(posts);
+  const onListFilterHandler = useCallback((e) => {
+    const { id } = e.target.dataset;
+    if (id) {
+      const lists = posts.filter((o) => {
+        const tags = o.Hashtags.map((v) => v.id == id);
+        return tags.includes(true);
+      });
+      dispatch(LIST_FILTER_ACTION(lists));
+      return;
+    }
+    dispatch(LIST_FILTER_ACTION(posts));
+  }, [posts]);
+
   return (
     <>
       <h1>
@@ -48,18 +60,18 @@ const PostList = () => {
       <div>
         <PostCardSection>
           {
-            posts.map((v) => (
+            dummyPosts.map((v) => (
               <li>
-                <Link href={`/post/detail?post=${v.postSeq}`}>
+                <Link href={`/post/detail?id=${v.id}`}>
                   <a>
-                    <PostCard key={v.postSeq} data={v} />
+                    <PostCard key={v.id} data={v} />
                   </a>
                 </Link>
               </li>
             ))
           }
         </PostCardSection>
-        <Category />
+        <Category onListFilterHandler={onListFilterHandler} />
       </div>
     </>
   );

@@ -56,18 +56,18 @@ const PostContent = styled.p`
 const PostCard = ({ data }) => (
   <PostCardWrap>
     <PostContentAuthor>
-      <p>{data.regDate}</p>
-      <p>{data.author}</p>
+      <p>{data.createdAt}</p>
+      <p>{data.User.nickname}</p>
     </PostContentAuthor>
     <PostContentWrap>
       {
-        data.tags && data.tags.map((v, index) => <p key={index}>{v}</p>)
-      }
+          data.Hashtags.map((v) => <p key={v.id}># {v.name}</p>)
+        }
     </PostContentWrap>
     <PostContentWrap>
       <h1>{data.title}</h1>
       <div>
-        <PostContent>{data.description}</PostContent>
+        <PostContent>{data.content}</PostContent>
       </div>
     </PostContentWrap>
   </PostCardWrap>

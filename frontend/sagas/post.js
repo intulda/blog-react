@@ -9,7 +9,7 @@ import {
   GET_ALL_HASHTAG_LIST_SUCCESS,
   GET_ALL_POST_LIST_FAILURE,
   GET_ALL_POST_LIST_REQUEST,
-  GET_ALL_POST_LIST_SUCCESS,
+  GET_ALL_POST_LIST_SUCCESS, GET_POST_FAILURE, GET_POST_REQUEST, GET_POST_SUCCESS,
 } from '../reducers/post';
 
 function addPostAPI(data) {
@@ -22,6 +22,10 @@ function getPostListAPI() {
 
 function getHashtagListAPI() {
   return axios.get('/post/hashtagList');
+}
+
+function getPostAPI(data) {
+  return axios.get(`/post/${data.id}/detail`);
 }
 
 function* addPost(action) {
@@ -69,6 +73,21 @@ function* getHashtagList() {
   }
 }
 
+function* getPost(action) {
+  try {
+    const result = yield call(getPostAPI, action.data);
+    yield put({
+      type: GET_POST_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    yield put({
+      type: GET_POST_FAILURE,
+      data: err.response.data,
+    });
+  }
+}
+
 function* watchAddPost() {
   yield takeLatest(ADD_POST_REQUEST, addPost);
 }
@@ -81,10 +100,15 @@ function* watchGetHashTagList() {
   yield takeLatest(GET_ALL_HASHTAG_LIST_REQUEST, getHashtagList);
 }
 
+function* watchGetPost() {
+  yield takeLatest(GET_POST_REQUEST, getPost);
+}
+
 export default function* postSaga() {
   yield all([
     fork(watchAddPost),
     fork(watchGetPostList),
     fork(watchGetHashTagList),
+    fork(watchGetPost),
   ]);
 }

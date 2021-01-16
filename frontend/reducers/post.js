@@ -1,10 +1,21 @@
+import produce from 'immer';
+
 const initialState = {
   isPostState: 'Read',
   isPostLoading: false,
   isPostError: null,
   isHashtagLoading: false,
   isHashtagError: null,
+  post: {
+    User: {},
+    Comments: [],
+    title: '',
+    content: '',
+    contentHTML: '',
+    createdAt: '',
+  },
   posts: [],
+  dummyPosts: [],
   hashtags: [],
 };
 
@@ -20,6 +31,22 @@ export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
+export const GET_POST_REQUEST = 'GET_POST_REQUEST';
+export const GET_POST_SUCCESS = 'GET_POST_SUCCESS';
+export const GET_POST_FAILURE = 'GET_POST_FAILURE';
+
+export const LIST_FILTER = 'LIST_FILTER';
+
+export const LIST_FILTER_ACTION = (data) => ({
+  type: LIST_FILTER,
+  data,
+});
+
+export const GET_POST_REQUEST_ACTION = (data) => ({
+  type: GET_POST_REQUEST,
+  data,
+});
+
 export const ADD_POST_REQUEST_ACTION = (data) => ({
   type: ADD_POST_REQUEST,
   data,
@@ -33,67 +60,61 @@ export const GET_ALL_POST_LIST_REQUEST_ACTION = () => ({
   type: GET_ALL_POST_LIST_REQUEST,
 });
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => produce(state, (draft) => {
+  console.log(action);
   switch (action.type) {
+    case LIST_FILTER:
+      draft.dummyPosts = action.data;
+      break;
+    case GET_POST_REQUEST:
+      draft.isPostLoading = true;
+      break;
+    case GET_POST_SUCCESS:
+      draft.isPostLoading = false;
+      draft.post = action.data;
+      break;
+    case GET_POST_FAILURE:
+      draft.isPostLoading = false;
+      draft.isPostError = action.data;
+      break;
     case ADD_POST_REQUEST:
-      return {
-        ...state,
-        isPostState: 'Read',
-        posts: [
-          ...state.posts,
-        ],
-      };
+      draft.isPostState = 'Read';
+      break;
     case ADD_POST_SUCCESS: {
-      return {
-        ...state,
-        posts: [
-          ...state.posts,
-        ],
-      };
+      draft.posts.unshift(action.data);
+      draft.dummyPosts.unshift(action.data);
+      break;
     }
     case ADD_POST_FAILURE: {
-      return {
-        ...state,
-        isPostError: action.data,
-      };
+      draft.isPostError = action.data;
+      break;
     }
     case GET_ALL_POST_LIST_REQUEST:
-      return {
-        ...state,
-        isPostLoading: true,
-      };
+      draft.isPostLoading = true;
+      break;
     case GET_ALL_POST_LIST_SUCCESS:
-      return {
-        ...state,
-        isPostLoading: false,
-        posts: action.data,
-      };
+      draft.isPostLoading = false;
+      draft.posts = action.data;
+      draft.dummyPosts = action.data;
+      break;
     case GET_ALL_POST_LIST_FAILURE:
-      return {
-        ...state,
-        isPostLoading: false,
-        isPostError: action.data,
-      };
+      draft.isPostLoading = false;
+      draft.isPostError = action.data;
+      break;
     case GET_ALL_HASHTAG_LIST_REQUEST:
-      return {
-        ...state,
-        isHashtagLoading: true,
-      };
+      draft.isHashtagLoading = true;
+      break;
     case GET_ALL_HASHTAG_LIST_SUCCESS:
-      return {
-        ...state,
-        isHashtagLoading: false,
-        hashtags: action.data,
-      };
+      draft.isHashtagLoading = false;
+      draft.hashtags = action.data;
+      break;
     case GET_ALL_HASHTAG_LIST_FAILURE:
-      return {
-        ...state,
-        isHashtagLoading: false,
-        isHashtagError: action.data,
-      };
+      draft.isHashtagLoading = false;
+      draft.isHashtagError = action.data;
+      break;
     default:
-      return state;
+      break;
   }
-};
+});
 
 export default reducer;

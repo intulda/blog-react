@@ -1,8 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const { Post, User, Hashtag } = require('../models');
+const db = require('../models');
+const { Post, User, Hashtag, Comment } = require('../models');
 const { isLoggedIn } = require('./middlewraes');
-const Sequelize = require('sequelize');
+
+router.get('/:id/detail', async (req, res, next) => {
+    try {
+        const post = await Post.findOne({
+            where: {
+                id: req.params.id
+            },
+            include: [{
+                model: User,
+                attributes: { exclude: ['password'] },
+            },{
+                model: Comment,
+            }]
+        });
+        res.status(200).json(post);
+    } catch (e) {
+        console.log(e);
+        next(e);
+    }
+});
 
 router.get('/postList', async (req, res, next) => {
     try {
@@ -11,8 +31,11 @@ router.get('/postList', async (req, res, next) => {
             order: [['createdAt', 'DESC']],
             include: [{
                 model: User,
+                attributes: { exclude: ['password'] },
             },{
                 model: Hashtag,
+            },{
+                model: Comment,
             }]
         });
         res.status(200).json(posts);
@@ -24,15 +47,21 @@ router.get('/postList', async (req, res, next) => {
 
 router.get('/hashtagList', async (req, res, next) => {
     try {
-        const hashtags = await Hashtag.findAll({
-            attributes: {
-                include: [[Sequelize.fn('COUNT'), Sequelize.col('hashtag.id')]]
-            },
-            include: {
-                model: Post,
-                attributes: [],
-            }
-        });
+        const hashtags = await db.sequelize.query(`
+            SELECT
+                id,
+                name,
+                A.count
+            FROM Hashtags, (SELECT
+                HashtagId,
+                COUNT(HashtagId) count
+            FROM PostHashtag
+            GROUP BY HashtagId) A
+            WHERE A.HashtagId = id
+        `, {
+            type: db.sequelize.QueryTypes.SELECT,
+            raw: true,
+        })
         res.status(200).json(hashtags);
     } catch (error) {
         console.error(error);
@@ -46,7 +75,7 @@ router.post('/addPost', isLoggedIn, async (req, res, next) => {
             title: req.body.title,
             content: req.body.content,
             contentHTML: req.body.contentHTML,
-            userId: req.user.account
+            UserId: req.user.id,
         });
         const hashtag = req.body.content.match(/#[^\s#]+/g);
         if(hashtag) {
@@ -57,7 +86,20 @@ router.post('/addPost', isLoggedIn, async (req, res, next) => {
             })));
             await post.addHashtags(result.map((v) => v[0]));
         }
-        res.status(201).json(post);
+        const fullPost = await Post.findOne({
+            where: {
+                id: post.id
+            },
+            include: [{
+                model: User,
+                attributes: { exclude: ['password'] },
+            },{
+                model: Comment,
+            },{
+                model: Hashtag,
+            }]
+        });
+        res.status(201).json(fullPost);
     } catch (error) {
         console.error(error);
         next(error);

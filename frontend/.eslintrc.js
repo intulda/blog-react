@@ -29,5 +29,6 @@ module.exports = {
     'object-curly-newline': 'off',
     'linebreak-style': 'off',
     'import/no-cycle': 'off',
+    'no-param-reassign': 'off',
   },
 };

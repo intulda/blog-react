@@ -1,7 +1,13 @@
 import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { GET_ALL_HASHTAG_LIST_REQUEST_ACTION, LIST_FILTER_ACTION } from '../../reducers/post';
+import { END } from 'redux-saga';
+import {
+  GET_ALL_HASHTAG_LIST_REQUEST_ACTION,
+  GET_ALL_POST_LIST_REQUEST_ACTION,
+  LIST_FILTER_ACTION,
+} from '../../reducers/post';
+import wrapper from '../../store/configureStore';
 
 const CategoryWrap = styled.aside`
     width: 25%;
@@ -9,8 +15,9 @@ const CategoryWrap = styled.aside`
     float: right;
     
     &>strong {
-        color: #2ac1bc;
+        color: #546beb;
         font-size: 1.3rem;
+        font-weight: bold;
     }
     
     &>ul {
@@ -29,19 +36,19 @@ const CategoryList = styled.li`
 `;
 
 const Category = ({ onListFilterHandler }) => {
-  const dispatch = useDispatch();
   const { hashtags } = useSelector((state) => state.post);
-  useEffect(() => {
-    dispatch(GET_ALL_HASHTAG_LIST_REQUEST_ACTION());
-  }, []);
 
   return (
     <CategoryWrap>
       <strong>Categories</strong>
       <ul onClick={onListFilterHandler}>
-        <CategoryList data-id="">All ({hashtags.reduce((acc, cur) => acc + cur.count, 0)})</CategoryList>
+        <CategoryList data-id="">All ({hashtags[hashtags.length - 1]?.count})</CategoryList>
         {
-          hashtags.map((v) => <CategoryList data-id={v.id} key={v.id}>{v.name} ({v.count})</CategoryList>)
+          hashtags.map((v) => {
+            if (v.name != 'totalCount') {
+              return <CategoryList data-id={v.id} key={v.id}>{v.name} ({v.count})</CategoryList>;
+            }
+          })
         }
       </ul>
     </CategoryWrap>

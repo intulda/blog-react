@@ -1,6 +1,10 @@
 import React from 'react';
 import Layout from "../component/layout/Layout";
 import styled, {keyframes} from 'styled-components';
+import wrapper from "../store/configureStore";
+import {LOAD_MY_INFORMATION_REQUEST_ACTION} from "../reducers/login";
+import {GET_ALL_HASHTAG_LIST_REQUEST_ACTION, GET_ALL_POST_LIST_REQUEST_ACTION} from "../reducers/post";
+import {END} from "redux-saga";
 
 const ProfileWrapAnimation = keyframes`
     0% {
@@ -595,5 +599,11 @@ const Profile = () => {
         </Layout>
     )
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+    context.store.dispatch(LOAD_MY_INFORMATION_REQUEST_ACTION());
+    context.store.dispatch(END);
+    await context.store.sagaTask.toPromise();
+});
 
 export default Profile;

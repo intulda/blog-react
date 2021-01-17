@@ -16,8 +16,8 @@ function addPostAPI(data) {
   return axios.post('/post/addPost', data);
 }
 
-function getPostListAPI() {
-  return axios.get('/post/postList');
+function getPostListAPI(lastId) {
+  return axios.get(`/post/postList?lastId=${lastId || 0}`);
 }
 
 function getHashtagListAPI() {
@@ -43,9 +43,10 @@ function* addPost(action) {
   }
 }
 
-function* getPostList() {
+function* getPostList(action) {
   try {
-    const result = yield call(getPostListAPI);
+    console.log(action.data);
+    const result = yield call(getPostListAPI, action.data);
     yield put({
       type: GET_ALL_POST_LIST_SUCCESS,
       data: result.data,

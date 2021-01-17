@@ -5,6 +5,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const app = express();
 const db = require('./models');
+const morgan = require('morgan');
 const passport = require('passport');
 const passportConfig = require('./passport');
 const postRouter = require('./routes/post');
@@ -18,7 +19,7 @@ db.sequelize.sync()
     .catch(console.error);
 
 passportConfig();
-
+app.use(morgan('dev'));
 app.use(cors({
   origin: 'http://localhost:3000',
   credentials: true,

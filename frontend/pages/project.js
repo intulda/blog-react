@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
+import { END } from 'redux-saga';
 import Layout from '../component/layout/Layout';
 import Card from '../component/project/ProjectCard';
 import ProjectDetail from '../component/project/ProjectDetail';
+import wrapper from '../store/configureStore';
+import { LOAD_MY_INFORMATION_REQUEST_ACTION } from '../reducers/login';
 
 const ProjectSection = styled.section`
     padding-top: 60px;
@@ -51,20 +54,26 @@ const Project = () => {
     <Layout>
       <ProjectSection>
         {
-                    Object.entries(router.query).length === 0
-                      ? (
-                        <ProjectWrap>
-                          <h1>Project</h1>
-                          <ProjectCardWrap>
-                            {data.map((obj, index) => <Card key={obj.id} data={obj} speed={index + 1} />)}
-                          </ProjectCardWrap>
-                        </ProjectWrap>
-                      )
-                      : <ProjectDetail />
-                }
+          Object.entries(router.query).length === 0
+            ? (
+              <ProjectWrap>
+                <h1>Project</h1>
+                <ProjectCardWrap>
+                  {data.map((obj, index) => <Card key={obj.id} data={obj} speed={index + 1} />)}
+                </ProjectCardWrap>
+              </ProjectWrap>
+            )
+            : <ProjectDetail />
+        }
       </ProjectSection>
     </Layout>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+  context.store.dispatch(LOAD_MY_INFORMATION_REQUEST_ACTION());
+  context.store.dispatch(END);
+  await context.store.sagaTask.toPromise();
+});
 
 export default Project;

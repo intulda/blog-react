@@ -5,22 +5,20 @@ import login from './login';
 import post from './post';
 import project from './project';
 
-const rootReducer = combineReducers({
-  index: (state = {}, action) => {
-    switch (action.type) {
-      case HYDRATE:
-        return {
-          ...state,
-          ...action.payload,
-        };
-      default:
-        return state;
+const rootReducer = (state, action) => {
+  switch (action.type) {
+    case HYDRATE:
+      return action.payload;
+    default: {
+      const combineReducer = combineReducers({
+        common,
+        login,
+        project,
+        post,
+      });
+      return combineReducer(state, action);
     }
-  },
-  common,
-  login,
-  project,
-  post,
-});
+  }
+};
 
 export default rootReducer;

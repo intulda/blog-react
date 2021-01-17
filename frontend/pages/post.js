@@ -1,7 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { END } from 'redux-saga';
+import axios from 'axios';
 import Layout from '../component/layout/Layout';
 import PostList from '../component/post/PostList';
+import wrapper from '../store/configureStore';
+import { GET_ALL_HASHTAG_LIST_REQUEST_ACTION, GET_ALL_POST_LIST_REQUEST_ACTION } from '../reducers/post';
+import { LOAD_MY_INFORMATION_REQUEST_ACTION } from '../reducers/login';
 
 export const PostWrap = styled.div`
     max-width: 1100px;
@@ -43,5 +48,13 @@ const Post = () => (
     </PostWrap>
   </Layout>
 );
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+  context.store.dispatch(LOAD_MY_INFORMATION_REQUEST_ACTION());
+  context.store.dispatch(GET_ALL_POST_LIST_REQUEST_ACTION());
+  context.store.dispatch(GET_ALL_HASHTAG_LIST_REQUEST_ACTION());
+  context.store.dispatch(END);
+  await context.store.sagaTask.toPromise();
+});
 
 export default Post;

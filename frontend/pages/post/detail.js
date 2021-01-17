@@ -56,16 +56,51 @@ const PostFooterWrap = styled.div`
         }
         
         & a {
-            border: 1px solid white;
+            border: 0;
+            background-color: #546beb;
             color: white;
             padding: 10px;
             width: 100%;
             border-radius: 5px;
+            opacity: 0.6;
         }
         & a:hover {
-            color: orange;
+            opacity: 1;
         }
     }
+`;
+
+const CommentsWrap = styled.div`
+  display: flex;
+  width: 100%;
+  height: 50px;
+  
+  & textarea {
+    width: 100%;
+    resize: none;
+    border: 1px solid #2C2F33;
+    border-radius: 5px;
+    background: transparent;
+    color: white;
+    padding: 10px;
+    margin-right: 5px;
+  }
+  & textarea:focus {
+    outline: none;
+    border-color: #546beb;
+  }
+  
+  & button {
+    width: 80px;
+    background: #546beb;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+    opacity: 0.6;
+  }
+  & button:hover {
+    opacity: 1;
+  }
 `;
 
 const Detail = () => {
@@ -100,6 +135,12 @@ const Detail = () => {
           <PostFooterWrap>
             <div>
               <p>댓글 {post.Comments.length}개</p>
+              <div>
+                <CommentsWrap>
+                  <textarea />
+                  <button type="button">입력</button>
+                </CommentsWrap>
+              </div>
               <div>
                 <ul>
                   {post.Comments.map((v) => (

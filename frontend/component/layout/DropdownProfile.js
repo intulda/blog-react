@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { LOGIN_FORM_OPEN_ACTION, LOGOUT_REQUEST_ACTION } from '../../reducers/login';
 import { DROPDOWN_MENU_OFF_ACTION, DROPDOWN_MENU_ON_ACTION } from '../../reducers/common';
 
@@ -20,13 +21,14 @@ const ProfileWrap = styled.div`
     padding: 5px;
 `;
 
-const ProfileContainer = styled.a`
+const ProfileContainer = styled.div`
     max-width: 40px;
     max-height: 40px;
     display: flex; 
     alignItems: center; 
     position: relative;
     color: white !important;
+    cursor: pointer;
 `;
 
 const DropdownMenuWrap = styled.ul`
@@ -34,12 +36,13 @@ const DropdownMenuWrap = styled.ul`
     width: 100px;
     height: auto;
     position: absolute;
-    left: -50px;
-    top: 55px;
-    background-color: white;
-    color: #1B1D21;
+    right: 0px;
+    top: 45px;
+    background-color: #2c2f33;
+    border: 1px solid #99aab529;
+    color: white;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
     
     &.active {
         display: flex;
@@ -49,29 +52,28 @@ const DropdownMenuWrap = styled.ul`
         &.active>li {
             width: 100%;
             display: flex;
-            justify-content: center;
+            justify-content: space-evenly;
             align-items: center;
             margin: 10px;
             font-weight: bold;
             font-size: 0.9rem;
+            position: relative;
+        }
+        &.active>li:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
         }
         
         &.active>li:hover {
-            color: orange;
+            color: #546beb;
         }
         
     }
-    
-    &.active:before {
-        content: '';
-        position: absolute;
-        top: -5px;
-        right: 25px;
-        width: 10px;
-        height: 10px;
-        background: white;
-        transform: rotate(45deg);
-    }
+
 `;
 
 const DropdownProfile = () => {
@@ -87,6 +89,7 @@ const DropdownProfile = () => {
         target = e.target.parentNode.parentNode;
       }
       // eslint-disable-next-line eqeqeq
+      console.log(refWrapper.current, target);
       if (isDropdownMenuOpen && refWrapper.current != target) {
         dispatch(DROPDOWN_MENU_OFF_ACTION());
       }
@@ -124,25 +127,39 @@ const DropdownProfile = () => {
       {
             isLoggedIn
               ? (
-                <ProfileContainer href="#!">
+                <ProfileContainer>
                   {/* eslint-disable-next-line jsx-a11y/alt-text */}
                   <img src={null} onError={onErrorHandler} />
                   <ProfileWrap onClick={onDropDownHandler} ref={refWrapper}>
                     {user.nickname[0]}
                     <DropdownMenuWrap className={isDropdownMenuOpen && 'active'}>
                       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-                      <li onClick={onLogoutHandler}>로그아웃</li>
+                      <li onClick={onLogoutHandler}>
+                        <div>
+                          <FiLogOut />
+                        </div>
+                        <div>
+                          로그아웃
+                        </div>
+                      </li>
                     </DropdownMenuWrap>
                   </ProfileWrap>
                 </ProfileContainer>
               )
               : (
-                <ProfileContainer href="#!">
+                <ProfileContainer>
                   <ProfileWrap onClick={onDropDownHandler} ref={refWrapper}>
                     Gu
                     <DropdownMenuWrap className={isDropdownMenuOpen && 'active'}>
                       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-                      <li onClick={onLoginHandler}>로그인</li>
+                      <li onClick={onLoginHandler}>
+                        <div>
+                          <FiLogIn />
+                        </div>
+                        <div>
+                          로그인
+                        </div>
+                      </li>
                     </DropdownMenuWrap>
                   </ProfileWrap>
                 </ProfileContainer>

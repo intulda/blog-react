@@ -110,7 +110,7 @@ const ChoiceButton = styled.button`
     width: 100%;
     height: 40px;
     border: 0;
-    color: orange;
+    color: #546beb;
     font-size: 0.9rem;
     font-weight: 500;
     outline: none;

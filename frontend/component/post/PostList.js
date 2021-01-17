@@ -2,9 +2,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
+import { END } from 'redux-saga';
 import PostCard from './PostCard';
 import Category from './Category';
 import { GET_ALL_POST_LIST_REQUEST_ACTION, LIST_FILTER_ACTION } from '../../reducers/post';
+import wrapper from '../../store/configureStore';
 
 const PostCardSection = styled.ul`
     width: 65%;  
@@ -23,11 +25,22 @@ const PostCardSection = styled.ul`
 const PostList = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.login);
-  const { isPostError, posts, dummyPosts } = useSelector((state) => state.post);
+  const { posts, dummyPosts, hasMorePosts, isPostLoading } = useSelector((state) => state.post);
 
   useEffect(() => {
-    dispatch(GET_ALL_POST_LIST_REQUEST_ACTION());
-  }, []);
+    function onScroll() {
+      if ((window.scrollY + document.documentElement.clientHeight) > document.documentElement.scrollHeight - 100) {
+        if (hasMorePosts && !isPostLoading) {
+          const lastId = posts[posts.length - 1]?.id;
+          dispatch(GET_ALL_POST_LIST_REQUEST_ACTION(lastId));
+        }
+      }
+    }
+    window.addEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [hasMorePosts, isPostLoading, posts]);
 
   const onListFilterHandler = useCallback((e) => {
     const { id } = e.target.dataset;
@@ -47,7 +60,7 @@ const PostList = () => {
       <h1>
         POST
         {
-          user.authentication === 'ADMIN'
+          user != null && user.authentication === 'ADMIN'
           && (
           <Link href="/post/write">
             <a>
@@ -61,10 +74,10 @@ const PostList = () => {
         <PostCardSection>
           {
             dummyPosts.map((v) => (
-              <li>
+              <li key={v.id}>
                 <Link href={`/post/detail?id=${v.id}`}>
                   <a>
-                    <PostCard key={v.id} data={v} />
+                    <PostCard data={v} />
                   </a>
                 </Link>
               </li>

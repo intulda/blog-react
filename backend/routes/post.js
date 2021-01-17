@@ -3,6 +3,8 @@ const router = express.Router();
 const db = require('../models');
 const { Post, User, Hashtag, Comment } = require('../models');
 const { isLoggedIn } = require('./middlewraes');
+const { Op } = require('sequelize');
+const Sequelize = require('sequelize');
 
 router.get('/:id/detail', async (req, res, next) => {
     try {
@@ -26,7 +28,13 @@ router.get('/:id/detail', async (req, res, next) => {
 
 router.get('/postList', async (req, res, next) => {
     try {
+        const where = {};
+        if (parseInt(req.query.lastId, 10)) {
+            console.log(req.query.lastId);
+            where.id = { [Op.lt]: parseInt(req.query.lastId, 10) };
+        };
         const posts = await Post.findAll({
+            where,
             limit: 10,
             order: [['createdAt', 'DESC']],
             include: [{
@@ -48,16 +56,21 @@ router.get('/postList', async (req, res, next) => {
 router.get('/hashtagList', async (req, res, next) => {
     try {
         const hashtags = await db.sequelize.query(`
-            SELECT
-                id,
-                name,
-                A.count
-            FROM Hashtags, (SELECT
-                HashtagId,
-                COUNT(HashtagId) count
-            FROM PostHashtag
-            GROUP BY HashtagId) A
+            SELECT id,
+                   name,
+                   A.count
+            FROM Hashtags,
+                 (SELECT HashtagId,
+                         COUNT(HashtagId) count
+                  FROM PostHashtag
+                  GROUP BY HashtagId) A
             WHERE A.HashtagId = id
+            UNION ALL
+            SELECT
+               0,
+               'totalCount',
+               COUNT(*)
+            FROM Posts
         `, {
             type: db.sequelize.QueryTypes.SELECT,
             raw: true,

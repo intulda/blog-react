@@ -5,6 +5,29 @@ const passport = require('passport');
 const { User, Post, Comment } = require('../models');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewraes');
 
+router.get('/myInformation', async (req, res, next) => {
+  try {
+    console.log('reqUser', req.user);
+    if(req.user) {
+      const user = await User.findOne({
+        where: { id: req.user.id },
+        attributes: { exclude: ['password'] },
+        include: [{
+          model: Comment,
+        },{
+          model: Post,
+        }],
+      });
+      res.status(200).json(user);
+    } else {
+      res.status(200).json(null);
+    }
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 //middlewrare 확장개념
 router.post('/loginReq', isNotLoggedIn, (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {

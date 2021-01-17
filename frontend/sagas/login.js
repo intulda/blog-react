@@ -6,7 +6,13 @@ import {
   LOGIN_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  ID_CHECK_SUCCESS, SIGN_UP_SUCCESS, SIGN_UP_FAILURE, SIGN_UP_REQUEST, LOGOUT_REQUEST,
+  ID_CHECK_SUCCESS,
+  SIGN_UP_SUCCESS,
+  SIGN_UP_FAILURE,
+  SIGN_UP_REQUEST,
+  LOGOUT_REQUEST,
+  LOAD_MY_INFORMATION_REQUEST,
+  LOAD_MY_INFORMATION_SUCCESS, LOAD_MY_INFORMATION_FAILURE,
 } from '../reducers/login';
 
 function loginAPI(data) {
@@ -22,6 +28,10 @@ function idCheckAPI(data) {
 
 function signUpAPI(data) {
   return axios.post('/login/signUp', data);
+}
+
+function loadMyInformationAPI() {
+  return axios.get('/login/myInformation');
 }
 
 function* idCheck(action) {
@@ -85,6 +95,21 @@ function* signUp(action) {
   }
 }
 
+function* loadMyInformation() {
+  try {
+    const result = yield call(loadMyInformationAPI);
+    yield put({
+      type: LOAD_MY_INFORMATION_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    yield put({
+      type: LOAD_MY_INFORMATION_FAILURE,
+      data: err.response.data,
+    });
+  }
+}
+
 function* watchLogin() {
   yield takeLatest(LOGIN_REQUEST, login);
 }
@@ -101,11 +126,16 @@ function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
 
+function* watchLoadMyInformation() {
+  yield takeLatest(LOAD_MY_INFORMATION_REQUEST, loadMyInformation);
+}
+
 export default function* loginSaga() {
   yield all([
     fork(watchLogin),
     fork(watchLogout),
     fork(watchIdCheck),
     fork(watchSignUp),
+    fork(watchLoadMyInformation),
   ]);
 }

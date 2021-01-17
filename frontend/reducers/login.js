@@ -1,4 +1,9 @@
+import produce from 'immer';
+
 const initialState = {
+  loadUserLoading: false,
+  loadUserDone: false,
+  loadUserError: null,
   isLoggedIn: false,
   isLoginModalOpen: false,
   loginLoading: false,
@@ -36,6 +41,14 @@ export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 const LOGIN_FORM_OPEN = 'LOGIN_FORM_OPEN';
 const LOGIN_FORM_CLOSE = 'LOGIN_FORM_CLOSE';
 
+export const LOAD_MY_INFORMATION_REQUEST = 'LOAD_MY_INFORMATION_REQUEST';
+export const LOAD_MY_INFORMATION_FAILURE = 'LOAD_MY_INFORMATION_FAILURE';
+export const LOAD_MY_INFORMATION_SUCCESS = 'LOAD_MY_INFORMATION_SUCCESS';
+
+export const LOAD_MY_INFORMATION_REQUEST_ACTION = () => ({
+  type: LOAD_MY_INFORMATION_REQUEST,
+});
+
 export const SIGN_UP_REQUEST_ACTION = (data) => ({
   type: SIGN_UP_REQUEST,
   data,
@@ -69,85 +82,72 @@ export const LOGOUT_REQUEST_ACTION = () => ({
   type: LOGOUT_REQUEST,
 });
 
-const reducer = ((state = initialState, action) => {
-  console.log(action);
+const reducer = ((state = initialState, action) => produce(state, (draft) => {
   switch (action.type) {
+    case LOAD_MY_INFORMATION_REQUEST:
+      draft.loadUserLoading = true;
+      draft.loadUserError = null;
+      draft.loadUserDone = false;
+      break;
+    case LOAD_MY_INFORMATION_FAILURE:
+      draft.loadUserLoading = false;
+      draft.loadUserError = action.data;
+      draft.isLoggedIn = false;
+      break;
+    case LOAD_MY_INFORMATION_SUCCESS:
+      draft.loadUserLoading = false;
+      draft.user = action.data;
+      draft.loadUserDone = true;
+      draft.isLoggedIn = true;
+      break;
     case LOGIN_FORM:
-      return {
-        ...state,
-        isLoginFormState: 'LOGIN',
-      };
+      draft.isLoginFormState = 'LOGIN';
+      break;
     case REGISTER_FORM:
-      return {
-        ...state,
-        isLoginFormState: 'REGISTER',
-      };
+      draft.isLoginFormState = 'REGISTER';
+      break;
     case LOGIN_FORM_OPEN:
-      return {
-        ...state,
-        isLoginModalOpen: true,
-      };
+      draft.isLoginModalOpen = true;
+      break;
     case LOGIN_FORM_CLOSE:
-      return {
-        ...state,
-        isLoginModalOpen: false,
-        isLoginFormState: 'LOGIN',
-      };
+      draft.isLoginModalOpen = false;
+      draft.isLoginFormState = 'LOGIN';
+      break;
     case LOGIN_REQUEST:
-      return {
-        ...state,
-        loginLoading: true,
-      };
+      draft.loginLoading = true;
+      break;
     case LOGIN_SUCCESS:
-      return {
-        ...state,
-        isLoginModalOpen: false,
-        loginLoading: false,
-        isLoggedIn: true,
-        user: action.data,
-      };
+      draft.isLoginModalOpen = false;
+      draft.loginLoading = false;
+      draft.isLoggedIn = true;
+      draft.user = action.data;
+      break;
     case LOGIN_FAILURE:
-      return {
-        ...state,
-        loginLoading: false,
-        loginError: action.data,
-      };
+      draft.loginLoading = false;
+      draft.loginError = action.data;
+      break;
     case LOGOUT_REQUEST:
-      return {
-        ...state,
-        logoutLoading: true,
-      };
+      draft.logoutLoading = true;
+      break;
     case SIGN_UP_REQUEST:
-      return {
-        ...state,
-        isSignUpLoading: true,
-      };
+      draft.isSignUpLoading = true;
+      break;
     case SIGN_UP_SUCCESS:
-      return {
-        ...state,
-        isSignUpLoading: false,
-        isSignUpSuccess: true,
-        isLoginFormState: 'LOGIN',
-      };
+      draft.isSignUpLoading = false;
+      draft.isSignUpSuccess = true;
+      draft.isLoginFormState = 'LOGIN';
+      break;
     case LOGOUT_SUCCESS:
-      return {
-        ...state,
-        isLoggedIn: false,
-        logoutLoading: false,
-        message: action.data,
-      };
+      draft.isLoggedIn = false;
+      draft.logoutLoading = false;
+      draft.message = action.data;
     case LOGOUT_FAILURE:
-      return {
-        ...state,
-        isLoggedIn: false,
-        user: {
-          ...state.user,
-          authentication: 'guest',
-        },
-      };
+      draft.isLoggedIn = false;
+      draft.user.authentication = 'guest';
+      break;
     default:
-      return state;
+      break;
   }
-});
+}));
 
 export default reducer;

@@ -30,7 +30,7 @@ const PostContentWrap = styled.div`
         display: inline-block;
         padding: 1px 5px;
         font-size: 0.9rem;
-        background-color: #257FF9;
+        background-color: #546beb;
         border-radius: 5px;
         position: relative;
         margin-right: 5px;

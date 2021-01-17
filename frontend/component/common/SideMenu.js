@@ -12,7 +12,7 @@ const SideMenuContainer = styled.div`
     top: 0;
     right: 0;
     text-align: left;
-    background-color: orange;
+    background-color: #546beb;
     z-index: 11;
     transition: 0.6s;
     color: white;    

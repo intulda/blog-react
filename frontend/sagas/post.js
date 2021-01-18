@@ -25,7 +25,7 @@ function getHashtagListAPI() {
 }
 
 function getPostAPI(data) {
-  return axios.get(`/post/${data.id}/detail`);
+  return axios.get(`/post/detail/${data.id}`);
 }
 
 function* addPost(action) {

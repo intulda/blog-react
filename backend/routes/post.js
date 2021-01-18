@@ -6,11 +6,11 @@ const { isLoggedIn } = require('./middlewraes');
 const { Op } = require('sequelize');
 const Sequelize = require('sequelize');
 
-router.get('/:id/detail', async (req, res, next) => {
+router.get('/detail/:postId', async (req, res, next) => {
     try {
         const post = await Post.findOne({
             where: {
-                id: req.params.id
+                id: req.params.postId
             },
             include: [{
                 model: User,
@@ -30,7 +30,6 @@ router.get('/postList', async (req, res, next) => {
     try {
         const where = {};
         if (parseInt(req.query.lastId, 10)) {
-            console.log(req.query.lastId);
             where.id = { [Op.lt]: parseInt(req.query.lastId, 10) };
         };
         const posts = await Post.findAll({
@@ -46,7 +45,11 @@ router.get('/postList', async (req, res, next) => {
                 model: Comment,
             }]
         });
-        res.status(200).json(posts);
+        if(posts) {
+            res.status(200).json(posts);
+        } else {
+            res.status(200).json(null);
+        }
     } catch (error) {
         console.error(error);
         next(error);

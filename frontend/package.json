@@ -16,6 +16,7 @@
     "bootstrapp": "0.0.0",
     "immer": "^8.0.0",
     "marked": "^1.2.7",
+    "moment": "^2.29.1",
     "next": "^9.5.5",
     "next-images": "^1.6.2",
     "next-redux-wrapper": "^6.0.2",

@@ -98,7 +98,7 @@ const reducer = ((state = initialState, action) => produce(state, (draft) => {
       draft.loadUserLoading = false;
       draft.user = action.data;
       draft.loadUserDone = true;
-      draft.isLoggedIn = true;
+      draft.isLoggedIn = action.data != null;
       break;
     case LOGIN_FORM:
       draft.isLoginFormState = 'LOGIN';

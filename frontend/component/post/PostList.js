@@ -75,7 +75,7 @@ const PostList = () => {
           {
             dummyPosts.map((v) => (
               <li key={v.id}>
-                <Link href={`/post/detail?id=${v.id}`}>
+                <Link href={`/post/${v.id}`}>
                   <a>
                     <PostCard data={v} />
                   </a>

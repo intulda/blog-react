@@ -1,6 +1,9 @@
 import produce from 'immer';
 
 const initialState = {
+  isPostOneLoading: false,
+  isPostOneError: null,
+  isPostOneDone: false,
   hasMorePosts: true,
   isPostState: 'Read',
   isPostLoading: false,
@@ -96,8 +99,8 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break;
     case GET_ALL_POST_LIST_SUCCESS:
       draft.isPostLoading = false;
-      draft.posts = draft.posts.concat(action.data);
-      draft.dummyPosts = draft.dummyPosts.concat(action.data);
+      draft.posts = action.data != null ? draft.posts.concat(action.data) : [];
+      draft.dummyPosts = action.data != null ? draft.posts.concat(action.data) : [];
       draft.hasMorePosts = draft.posts.length === 10;
       break;
     case GET_ALL_POST_LIST_FAILURE:
@@ -109,11 +112,11 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
       break;
     case GET_ALL_HASHTAG_LIST_SUCCESS:
       draft.isHashtagLoading = false;
-      draft.hashtags = action.data;
+      draft.hashtags = action.data != null ? action.data : [];
       break;
     case GET_ALL_HASHTAG_LIST_FAILURE:
       draft.isHashtagLoading = false;
-      draft.isHashtagError = action.data;
+      draft.isHashtagError = action.data != null ? action.data : [];
       break;
     default:
       break;

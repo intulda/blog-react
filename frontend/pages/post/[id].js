@@ -1,11 +1,17 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
+import React from 'react';
+import axios from 'axios';
+import { END } from 'redux-saga';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import Link from 'next/link';
-import { PostWrap } from '../post';
-import Layout from '../../component/layout/Layout';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import moment from 'moment';
+import wrapper from '../../store/configureStore';
+import { LOAD_MY_INFORMATION_REQUEST_ACTION } from '../../reducers/login';
 import { GET_POST_REQUEST_ACTION } from '../../reducers/post';
+import Layout from '../../component/layout/Layout';
+import { PostWrap } from '../post';
 
 const PostDetailWrap = styled.div`
     
@@ -103,19 +109,23 @@ const CommentsWrap = styled.div`
   }
 `;
 
-const Detail = () => {
-  const dispatch = useDispatch();
+moment.locale('ko');
+
+const PostDetail = () => {
   const router = useRouter();
   const { post } = useSelector((state) => state.post);
-
-  useEffect(() => {
-    dispatch(GET_POST_REQUEST_ACTION({ id: router.query.id }));
-  }, []);
-
-  console.log(post);
+  const { id } = router.query;
 
   return (
     <Layout>
+      <Head>
+        <title>{post.title}/{post.User.nickname}</title>
+        <meta name="description" content={post.content} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.content} />
+        <meta property="og:image" content="https://bogeun.dev/favicon.ico" />
+        <meta property="og.url" content={`https://bogeun.dev/post/${id}`} />
+      </Head>
       <PostWrap>
         <PostDetailWrap>
           <link
@@ -126,7 +136,7 @@ const Detail = () => {
           />
           <h1>{post.title}</h1>
           <div className="post__detail-author">
-            <p>{post.createdAt}</p>
+            <p>{moment(post.createdAt)}</p>
             <p>{post.User.nickname}</p>
           </div>
           <PostDetailContentWrap>
@@ -174,4 +184,17 @@ const Detail = () => {
     </Layout>
   );
 };
-export default Detail;
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  context.store.dispatch(LOAD_MY_INFORMATION_REQUEST_ACTION());
+  context.store.dispatch(GET_POST_REQUEST_ACTION({ id: context.params.id }));
+  context.store.dispatch(END);
+  await context.store.sagaTask.toPromise();
+});
+
+export default PostDetail;

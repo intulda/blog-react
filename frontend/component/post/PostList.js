@@ -29,7 +29,8 @@ const PostList = () => {
 
   useEffect(() => {
     function onScroll() {
-      if ((window.scrollY + document.documentElement.clientHeight) > document.documentElement.scrollHeight - 100) {
+      if ((window.scrollY + document.documentElement.clientHeight)
+        > document.documentElement.scrollHeight - 100) {
         if (hasMorePosts && !isPostLoading) {
           const lastId = posts[posts.length - 1]?.id;
           dispatch(GET_ALL_POST_LIST_REQUEST_ACTION(lastId));

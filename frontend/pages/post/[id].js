@@ -124,7 +124,7 @@ const PostDetail = () => {
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.content} />
         <meta property="og:image" content="https://bogeun.dev/favicon.ico" />
-        <meta property="og.url" content={`https://bogeun.dev/post/${id}`} />
+        <meta property="og:url" content={`https://bogeun.dev/post/${id}`} />
       </Head>
       <PostWrap>
         <PostDetailWrap>
@@ -136,7 +136,7 @@ const PostDetail = () => {
           />
           <h1>{post.title}</h1>
           <div className="post__detail-author">
-            <p>{moment(post.createdAt)}</p>
+            <p>{moment(post.createdAt).format('YYYY.MM.DD')}</p>
             <p>{post.User.nickname}</p>
           </div>
           <PostDetailContentWrap>
@@ -164,7 +164,7 @@ const PostDetail = () => {
                       <div>
                         <div>좋아요</div>
                         <div>답글 달기</div>
-                        <div>${v.regDate}</div>
+                        <div>${v.createdAt}</div>
                       </div>
                     </li>
                   ))}

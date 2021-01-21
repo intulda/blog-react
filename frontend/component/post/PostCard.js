@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
 const PostCardWrap = styled.div`
     padding: 30px 0px;
@@ -52,11 +53,11 @@ const PostContent = styled.p`
     font-weight: 300;
     opacity: 0.8;
 `;
-
+moment.locale('ko');
 const PostCard = ({ data }) => (
   <PostCardWrap>
     <PostContentAuthor>
-      <p>{data.createdAt}</p>
+      <p>{moment(data.createdAt).format('YYYY-MM-DD')} {moment(data.createdAt, 'YYYYMMDD').fromNow()}</p>
       <p>{data.User.nickname}</p>
     </PostContentAuthor>
     <PostContentWrap>

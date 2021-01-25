@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
-    "build": "cross-env ANALYZE=true NODE_ENV=production next build"
+    "build": "cross-env ANALYZE=true NODE_ENV=production next build",
+    "state": "cross-env NODE_ENV=production next start -p 3060"
   },
   "author": "",
   "license": "ISC",

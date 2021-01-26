@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import axios from 'axios';
 import { END } from 'redux-saga';
 import styled from 'styled-components';
@@ -116,7 +116,14 @@ moment.locale('ko');
 const PostDetail = () => {
   const router = useRouter();
   const { post } = useSelector((state) => state.post);
+  const { user } = useSelector((state) => state.login);
   const { id } = router.query;
+
+  const onClickReplySubmit = useCallback(() => {
+    if (user.authentication === 'guest') {
+      return alert('로그인 된 사용자만 댓글을 입력할 수 있습니다.');
+    }
+  }, [user]);
 
   return (
     <Layout>
@@ -147,12 +154,17 @@ const PostDetail = () => {
           <PostFooterWrap>
             <div>
               <p>댓글 {post.Comments.length}개</p>
-              <div>
-                <CommentsWrap>
-                  <textarea />
-                  <button type="button">입력</button>
-                </CommentsWrap>
-              </div>
+              {
+                user.id != null
+                  && (
+                  <div>
+                    <CommentsWrap>
+                      <textarea />
+                      <button type="button" onClick={onClickReplySubmit}>입력</button>
+                    </CommentsWrap>
+                  </div>
+                  )
+              }
               <div>
                 <ul>
                   {post.Comments.map((v) => (

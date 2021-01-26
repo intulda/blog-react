@@ -1,1 +1,1 @@
-export const backendUrl = 'http://api.bogeun.dev';
+export const backendUrl = 'https://api.bogeun.dev';

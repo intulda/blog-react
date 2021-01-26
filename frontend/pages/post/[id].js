@@ -124,7 +124,7 @@ const PostDetail = () => {
   const { id } = router.query;
 
   const onClickReplySubmit = useCallback(() => {
-    if (user.authentication === 'guest') {
+    if (user != null) {
       return alert('로그인 된 사용자만 댓글을 입력할 수 있습니다.');
     }
   }, [user]);
@@ -159,7 +159,7 @@ const PostDetail = () => {
             <div>
               <p>댓글 {post.Comments.length}개</p>
               {
-                user.authentication !== 'guest'
+                user != null
                   && (
                   <div>
                     <CommentsWrap>

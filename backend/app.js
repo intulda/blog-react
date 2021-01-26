@@ -17,6 +17,7 @@ dotenv.config();
 db.sequelize.sync()
     .then(() => {
         console.log('db 연결 성공');
+        console.log('현재 ENV', process.env.NODE_ENV);
     })
     .catch(console.error);
 

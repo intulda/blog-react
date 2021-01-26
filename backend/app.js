@@ -48,6 +48,6 @@ app.use(passport.session());
 app.use('/login', loginRouter);
 app.use('/post', postRouter);
 
-app.listen(3065, () => {
+app.listen(80, () => {
     console.log('서버 실핼 중');
 });

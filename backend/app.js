@@ -8,6 +8,8 @@ const db = require('./models');
 const morgan = require('morgan');
 const passport = require('passport');
 const passportConfig = require('./passport');
+const hpp = require('hpp');
+const helmet = require('helmet');
 const postRouter = require('./routes/post');
 const loginRouter = require('./routes/login');
 
@@ -19,9 +21,16 @@ db.sequelize.sync()
     .catch(console.error);
 
 passportConfig();
-app.use(morgan('dev'));
+
+if(process.env.NODE_ENV === 'production') {
+  app.use(morgan('combined'));
+  app.use(hpp());
+  app.use(helmet());
+} else {
+  app.use(morgan('dev'));
+}
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'bogeun.dev'],
   credentials: true,
 }));
 

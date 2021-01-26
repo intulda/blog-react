@@ -49,7 +49,7 @@ app.use(session({
   cookie: {
     httpOnly: true,
     secure: true,
-    domain: process.env.NODE_ENV === 'production' && '.bogeun.dev'
+    domain: process.env.NODE_ENV === 'production' && 'https://.bogeun.dev'
   }
 }));
 app.use(passport.initialize());

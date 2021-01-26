@@ -78,7 +78,7 @@ router.post('/signUp', isNotLoggedIn, async (req, res, next) => {
       account: req.body.account,
       nickname: req.body.nickname,
       password: hashedPassword,
-      authentication: req.body.authentication,
+      authentication: req.body.account == 'intulda' ? 'ADMIN' : 'USER',
     });
     res.status(201).send('가입되었습니다.');
   } catch (error) {

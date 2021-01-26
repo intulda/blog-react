@@ -58,7 +58,6 @@ const RegisterForm = () => {
       account: id,
       password,
       nickname,
-      authentication,
     }));
   }, [id, password, passwordCheck, nickname, authentication]);
 

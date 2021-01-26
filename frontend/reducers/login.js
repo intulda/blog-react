@@ -141,6 +141,7 @@ const reducer = ((state = initialState, action) => produce(state, (draft) => {
       draft.isLoggedIn = false;
       draft.logoutLoading = false;
       draft.message = action.data;
+      break;
     case LOGOUT_FAILURE:
       draft.isLoggedIn = false;
       draft.user.authentication = 'guest';

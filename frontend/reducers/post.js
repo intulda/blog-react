@@ -100,7 +100,7 @@ const reducer = (state = initialState, action) => produce(state, (draft) => {
     case GET_ALL_POST_LIST_SUCCESS:
       draft.isPostLoading = false;
       draft.posts = action.data != null ? draft.posts.concat(action.data) : [];
-      draft.dummyPosts = action.data != null ? draft.posts.concat(action.data) : [];
+      draft.dummyPosts = action.data != null ? draft.dummyPosts.concat(action.data) : [];
       draft.hasMorePosts = draft.posts.length === 10;
       break;
     case GET_ALL_POST_LIST_FAILURE:

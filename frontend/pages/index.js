@@ -119,7 +119,7 @@ const Index = () => (
         <ContentWrapper>
           <div>
             <h1>Hello, Everybody!</h1>
-            <p>김보근 포트폴리오 겸 블로그</p>
+            <p>잘해지고 싶은 코드몽키의 블로그 v0.1</p>
           </div>
         </ContentWrapper>
       </LayoutChildrenWrap>

@@ -46,6 +46,10 @@ const PostDetailContentWrap = styled.div`
       border-radius: 2px;
       padding: 15px;
     }
+    
+    & p {
+      margin-bottom: 30px;
+    }
     &>div ol, ul {
         padding-left: 40px;
         list-style: revert;
@@ -155,7 +159,7 @@ const PostDetail = () => {
             <div>
               <p>댓글 {post.Comments.length}개</p>
               {
-                user.id != null
+                user.authentication !== 'guest'
                   && (
                   <div>
                     <CommentsWrap>

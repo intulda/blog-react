@@ -52,6 +52,12 @@ const PostContent = styled.p`
     font-size: 0.8rem;
     font-weight: 300;
     opacity: 0.8;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    overflow: hidden;
 `;
 moment.locale('ko');
 const PostCard = ({ data }) => (

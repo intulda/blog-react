@@ -38,6 +38,7 @@ const PostDetailContentWrap = styled.div`
         background-color: #ddd;
         border-radius: 2px;
         padding: 15px;
+        line-height: 2;
     }
     
     &>div code {
@@ -52,6 +53,7 @@ const PostDetailContentWrap = styled.div`
 `;
 
 const PostFooterWrap = styled.div`
+    margin-bottom: 100px;
     & .post__footer-history-back {
         display: flex;
         flex-wrap: wrap;

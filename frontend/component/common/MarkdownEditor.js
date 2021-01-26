@@ -36,6 +36,7 @@ const EditorContentWrap = styled.div`
         background-color: white;
         padding: 10px;
         word-break: break-all;
+        overflow-y: scroll;
     }
     
     &>div pre {

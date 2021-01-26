@@ -8,6 +8,7 @@ const { isLoggedIn, isNotLoggedIn } = require('./middlewraes');
 router.get('/myInformation', async (req, res, next) => {
   try {
     console.log('reqUser', req.user);
+    console.log('processEnv', process.env.NODE_ENV);
     if(req.user) {
       const user = await User.findOne({
         where: { id: req.user.id },

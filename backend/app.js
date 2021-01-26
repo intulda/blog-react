@@ -30,7 +30,7 @@ if(process.env.NODE_ENV === 'production') {
   app.use(morgan('dev'));
 }
 app.use(cors({
-  origin: ['http://13.125.63.44', 'http://localhost:3000', 'bogeun.dev'],
+  origin: ['http://13.125.92.124', 'http://localhost:3000', 'bogeun.dev'],
   credentials: true,
 }));
 

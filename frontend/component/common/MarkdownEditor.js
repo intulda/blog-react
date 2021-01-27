@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import marked from 'marked';
 import styled from 'styled-components';
 import { BsTypeBold, BsTypeItalic, BsImage } from 'react-icons/bs';
+import style from 'github-markdown-css';
 
 const EditorContentWrap = styled.div`
     display: flex;
@@ -31,7 +32,7 @@ const EditorContentWrap = styled.div`
         position: absolute;
         top: 0;
         right: 0;
-        color: black;
+        // color: black;
         border-left: 2px solid #bbc0c4;
         background-color: white;
         padding: 10px;
@@ -39,13 +40,7 @@ const EditorContentWrap = styled.div`
         overflow-y: scroll;
     }
     
-    &>div pre {
-        background-color: #ddd;
-        border-radius: 2px;
-        padding: 2px;
-    }
     &>div ol, ul {
-        padding-left: 40px;
         list-style: revert;
     }
 `;
@@ -135,7 +130,6 @@ const MarkdownEditor = (props) => {
 
   return (
     <>
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossOrigin="anonymous" />
       <div>
         <EditorHeaderWrap>
           <ul>
@@ -153,9 +147,9 @@ const MarkdownEditor = (props) => {
           </ul>
         </EditorHeaderWrap>
         <EditorContentWrap>
-          <div>
+          <div style={style}>
             <textarea onChange={onChangeTextHandler} onClick={onSelectionSaveHandler} onSelect={onSelectionDrag} value={text} />
-            <div id={props.id} dangerouslySetInnerHTML={{ __html: html }} />
+            <div className="markdown-body" id={props.id} dangerouslySetInnerHTML={{ __html: html }} />
           </div>
         </EditorContentWrap>
       </div>

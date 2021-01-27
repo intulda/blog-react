@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import moment from 'moment';
+import style from 'github-markdown-css';
 import wrapper from '../../store/configureStore';
 import { LOAD_MY_INFORMATION_REQUEST_ACTION } from '../../reducers/login';
 import { GET_POST_REQUEST_ACTION } from '../../reducers/post';
@@ -16,6 +17,7 @@ import { PostWrap } from '../post';
 const PostDetailWrap = styled.div`
     
     &>h1 {
+        font-size: 3rem;
         font-weight: bold;
         padding-bottom: 10px;
         border-bottom: 2px solid #777;
@@ -34,24 +36,12 @@ const PostDetailWrap = styled.div`
 
 const PostDetailContentWrap = styled.div`
     margin-bottom: 15px;
-    &>div pre {
-        background-color: #ddd;
-        border-radius: 2px;
-        padding: 15px;
-        line-height: 2;
-    }
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    min-height: 300px;
     
-    &>div code {
-      background-color: #ddd;
-      border-radius: 2px;
-      padding: 15px;
-    }
-    
-    & p {
-      margin-bottom: 30px;
-    }
     &>div ol, ul {
-        padding-left: 40px;
         list-style: revert;
     }
 `;
@@ -79,6 +69,10 @@ const PostFooterWrap = styled.div`
         & a:hover {
             opacity: 1;
         }
+    }
+    
+    & .post__footer-comment-wrap {
+      padding: 5px 0;
     }
 `;
 
@@ -141,19 +135,13 @@ const PostDetail = () => {
       </Head>
       <PostWrap>
         <PostDetailWrap>
-          <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-            crossOrigin="anonymous"
-          />
           <h1>{post.title}</h1>
           <div className="post__detail-author">
             <p>{moment(post.createdAt).format('YYYY.MM.DD')}</p>
             <p>{post.User.nickname}</p>
           </div>
-          <PostDetailContentWrap>
-            <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
+          <PostDetailContentWrap style={style}>
+            <div className="markdown-body" dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
           </PostDetailContentWrap>
           <PostFooterWrap>
             <div>
@@ -161,7 +149,7 @@ const PostDetail = () => {
               {
                 user != null
                   && (
-                  <div>
+                  <div className="post__footer-comment-wrap">
                     <CommentsWrap>
                       <textarea />
                       <button type="button" onClick={onClickReplySubmit}>입력</button>

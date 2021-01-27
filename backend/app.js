@@ -49,7 +49,7 @@ app.use(session({
   proxy: true,
   cookie: {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === 'production' && true,
     domain: process.env.NODE_ENV === 'production' && '.bogeun.dev'
   }
 }));

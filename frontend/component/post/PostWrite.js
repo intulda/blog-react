@@ -96,22 +96,20 @@ const PostWrite = () => {
   }, []);
 
   return (
-    <form onSubmit={onSubmitHandler}>
-      <TitleWrap>
-        <input type="text" onChange={onChangeTitleHandler} placeholder="제목을 입력해주세요." />
-      </TitleWrap>
-      <div>
-        <MarkdownEditor id="gee" />
-        <TagWrap>
-          <span>태그</span>
-          <input type="text" onChange={onChangeTagHandler} placeholder="태그를 입력해주세요." />
-        </TagWrap>
-      </div>
-      <ButtonWrap>
-        <button type="button">취소</button>
-        <button>글 작성</button>
-      </ButtonWrap>
-    </form>
+    <>
+      <form onSubmit={onSubmitHandler}>
+        <TitleWrap>
+          <input type="text" onChange={onChangeTitleHandler} placeholder="제목을 입력해주세요." />
+        </TitleWrap>
+        <div>
+          <MarkdownEditor id="gee" />
+        </div>
+        <ButtonWrap>
+          <button type="button">취소</button>
+          <button>글 작성</button>
+        </ButtonWrap>
+      </form>
+    </>
   );
 };
 

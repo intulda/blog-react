@@ -276,15 +276,11 @@ const Profile = () => {
                         <ul>
                             <ContentList>
                                 <p>포트폴리오</p>
-                                <p>bogeun.dev</p>
-                            </ContentList>
-                            <ContentList>
-                                <p>연락처</p>
-                                <p>010-7195-8196</p>
+                                <p>https://bogeun.dev</p>
                             </ContentList>
                             <ContentList>
                                 <p>이메일</p>
-                                <p>intulda0104@gmail.com / intulda@naver.com</p>
+                                <p>intulda@naver.com</p>
                             </ContentList>
                             <ContentList>
                                 <p>Github</p>

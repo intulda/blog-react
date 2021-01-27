@@ -216,5 +216,5 @@ modules.xml
 .idea/sonarlint
 
 # End of https://www.toptal.com/developers/gitignore/api/webstorm+all,node,react
-package-lock.json
+./frontend/package-lock.json
 intulda-blog.pem

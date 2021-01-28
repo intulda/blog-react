@@ -159,8 +159,8 @@ const SideMenu = () => {
         </SideMenuWrap>
         <SideMenuEtcWrap className="SideMenu__etc-wrap">
           <li>
-            <Link href="www.naver.com" target="_blank">
-              <a>
+            <Link href="https://github.com/intulda">
+              <a target="_blank">
                 <AiFillGithub />
               </a>
             </Link>

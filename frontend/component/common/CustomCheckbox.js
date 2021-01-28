@@ -52,7 +52,7 @@ const CheckboxWrap = styled.div`
 const CustomCheckbox = ({ changeEvent, term }) => (
   <CheckboxWrap className="container">
     <div className="round">
-      <input type="checkbox" id="checkbox" onChange={changeEvent} value={term} required />
+      <input type="checkbox" id="checkbox" onChange={changeEvent} value={term} />
       <label htmlFor="checkbox" />
     </div>
   </CheckboxWrap>

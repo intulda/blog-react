@@ -12,6 +12,7 @@ const hpp = require('hpp');
 const helmet = require('helmet');
 const postRouter = require('./routes/post');
 const loginRouter = require('./routes/login');
+const projectRouter = require('./routes/project');
 
 dotenv.config();
 db.sequelize.sync()
@@ -22,6 +23,7 @@ db.sequelize.sync()
     .catch(console.error);
 
 passportConfig();
+app.use('/static', express.static(__dirname + '/public/resource'));
 if(process.env.NODE_ENV === 'production') {
   app.set('trust proxy', 1);
   app.use(morgan('combined'));
@@ -55,9 +57,9 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use('/login', loginRouter);
 app.use('/post', postRouter);
+app.use('/project', projectRouter);
 
 app.listen(3065, () => {
     console.log('서버 실핼 중');

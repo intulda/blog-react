@@ -1,0 +1,123 @@
+{
+  "title": "Petpermint - 반려동물 종합 커뮤니티",
+  "regDate": "2020.09 - 2020.10",
+  "percent": 50,
+  "step": [
+    "Planning",
+    "Database Design",
+    "Front-end/Back-end Development"
+  ],
+  "roles": [
+    {
+      "title": "기획(30%)",
+      "content": "아이디어 및 기능 제안, 기능 정의 담당"
+    },
+    {
+      "title": "데이터베이스 설계(75%)",
+      "content": "요구 조건 분석을 통해 Database 설계 담당"
+    },
+    {
+      "title": "Web Front-End / Back-End 개발(80%)",
+      "content": "프로젝트 구성원에 맞는 개발 세팅, 단어 학습하기, 문장 학습하기, 검색, 관리자 회원관리, 전체적인 관리 담당"
+    }
+  ],
+  "design": [
+    {
+      "title": "기능 정의",
+      "content": "팀 구성원과의 해당 주제에 맞는 기능들을 정리하고 예상 일정을 구글 스프레드시트에 공유하여 대략적인 프로젝트 구조를 확립했습니다."
+    },
+    {
+      "title": "Notion을 활용한 프로젝트 관리",
+      "content": "Task Board 및 Meeting Log 등의 Notion을 활용한 일정 및 프로젝트 관리를 진행했습니다."
+    },
+    {
+      "title": "서비스 개발",
+      "content": "기획서와 시안을 바탕으로 DB 구축 및 개발을 진행했습니다."
+    }
+  ],
+  "environment": [
+    {
+      "title": "Front-End",
+      "content": "HTML CSS Javascript JQuery Bootstrap 4"
+    },
+    {
+      "title": "Back-End",
+      "content": "Spring boot Java Mybatis Oracle Maven Tomcat"
+    },
+    {
+      "title": "API",
+      "content": "Naver Login, Naver Map, Daum postcode"
+    },
+    {
+      "title": "Tools",
+      "content": "Sourcetree Eclipse IntelliJ Inversion Notion"
+    },
+    {
+      "title": "VCS",
+      "content": "Git"
+    }
+  ],
+  "images": {
+    "main": "/static/images/petpermint/main.png",
+    "step": [
+      {
+        "src": "/static/images/petpermint/notion.png",
+        "order": 1
+      },
+      {
+        "src": "/static/images/petpermint/taskboard.png",
+        "order": 2
+      }
+    ],
+    "implements": [
+      {
+        "title": "메인 페이지",
+        "content": "동물들의 정보글이 최신순으로 나열되어 있고, 전체적인 검색 또한 할 수 있다.",
+        "src": "/static/images/petpermint/main.png",
+        "order": 1
+      },
+      {
+        "title": "메인 페이지 (모바일)",
+        "content": "모바일을 고려해서 반응형 화면",
+        "src": "/static/images/petpermint/main(mobile).png",
+        "order": 2
+      },
+      {
+        "title": "메인 페이지 (모바일 메뉴 오픈)",
+        "content": "모바일을 고려해서 반응형 페이지 메뉴 오픈 화면",
+        "src": "/static/images/petpermint/main(mobileMenu).png",
+        "order": 3
+      },
+      {
+        "title": "검색",
+        "content": "여러 게시글들을 통합 검색 하는 화면",
+        "src": "/static/images/petpermint/search.png",
+        "order": 4
+      },
+      {
+        "title": "자유 게시판",
+        "content": "여러 사용자가 소통할 수 있는 자유게시판",
+        "src": "/static/images/petpermint/freeboard.png",
+        "order": 5
+      },
+      {
+        "title": "상세 화면",
+        "content": "게시글들의 상세화면",
+        "src": "/static/images/petpermint/detail.png'",
+        "order": 6
+      },
+      {
+        "title": "상세화면 (댓글)",
+        "content": "한 게시글의 여러 사용자가 댓글을 주고 받을 수 있다.",
+        "src": "/static/images/petpermint/comment.png",
+        "order": 7
+      },
+      {
+        "title": "로그인",
+        "content": "각 로그인 또는 회원가입을 할 수 있는 페이지",
+        "src": "/static/images/petpermint/login.png",
+        "order": 8
+      }
+    ]
+  }
+}

@@ -12,13 +12,6 @@ const LoginFrom = () => {
   const [password, onChangePassword] = customInput('');
   const inputElement = useRef(null);
 
-  useEffect(() => {
-    inputElement.current.focus();
-    if (loginError) {
-      dispatch(TOAST_OPEN_ACTION(loginError));
-    }
-  }, [loginError]);
-
   const onLoginHandler = useCallback((e) => {
     e.preventDefault();
     dispatch(LOGIN_REQUEST_ACTION({

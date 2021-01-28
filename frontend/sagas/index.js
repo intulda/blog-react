@@ -5,6 +5,7 @@ import axios from 'axios';
 import postSaga from './post';
 import loginSaga from './login';
 import { backendUrl } from '../config/config';
+import projectSaga from './project';
 
 axios.defaults.baseURL = backendUrl;
 axios.defaults.withCredentials = true;
@@ -13,6 +14,7 @@ export default function* rootSaga() {
   yield all([
     fork(loginSaga),
     fork(postSaga),
+    fork(projectSaga),
   ]);
 }
 

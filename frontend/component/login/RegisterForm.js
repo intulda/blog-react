@@ -5,6 +5,7 @@ import { ConfirmLeft, ConfirmRight, ModalBottom, ModalContent, ModalTop } from '
 import CustomCheckbox from '../common/CustomCheckbox';
 import customInput from '../hooks/customInput';
 import { LOGIN_FORM_MOVE_ACTION, SIGN_UP_REQUEST_ACTION } from '../../reducers/login';
+import { TOAST_OPEN_ACTION } from '../../reducers/common';
 
 const RegisterFormWrap = styled.form`
   width: 100%;
@@ -54,12 +55,17 @@ const RegisterForm = () => {
 
   const onRegisterSubmitHandler = useCallback((e) => {
     e.preventDefault();
-    dispatch(SIGN_UP_REQUEST_ACTION({
-      account: id,
-      password,
-      nickname,
-    }));
-  }, [id, password, passwordCheck, nickname, authentication]);
+    console.log(term);
+    if (term) {
+      dispatch(SIGN_UP_REQUEST_ACTION({
+        account: id,
+        password,
+        nickname,
+      }));
+    } else {
+      dispatch(TOAST_OPEN_ACTION('동의버튼을 눌러주세요.'));
+    }
+  }, [id, password, passwordCheck, nickname, authentication, term]);
 
   const onChangeIdHandler = useCallback((e) => {
     setId(e.target.value);
@@ -75,7 +81,7 @@ const RegisterForm = () => {
   }, [password]);
 
   const onChangeAgreeHandler = useCallback((e) => {
-    setTerm(e.target.value);
+    setTerm(e.target.checked);
   }, []);
 
   const onPrevHandler = useCallback(() => {

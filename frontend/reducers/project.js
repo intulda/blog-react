@@ -1,7 +1,10 @@
-import ticly from '../resource/images/img_ticly.png';
-import petpermint from '../resource/images/Petpermint/petpermint.png';
+import ticly from '../resource/images/ticly/img_ticly.png';
+import petpermint from '../resource/images/petpermint/petpermint.png';
 
 const initialState = {
+  dataLoading: false,
+  dataError: false,
+  project: {},
   data: [
     {
       id: 1,
@@ -20,8 +23,28 @@ const initialState = {
   ],
 };
 
+export const GET_PROJECT_REQUEST = 'GET_PROJECT_REQUEST';
+export const GET_PROJECT_SUCCESS = 'GET_PROJECT_SUCCESS';
+export const GET_PROJECT_FAILURE = 'GET_PROJECT_FAILURE';
+
+export const GET_PROJECT_REQUEST_ACTION = (data) => ({
+  type: GET_PROJECT_REQUEST,
+  data,
+});
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_PROJECT_SUCCESS:
+      return {
+        project: JSON.parse(action.data),
+        dataLoading: false,
+      };
+    case GET_PROJECT_FAILURE:
+      return {
+        project: {},
+        dataLoading: false,
+        dataError: action.data,
+      };
     default:
       return state;
   }

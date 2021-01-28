@@ -62,6 +62,10 @@ function* login(action) {
       type: LOGIN_FAILURE,
       data: err.response.data,
     });
+    yield put({
+      type: 'TOAST_OPEN',
+      data: err.response.data,
+    });
   }
 }
 
@@ -90,6 +94,10 @@ function* signUp(action) {
   } catch (err) {
     yield put({
       type: SIGN_UP_FAILURE,
+      data: err.response.data,
+    });
+    yield put({
+      type: 'TOAST_OPEN',
       data: err.response.data,
     });
   }

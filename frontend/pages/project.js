@@ -1,15 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
 import { END } from 'redux-saga';
 import Layout from '../component/layout/Layout';
 import Card from '../component/project/ProjectCard';
-import ProjectDetail from '../component/project/ProjectDetail';
 import wrapper from '../store/configureStore';
 import { LOAD_MY_INFORMATION_REQUEST_ACTION } from '../reducers/login';
 
-const ProjectSection = styled.section`
+export const ProjectSection = styled.section`
     padding-top: 60px;
     
     &>div>h1 {
@@ -48,23 +46,16 @@ const ProjectCardWrap = styled.ul`
 
 const Project = () => {
   const { data } = useSelector((state) => state.project);
-  const router = useRouter();
 
   return (
     <Layout>
       <ProjectSection>
-        {
-          Object.entries(router.query).length === 0
-            ? (
-              <ProjectWrap>
-                <h1>Project</h1>
-                <ProjectCardWrap>
-                  {data.map((obj, index) => <Card key={obj.id} data={obj} speed={index + 1} />)}
-                </ProjectCardWrap>
-              </ProjectWrap>
-            )
-            : <ProjectDetail />
-        }
+        <ProjectWrap>
+          <h1>Project</h1>
+          <ProjectCardWrap>
+            {data.map((obj, index) => <Card key={obj.id} data={obj} speed={index + 1} />)}
+          </ProjectCardWrap>
+        </ProjectWrap>
       </ProjectSection>
     </Layout>
   );

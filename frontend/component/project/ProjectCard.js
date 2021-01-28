@@ -150,10 +150,7 @@ const Card = ({ data, speed }) => {
   return (
     <ProjectCard speed={speed}>
       <Link
-        href={{
-          pathname: './project',
-          query: { id: data.id },
-        }}
+        href={`./project/${data.id}`}
       >
         <a>
           <div>

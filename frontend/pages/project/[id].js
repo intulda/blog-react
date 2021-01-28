@@ -10,9 +10,8 @@ import Layout from '../../component/layout/Layout';
 import { ProjectSection } from '../project';
 
 const Detail = () => {
-  const { project, data } = useSelector((state) => state.project);
-  console.log('project', project);
-  console.log('data', data);
+  const { project } = useSelector((state) => state.project);
+
   return (
     <Layout>
       <ProjectSection>
@@ -28,8 +27,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
   if (context.req && cookie) {
     axios.defaults.headers.Cookie = cookie;
   }
-  context.store.dispatch(LOAD_MY_INFORMATION_REQUEST_ACTION());
   context.store.dispatch(GET_PROJECT_REQUEST_ACTION({ id: context.params.id }));
+  context.store.dispatch(LOAD_MY_INFORMATION_REQUEST_ACTION());
   context.store.dispatch(END);
   await context.store.sagaTask.toPromise();
 });

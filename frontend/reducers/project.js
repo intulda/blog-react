@@ -4,7 +4,21 @@ import petpermint from '../resource/images/petpermint/petpermint.png';
 const initialState = {
   dataLoading: false,
   dataError: false,
-  project: {},
+  project: {
+    title: '',
+    content: '',
+    regDate: '',
+    percent: 0,
+    images: {
+      main: '',
+      implements: [],
+      step: [],
+    },
+    environment: [],
+    step: [],
+    roles: [],
+    design: [],
+  },
   data: [
     {
       id: 1,

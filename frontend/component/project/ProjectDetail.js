@@ -303,39 +303,36 @@ const UIContentList = styled.li`
     }
 `;
 
-const ProjectDetail = ({ data }) => {
-  console.log(data);
-  return (
-    <>
-      <IntroSection>
-        <IntroWrap>
-          <IntroTitle>
-            {data.title}
-          </IntroTitle>
-          <TermWrap>
-            <span>{data.regDate}</span>
-          </TermWrap>
-          <StackWrap>
-            <ul>
-              {
-                data.step.map((v) => <li key={v}>{v}</li>)
-              }
-
-            </ul>
-          </StackWrap>
-          <Bar />
-        </IntroWrap>
-        <IntroImageWrap>
-          <IntroImage src={`${backendUrl}${data.images.main}`} />
-          <Bar />
-        </IntroImageWrap>
-      </IntroSection>
-      <RoleSection>
-        <BackgroundWrap>
-          <ContentWrap>
-            <SubTitle number={1}>역할 및 기여도</SubTitle>
-            <Role__ListWrap>
-              {
+const ProjectDetail = ({ data }) => (
+  <>
+    <IntroSection>
+      <IntroWrap>
+        <IntroTitle>
+          {data.title}
+        </IntroTitle>
+        <TermWrap>
+          <span>{data.regDate}</span>
+        </TermWrap>
+        <StackWrap>
+          <ul>
+            {
+              data.step.map((v) => <li key={v}>{v}</li>)
+            }
+          </ul>
+        </StackWrap>
+        <Bar />
+      </IntroWrap>
+      <IntroImageWrap>
+        <IntroImage src={`${backendUrl}${data.images.main}`} />
+        <Bar />
+      </IntroImageWrap>
+    </IntroSection>
+    <RoleSection>
+      <BackgroundWrap>
+        <ContentWrap>
+          <SubTitle number={1}>역할 및 기여도</SubTitle>
+          <Role__ListWrap>
+            {
                 data.roles.map((v) => (
                   <li key={v.title}>
                     <div>{v.title}</div>
@@ -343,24 +340,24 @@ const ProjectDetail = ({ data }) => {
                   </li>
                 ))
               }
-            </Role__ListWrap>
-          </ContentWrap>
-        </BackgroundWrap>
-      </RoleSection>
-      <section>
-        <BackgroundWrap>
-          <ContentWrap>
-            <SubTitle number={2}>프로젝트 진행 과정</SubTitle>
-            <ChainCard>
-              {
+          </Role__ListWrap>
+        </ContentWrap>
+      </BackgroundWrap>
+    </RoleSection>
+    <section>
+      <BackgroundWrap>
+        <ContentWrap>
+          <SubTitle number={2}>프로젝트 진행 과정</SubTitle>
+          <ChainCard>
+            {
                 data.images.step.map((v, index) => (
                   <ChainCardContent key={v.order} index={index + 1}>
                     <img src={`${backendUrl}${v.src}`} />
                   </ChainCardContent>
                 ))
               }
-            </ChainCard>
-            {
+          </ChainCard>
+          {
               data.design.map((v, index) => (
                 <ContentText key={index}>
                   <h2>{v.title}</h2>
@@ -368,15 +365,15 @@ const ProjectDetail = ({ data }) => {
                 </ContentText>
               ))
             }
-          </ContentWrap>
-        </BackgroundWrap>
-      </section>
-      <section>
-        <BackgroundWrap>
-          <ContentWrap>
-            <SubTitle number={3}>개발 환경</SubTitle>
-            <ul>
-              {
+        </ContentWrap>
+      </BackgroundWrap>
+    </section>
+    <section>
+      <BackgroundWrap>
+        <ContentWrap>
+          <SubTitle number={3}>개발 환경</SubTitle>
+          <ul>
+            {
                 data.environment.map((v, index) => (
                   <SettingList key={index}>
                     <p>{v.title}</p>
@@ -384,16 +381,16 @@ const ProjectDetail = ({ data }) => {
                   </SettingList>
                 ))
               }
-            </ul>
-          </ContentWrap>
-        </BackgroundWrap>
-      </section>
-      <section>
-        <BackgroundWrap>
-          <ContentWrap>
-            <SubTitle number={4}>구현</SubTitle>
-            <UIContentWrap>
-              {
+          </ul>
+        </ContentWrap>
+      </BackgroundWrap>
+    </section>
+    <section>
+      <BackgroundWrap>
+        <ContentWrap>
+          <SubTitle number={4}>구현</SubTitle>
+          <UIContentWrap>
+            {
                 data.images.implements.map((v, index) => (
                   <UIContentList>
                     <div>
@@ -404,12 +401,11 @@ const ProjectDetail = ({ data }) => {
                   </UIContentList>
                 ))
               }
-            </UIContentWrap>
-          </ContentWrap>
-        </BackgroundWrap>
-      </section>
-    </>
-  );
-};
+          </UIContentWrap>
+        </ContentWrap>
+      </BackgroundWrap>
+    </section>
+  </>
+);
 
 export default ProjectDetail;

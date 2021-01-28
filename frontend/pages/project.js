@@ -53,7 +53,10 @@ const Project = () => {
         <ProjectWrap>
           <h1>Project</h1>
           <ProjectCardWrap>
-            {data.map((obj, index) => <Card key={obj.id} data={obj} speed={index + 1} />)}
+            {
+              data
+              && data.map((obj, index) => <Card key={obj.id} data={obj} speed={index + 1} />)
+            }
           </ProjectCardWrap>
         </ProjectWrap>
       </ProjectSection>

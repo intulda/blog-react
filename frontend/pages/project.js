@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { END } from 'redux-saga';
+import axios from 'axios';
 import Layout from '../component/layout/Layout';
 import Card from '../component/project/ProjectCard';
 import wrapper from '../store/configureStore';
@@ -65,6 +66,11 @@ const Project = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
   context.store.dispatch(LOAD_MY_INFORMATION_REQUEST_ACTION());
   context.store.dispatch(END);
   await context.store.sagaTask.toPromise();

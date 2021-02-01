@@ -50,6 +50,11 @@ const Post = () => (
 );
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
   context.store.dispatch(LOAD_MY_INFORMATION_REQUEST_ACTION());
   context.store.dispatch(GET_ALL_POST_LIST_REQUEST_ACTION());
   context.store.dispatch(GET_ALL_HASHTAG_LIST_REQUEST_ACTION());

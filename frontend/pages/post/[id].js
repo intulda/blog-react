@@ -13,6 +13,7 @@ import { LOAD_MY_INFORMATION_REQUEST_ACTION } from '../../reducers/login';
 import { GET_POST_REQUEST_ACTION } from '../../reducers/post';
 import Layout from '../../component/layout/Layout';
 import { PostWrap } from '../post';
+import Comment from '../../component/post/Comment';
 
 const PostDetailWrap = styled.div`
     
@@ -159,21 +160,16 @@ const PostDetail = () => {
               }
               <div>
                 <ul>
-                  {post.Comments.map((v) => (
-                    <li key={v.id}>
-                      <div>
-                        <div>${v.author}</div>
-                      </div>
-                      <div>
-                        <p>${v.content}</p>
-                      </div>
-                      <div>
-                        <div>좋아요</div>
-                        <div>답글 달기</div>
-                        <div>${v.createdAt}</div>
-                      </div>
-                    </li>
-                  ))}
+                  {/* {post.Comments.map((v) => ( */}
+                  {/*  <Comment comment={v} /> */}
+                  {/* ))} */}
+                  <Comment comment={{
+                    id: 1,
+                    author: '보근',
+                    content: '두더지들이 너무 많은거 같습니다',
+                    createdAt: '2021-01-04',
+                  }}
+                  />
                 </ul>
                 <div className="post__footer-history-back">
                   <Link href="/post">

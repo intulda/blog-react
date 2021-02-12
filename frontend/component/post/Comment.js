@@ -14,15 +14,17 @@ const Comment = ({ comment }) => {
   return (
     <li key={comment.id}>
       <div>
-        <div>${comment.author}</div>
+        <div>{comment.author}</div>
       </div>
       <div>
-        <p>${comment.content}</p>
-      </div>
-      <div>
-        <div onClick={onLikeHandler}>좋아요</div>
-        <div onClick={onReplyHandler}>답글 달기</div>
-        <div>${comment.createdAt}</div>
+        <div>
+          <p>{comment.content}</p>
+        </div>
+        <div>
+          <div onClick={onLikeHandler}>좋아요</div>
+          <div onClick={onReplyHandler}>답글 달기</div>
+          <div>{comment.createdAt}</div>
+        </div>
       </div>
     </li>
   );
